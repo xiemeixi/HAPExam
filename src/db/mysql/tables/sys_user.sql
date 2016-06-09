@@ -1,53 +1,43 @@
-CREATE TABLE SYS_USER
-(
-  USER_ID               NUMBER               NOT NULL,
-  USER_TYPE             VARCHAR2(30),
-  USER_NAME             VARCHAR2(40),
-  PASSWORD_ENCRYPTED    VARCHAR2(40)         NOT NULL,
-  EMAIL                 VARCHAR2(150),
-  PHONE                 VARCHAR2(40),
-  START_ACTIVE_DATE     DATE,
-  END_ACTIVE_DATE       DATE,
-  STATUS                VARCHAR2(30),
-  OBJECT_VERSION_NUMBER NUMBER DEFAULT 1,
-  REQUEST_ID            NUMBER DEFAULT -1,
-  PROGRAM_ID            NUMBER DEFAULT -1,
-  CREATION_DATE         DATE DEFAULT sysdate NOT NULL,
-  CREATED_BY            NUMBER DEFAULT -1    NOT NULL,
-  LAST_UPDATED_BY       NUMBER DEFAULT -1    NOT NULL,
-  LAST_UPDATE_DATE      DATE DEFAULT sysdate NOT NULL,
-  LAST_UPDATE_LOGIN     NUMBER,
-  ATTRIBUTE_CATEGORY    VARCHAR2(30),
-  ATTRIBUTE1            VARCHAR2(240),
-  ATTRIBUTE2            VARCHAR2(240),
-  ATTRIBUTE3            VARCHAR2(240),
-  ATTRIBUTE4            VARCHAR2(240),
-  ATTRIBUTE5            VARCHAR2(240),
-  ATTRIBUTE6            VARCHAR2(240),
-  ATTRIBUTE7            VARCHAR2(240),
-  ATTRIBUTE8            VARCHAR2(240),
-  ATTRIBUTE9            VARCHAR2(240),
-  ATTRIBUTE10           VARCHAR2(240),
-  ATTRIBUTE11           VARCHAR2(240),
-  ATTRIBUTE12           VARCHAR2(240),
-  ATTRIBUTE13           VARCHAR2(240),
-  ATTRIBUTE14           VARCHAR2(240),
-  ATTRIBUTE15           VARCHAR2(240)
-);
-COMMENT ON TABLE SYS_USER IS '用户表';
-COMMENT ON COLUMN SYS_USER.USER_ID IS '表ID，主键，供其他表做外键';
-COMMENT ON COLUMN SYS_USER.USER_TYPE IS '用户类型';
-COMMENT ON COLUMN SYS_USER.USER_NAME IS '用户名';
-COMMENT ON COLUMN SYS_USER.PASSWORD_ENCRYPTED IS '加密过的密码';
-COMMENT ON COLUMN SYS_USER.EMAIL IS '邮箱地址';
-COMMENT ON COLUMN SYS_USER.PHONE IS '电话号码';
-COMMENT ON COLUMN SYS_USER.START_ACTIVE_DATE IS '有效期从';
-COMMENT ON COLUMN SYS_USER.END_ACTIVE_DATE IS '有效期至';
-COMMENT ON COLUMN SYS_USER.STATUS IS '状态';
-
-ALTER TABLE SYS_USER
-  ADD CONSTRAINT SYS_USER_PK PRIMARY KEY (USER_ID);
-
-CREATE SEQUENCE SYS_USER_S START WITH 10001;
-
-
+DROP TABLE IF EXISTS SYS_USER;
+CREATE TABLE `SYS_USER`(
+    `USER_ID` bigint AUTO_INCREMENT COMMENT '表ID，主键，供其他表做外键',
+    `USER_TYPE` varchar(30) COMMENT '用户类型',
+    `USER_NAME` varchar(40) COMMENT '用户名',
+    `PASSWORD_ENCRYPTED` varchar(40) COMMENT '加密过的密码',
+    `EMAIL` varchar(150) COMMENT '邮箱地址',
+    `PHONE` varchar(40) COMMENT '电话号码',
+    `START_ACTIVE_DATE` datetime COMMENT '有效期从',
+    `END_ACTIVE_DATE` datetime COMMENT '有效期至',
+    `STATUS` varchar(30) COMMENT '状态',
+    `OBJECT_VERSION_NUMBER` decimal(20,0) DEFAULT 1,
+    `REQUEST_ID` bigint DEFAULT -1,
+    `PROGRAM_ID` bigint DEFAULT -1,
+    `CREATION_DATE` datetime DEFAULT now() ,
+    `CREATED_BY` decimal(20,0) DEFAULT -1    ,
+    `LAST_UPDATED_BY` decimal(20,0) DEFAULT -1    ,
+    `LAST_UPDATE_DATE` datetime DEFAULT now() ,
+    `LAST_UPDATE_LOGIN` decimal(20,0),
+    `ATTRIBUTE_CATEGORY` varchar(30),
+    `ATTRIBUTE1` varchar(240),
+    `ATTRIBUTE2` varchar(240),
+    `ATTRIBUTE3` varchar(240),
+    `ATTRIBUTE4` varchar(240),
+    `ATTRIBUTE5` varchar(240),
+    `ATTRIBUTE6` varchar(240),
+    `ATTRIBUTE7` varchar(240),
+    `ATTRIBUTE8` varchar(240),
+    `ATTRIBUTE9` varchar(240),
+    `ATTRIBUTE10` varchar(240),
+    `ATTRIBUTE11` varchar(240),
+    `ATTRIBUTE12` varchar(240),
+    `ATTRIBUTE13` varchar(240),
+    `ATTRIBUTE14` varchar(240),
+    `ATTRIBUTE15` varchar(240),
+    PRIMARY KEY(`USER_ID`)
+) COMMENT = '用户表';
+alter table `SYS_USER` change `PHONE` `PHONE` varchar(40) binary;
+alter table `SYS_USER` change `EMAIL` `EMAIL` varchar(150) binary;
+alter table `SYS_USER` change `STATUS` `STATUS` varchar(30) binary;
+alter table `SYS_USER` change `PASSWORD_ENCRYPTED` `PASSWORD_ENCRYPTED` varchar(40) binary;
+alter table `SYS_USER` change `USER_NAME` `USER_NAME` varchar(40) binary;
+alter table `SYS_USER` change `USER_TYPE` `USER_TYPE` varchar(30) binary;

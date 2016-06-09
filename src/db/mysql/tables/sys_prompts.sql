@@ -1,8 +1,9 @@
-DROP TABLE IF EXISTS SYS_ROLE_FUNCTION;
-CREATE TABLE `SYS_ROLE_FUNCTION`(
-    `SRF_ID` bigint AUTO_INCREMENT COMMENT 'ID',
-    `ROLE_ID` bigint COMMENT '角色ID',
-    `FUNCTION_ID` bigint COMMENT '功能ID',
+DROP TABLE IF EXISTS SYS_PROMPTS;
+CREATE TABLE `SYS_PROMPTS`(
+    `PROMPT_ID` bigint AUTO_INCREMENT COMMENT '表ID，主键，供其他表做外键',
+    `PROMPT_CODE` varchar(255) COMMENT '文本编码',
+    `LANG` varchar(10) COMMENT '语言',
+    `DESCRIPTION` varchar(240) COMMENT '描述',
     `OBJECT_VERSION_NUMBER` decimal(20,0) DEFAULT 1,
     `REQUEST_ID` bigint DEFAULT -1,
     `PROGRAM_ID` bigint DEFAULT -1,
@@ -27,6 +28,9 @@ CREATE TABLE `SYS_ROLE_FUNCTION`(
     `ATTRIBUTE13` varchar(240),
     `ATTRIBUTE14` varchar(240),
     `ATTRIBUTE15` varchar(240),
-    PRIMARY KEY(`SRF_ID`),
-    UNIQUE KEY `SYS_ROLE_FUNCTION_U1`(`ROLE_ID`,`FUNCTION_ID`)
-) COMMENT = '角色功能表';
+    PRIMARY KEY(`PROMPT_ID`),
+    UNIQUE KEY `SYS_PROMPTS_U1`(`PROMPT_CODE`,`LANG`)
+) COMMENT = '界面显示文本表';
+alter table `SYS_PROMPTS` change `LANG` `LANG` varchar(10) binary;
+alter table `SYS_PROMPTS` change `PROMPT_CODE` `PROMPT_CODE` varchar(255) binary;
+alter table `SYS_PROMPTS` change `DESCRIPTION` `DESCRIPTION` varchar(240) binary;

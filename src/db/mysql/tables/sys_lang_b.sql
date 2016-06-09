@@ -1,10 +1,8 @@
-DROP TABLE IF EXISTS SYS_PROFILE_VALUE;
-CREATE TABLE `SYS_PROFILE_VALUE`(
-    `PROFILE_VALUE_ID` bigint AUTO_INCREMENT COMMENT '表ID，主键，供其他表做外键',
-    `PROFILE_ID` varchar(32) COMMENT '配置文件ID',
-    `LEVEL_ID` varchar(32) COMMENT '层次ID',
-    `LEVEL_VALUE` varchar(40) COMMENT '层次值',
-    `PROFILE_VALUE` varchar(80) COMMENT '配置文件值',
+DROP TABLE IF EXISTS SYS_LANG_B;
+CREATE TABLE `SYS_LANG_B`(
+    `LANG_CODE` varchar(10) COMMENT '表ID，主键，供其他表做外键',
+    `BASE_LANG` varchar(10) COMMENT '基语言',
+    `DESCRIPTION` varchar(240) COMMENT '描述',
     `OBJECT_VERSION_NUMBER` decimal(20,0) DEFAULT 1     ,
     `REQUEST_ID` bigint DEFAULT -1,
     `PROGRAM_ID` bigint DEFAULT -1,
@@ -29,9 +27,8 @@ CREATE TABLE `SYS_PROFILE_VALUE`(
     `ATTRIBUTE13` varchar(240),
     `ATTRIBUTE14` varchar(240),
     `ATTRIBUTE15` varchar(240),
-    PRIMARY KEY(`PROFILE_VALUE_ID`)
-) COMMENT = '配置文件值';
-alter table `SYS_PROFILE_VALUE` change `LEVEL_ID` `LEVEL_ID` varchar(32) binary;
-alter table `SYS_PROFILE_VALUE` change `LEVEL_VALUE` `LEVEL_VALUE` varchar(40) binary;
-alter table `SYS_PROFILE_VALUE` change `PROFILE_ID` `PROFILE_ID` varchar(32) binary;
-alter table `SYS_PROFILE_VALUE` change `PROFILE_VALUE` `PROFILE_VALUE` varchar(80) binary;
+    PRIMARY KEY(`LANG_CODE`)
+) COMMENT = '语言表';
+alter table `SYS_LANG_B` change `BASE_LANG` `BASE_LANG` varchar(10) binary;
+alter table `SYS_LANG_B` change `DESCRIPTION` `DESCRIPTION` varchar(240) binary;
+alter table `SYS_LANG_B` change `LANG_CODE` `LANG_CODE` varchar(10) binary;
