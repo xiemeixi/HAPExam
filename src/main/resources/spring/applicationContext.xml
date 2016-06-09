@@ -65,6 +65,7 @@
             <value>
                 mappers=com.hand.hap.mybatis.common.Mapper
                 ORDER=BEFORE
+                IDENTITY=SEQUENCE
                 seqFormat={3}_s.nextVal
             </value>
         </property>
