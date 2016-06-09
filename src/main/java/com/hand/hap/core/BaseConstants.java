@@ -45,9 +45,10 @@ public interface BaseConstants {
 
     /**
      * SEQUENCE for oracle.<br>
-     * JDBC for mysql
+     * JDBC for mysql<br>
+     * IDENTITY for config
      */
-    String GENERATOR_TYPE = "SEQUENCE";
+    String GENERATOR_TYPE = "IDENTITY";
 
     String LIKE = "LIKE";
 

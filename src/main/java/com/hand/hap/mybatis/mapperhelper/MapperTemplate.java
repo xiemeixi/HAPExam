@@ -517,11 +517,13 @@ public abstract class MapperTemplate {
         Configuration configuration = ms.getConfiguration();
         KeyGenerator keyGenerator;
         Boolean executeBefore = isBEFORE();
-        String IDENTITY = (column.getGenerator() == null || column.getGenerator().equals("")) ? getIDENTITY() : column.getGenerator();
+        // mod by jessen
+        String generator = column.getGenerator() == null ? null : column.getGenerator();
+        String IDENTITY = ("IDENTITY".equals(generator) || StringUtil.isEmpty(generator)) ? getIDENTITY() : generator;
         if (IDENTITY.equalsIgnoreCase("JDBC")) {
             keyGenerator = new Jdbc3KeyGenerator();
         } else {
-            if ("SEQUENCE".equalsIgnoreCase(column.getGenerator())) {
+            if ("SEQUENCE".equalsIgnoreCase(IDENTITY)) {
                 // add by jessen, sql for selectKey
                 IDENTITY = "SELECT "+getSeqNextVal(column)+" FROM DUAL";
             }

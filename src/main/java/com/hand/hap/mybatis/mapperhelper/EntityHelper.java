@@ -309,6 +309,12 @@ public class EntityHelper {
                 entityColumn.setGenerator("SEQUENCE");
                 entityTable.setKeyProperties(entityColumn.getProperty());
                 entityTable.setKeyColumns(entityColumn.getColumn());
+            } else if (generatedValue.generator().equals("IDENTITY")) {
+                // add by jessen, use config IDENTITY
+                entityColumn.setIdentity(true);
+                entityColumn.setGenerator("IDENTITY");
+                entityTable.setKeyProperties(entityColumn.getProperty());
+                entityTable.setKeyColumns(entityColumn.getColumn());
             } else {
                 //允许通过generator来设置获取id的sql,例如mysql=CALL IDENTITY(),hsqldb=SELECT SCOPE_IDENTITY()
                 //允许通过拦截器参数设置公共的generator
