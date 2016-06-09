@@ -25,4 +25,6 @@ public interface IBaseService<T> {
     T selectByPrimaryKey(IRequest request, T record);
 
     int deleteByPrimaryKey(T record);
+
+    List<T> selectAll();
 }

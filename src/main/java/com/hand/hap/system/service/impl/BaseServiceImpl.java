@@ -65,4 +65,11 @@ public abstract class BaseServiceImpl<T> implements IBaseService<T> {
     public int deleteByPrimaryKey(T record) {
         return mapper.deleteByPrimaryKey(record);
     }
+
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public List<T> selectAll() {
+        return mapper.selectAll();
+    }
 }
