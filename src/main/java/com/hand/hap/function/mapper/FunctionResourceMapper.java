@@ -6,7 +6,7 @@ package com.hand.hap.function.mapper;
 
 import com.hand.hap.function.dto.FunctionResource;
 import com.hand.hap.function.dto.Resource;
-import tk.mybatis.mapper.common.Mapper;
+import com.hand.hap.mybatis.common.Mapper;
 
 /**
  * 功能资源mapper.

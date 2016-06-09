@@ -7,7 +7,7 @@ package com.hand.hap.account.mapper;
 import java.util.List;
 
 import com.hand.hap.account.dto.User;
-import tk.mybatis.mapper.common.Mapper;
+import com.hand.hap.mybatis.common.Mapper;
 
 /**
  * @author wuyichu

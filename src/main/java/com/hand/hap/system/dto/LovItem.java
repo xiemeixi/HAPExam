@@ -4,7 +4,7 @@
 package com.hand.hap.system.dto;
 
 import com.hand.hap.core.BaseConstants;
-import tk.mybatis.mapper.annotation.Condition;
+import com.hand.hap.mybatis.annotation.Condition;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

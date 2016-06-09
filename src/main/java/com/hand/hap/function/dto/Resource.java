@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.hand.hap.core.annotation.MultiLanguage;
 import com.hand.hap.system.dto.BaseDTO;
-import tk.mybatis.mapper.annotation.Condition;
+import com.hand.hap.mybatis.annotation.Condition;
 
 /**
  * 资源DTO.

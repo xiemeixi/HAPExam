@@ -15,7 +15,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.hand.hap.core.annotation.Children;
 import com.hand.hap.core.annotation.MultiLanguage;
-import tk.mybatis.mapper.annotation.Condition;
+import com.hand.hap.mybatis.annotation.Condition;
 
 /**
  * CodeDTO.

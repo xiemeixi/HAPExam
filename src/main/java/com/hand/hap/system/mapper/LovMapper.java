@@ -3,10 +3,8 @@
  */
 package com.hand.hap.system.mapper;
 
-import java.util.List;
-
 import com.hand.hap.system.dto.Lov;
-import tk.mybatis.mapper.common.Mapper;
+import com.hand.hap.mybatis.common.Mapper;
 
 /**
  * 

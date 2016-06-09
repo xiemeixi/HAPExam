@@ -17,7 +17,7 @@ import com.hand.hap.core.annotation.MultiLanguageField;
 import com.hand.hap.core.annotation.Children;
 import com.hand.hap.core.annotation.MultiLanguage;
 import com.hand.hap.system.dto.BaseDTO;
-import tk.mybatis.mapper.annotation.Condition;
+import com.hand.hap.mybatis.annotation.Condition;
 
 /**
  * 功能的DTO.

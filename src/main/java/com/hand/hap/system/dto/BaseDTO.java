@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.time.DateFormatUtils;
-import tk.mybatis.mapper.annotation.Condition;
+import com.hand.hap.mybatis.annotation.Condition;
 
 import javax.persistence.Column;
 import javax.persistence.Transient;

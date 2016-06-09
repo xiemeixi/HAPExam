@@ -4,7 +4,7 @@
 package com.hand.hap.system.mapper;
 
 import com.hand.hap.system.dto.Prompt;
-import tk.mybatis.mapper.common.Mapper;
+import com.hand.hap.mybatis.common.Mapper;
 
 /**
  * @author shengyang.zhou@hand-china.com

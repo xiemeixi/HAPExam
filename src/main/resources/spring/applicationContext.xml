@@ -59,11 +59,11 @@
     </bean>
 
     <!-- mapper definition -->
-    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+    <bean class="com.hand.hap.mybatis.spring.MapperScannerConfigurer">
         <property name="basePackage" value="com.**.mapper"/>
         <property name="properties">
             <value>
-                mappers=tk.mybatis.mapper.common.Mapper
+                mappers=com.hand.hap.mybatis.common.Mapper
                 ORDER=BEFORE
                 seqFormat={3}_s.nextVal
             </value>

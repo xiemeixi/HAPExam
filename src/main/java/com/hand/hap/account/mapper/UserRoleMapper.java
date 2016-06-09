@@ -5,7 +5,7 @@
 package com.hand.hap.account.mapper;
 
 import com.hand.hap.account.dto.UserRole;
-import tk.mybatis.mapper.common.Mapper;
+import com.hand.hap.mybatis.common.Mapper;
 
 /**
  * 角色分配功能Mapper.

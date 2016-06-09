@@ -8,7 +8,7 @@ import java.util.List;
 import com.hand.hap.core.annotation.Children;
 import com.hand.hap.core.BaseConstants;
 import org.hibernate.validator.constraints.NotEmpty;
-import tk.mybatis.mapper.annotation.Condition;
+import com.hand.hap.mybatis.annotation.Condition;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

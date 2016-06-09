@@ -10,7 +10,7 @@ import java.util.Map;
 import com.hand.hap.function.dto.Function;
 import com.hand.hap.function.dto.FunctionDisplay;
 import com.hand.hap.function.dto.Resource;
-import tk.mybatis.mapper.common.Mapper;
+import com.hand.hap.mybatis.common.Mapper;
 
 /**
  * @author wuyichu

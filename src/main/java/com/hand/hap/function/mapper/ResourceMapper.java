@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.hand.hap.function.dto.Function;
 import com.hand.hap.function.dto.Resource;
-import tk.mybatis.mapper.common.Mapper;
+import com.hand.hap.mybatis.common.Mapper;
 
 /**
  * 资源mapper.

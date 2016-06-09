@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 import com.hand.hap.system.dto.BaseDTO;
 import org.hibernate.validator.constraints.NotEmpty;
-import tk.mybatis.mapper.annotation.Condition;
+import com.hand.hap.mybatis.annotation.Condition;
 
 /**
  * 附件DTO.

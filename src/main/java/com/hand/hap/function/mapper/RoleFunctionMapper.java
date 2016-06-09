@@ -9,7 +9,7 @@ import java.util.Map;
 
 import com.hand.hap.function.dto.RoleFunction;
 import org.apache.ibatis.annotations.Param;
-import tk.mybatis.mapper.common.Mapper;
+import com.hand.hap.mybatis.common.Mapper;
 
 /**
  * 角色功能mapper.

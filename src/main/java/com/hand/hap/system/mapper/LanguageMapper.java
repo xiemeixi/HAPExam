@@ -5,7 +5,7 @@
 package com.hand.hap.system.mapper;
 
 import com.hand.hap.system.dto.Language;
-import tk.mybatis.mapper.common.Mapper;
+import com.hand.hap.mybatis.common.Mapper;
 
 /**
  * @author wuyichu
