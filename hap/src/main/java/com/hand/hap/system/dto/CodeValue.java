@@ -4,6 +4,7 @@
 package com.hand.hap.system.dto;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -27,7 +28,6 @@ public class CodeValue extends BaseDTO {
     /**
      * 快速编码类型.
      */
-    @Column(name = "code_id")
     @NotEmpty
     private Long codeId;
 
@@ -35,21 +35,19 @@ public class CodeValue extends BaseDTO {
      * ID.
      */
     @Id
-    @Column(name = "code_value_id")
+    @GeneratedValue(generator = GENERATOR_TYPE)
     @NotEmpty
     private Long codeValueId;
 
     /**
      * 快码编码值描述.
      */
-    @Column(name = "description")
     @com.hand.hap.core.annotation.MultiLanguageField
     private String description;
 
     /**
      * 快码编码意义描述.
      */
-    @Column(name = "meaning")
     @MultiLanguageField
     @NotEmpty
     private String meaning;
@@ -57,7 +55,6 @@ public class CodeValue extends BaseDTO {
     /**
      * 快速编码code.
      */
-    @Column(name = "value")
     @NotEmpty
     private String value;
 

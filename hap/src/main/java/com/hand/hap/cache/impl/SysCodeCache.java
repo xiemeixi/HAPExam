@@ -31,8 +31,8 @@ public class SysCodeCache extends HashStringRedisCache<Code> {
 
     private Logger logger = LoggerFactory.getLogger(SysCodeCache.class);
 
-    private String codeQuerySqlId = CodeMapper.class.getName() + ".selectCodes";
-    private String codeValueQuerySqlId = CodeValueMapper.class.getName() + ".selectCodeValues";
+    private String codeQuerySqlId = CodeMapper.class.getName() + ".selectAll";
+    private String codeValueQuerySqlId = CodeValueMapper.class.getName() + ".select";
 
     @Autowired
     private ILanguageProvider languageProvider;

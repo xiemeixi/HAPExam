@@ -49,9 +49,9 @@ public class CodeServiceImpl implements ICodeService {
         for (CodeValue codeValue : code.getCodeValues()) {
             if (codeValue.getCodeValueId() == null) {
                 codeValue.setCodeId(code.getCodeId()); // 设置头ID跟行ID一致
-                codeValueMapper.insert(codeValue);
+                codeValueMapper.insertSelective(codeValue);
             } else if (codeValue.getCodeValueId() != null) {
-                codeValueMapper.updateByPrimaryKey(codeValue);
+                codeValueMapper.updateByPrimaryKeySelective(codeValue);
             }
         }
     }
@@ -60,13 +60,13 @@ public class CodeServiceImpl implements ICodeService {
     @Transactional(propagation = Propagation.SUPPORTS)
     public List<Code> selectCodes(IRequest request, Code code, int page, int pagesize) {
         PageHelper.startPage(page, pagesize);
-        List<Code> codes = codeMapper.selectCodes(code);
+        List<Code> codes = codeMapper.select(code);
         return codes;
     }
 
     @Override
     public List<CodeValue> selectCodeValues(IRequest request, CodeValue value) {
-        return codeValueMapper.selectCodeValues(value);
+        return codeValueMapper.select(value);
     }
 
     @Override
@@ -200,7 +200,7 @@ public class CodeServiceImpl implements ICodeService {
     @Override
     public Code createCode(Code code) {
         // 插入头行
-        codeMapper.insert(code);
+        codeMapper.insertSelective(code);
         // 判断如果行不为空，则迭代循环插入
         if (code.getCodeValues() != null) {
             processCodeValues(code);
