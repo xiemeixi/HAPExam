@@ -6,10 +6,6 @@
     $(function () {
         window['d_um_002_form'] = $("#d_um_002_form").ligerForm({
             fields : [{
-                type : 'text',
-                label: '<@spring.message "account.loginname"/>',
-                name : 'loginName'
-            }, {
                 type   : 'text',
                 label  : '<@spring.message "user.username"/>',
                 newline: false,
@@ -20,7 +16,6 @@
                 disabled: false,
                 width   : 60,
                 click   : function () {
-
                     Hap.gridQuery({
                         form: d_um_002_form,
                         grid: d_um_002_grid
@@ -60,6 +55,7 @@
                 name   : 'userId',
                 width  : 130,
                 render : function (item) {
+	                if(!item.userId) return '';
                     var html = "<a href='#' onClick='a_click(" + item.userId + ")'><@spring.message 'user.allocationrole'/></a>";
                     return html;
                 }
