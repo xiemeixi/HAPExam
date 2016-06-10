@@ -8,15 +8,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import com.hand.hap.cache.impl.LovCache;
-import com.hand.hap.core.BaseConstants;
-import com.hand.hap.core.IRequest;
-import com.hand.hap.system.dto.BaseDTO;
-import com.hand.hap.system.dto.Lov;
-import com.hand.hap.system.dto.LovItem;
-import com.hand.hap.system.mapper.LovItemMapper;
-import com.hand.hap.system.mapper.LovMapper;
-import com.hand.hap.system.service.ILovService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -35,6 +26,15 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
+import com.hand.hap.cache.impl.LovCache;
+import com.hand.hap.core.BaseConstants;
+import com.hand.hap.core.IRequest;
+import com.hand.hap.system.dto.BaseDTO;
+import com.hand.hap.system.dto.Lov;
+import com.hand.hap.system.dto.LovItem;
+import com.hand.hap.system.mapper.LovItemMapper;
+import com.hand.hap.system.mapper.LovMapper;
+import com.hand.hap.system.service.ILovService;
 
 /**
  * @author njq.niu@hand-china.com
@@ -114,7 +114,7 @@ public class LovServiceImpl extends BaseServiceImpl<Lov> implements ILovService 
 
     @Override
     public boolean deleteLovItem(LovItem item) {
-        if (lovItemMapper.deleteByPrimaryKey(item.getLovItemId()) == 1) {
+        if (lovItemMapper.deleteByPrimaryKey(item) == 1) {
             lovCache.reload(item.getLovId());
             return true;
         }
