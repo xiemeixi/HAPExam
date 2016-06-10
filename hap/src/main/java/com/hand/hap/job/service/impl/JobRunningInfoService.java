@@ -5,7 +5,6 @@ package com.hand.hap.job.service.impl;
 
 import java.util.List;
 
-import com.hand.hap.job.service.IJobRunningInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +12,7 @@ import com.github.pagehelper.PageHelper;
 import com.hand.hap.core.IRequest;
 import com.hand.hap.job.dto.JobRunningInfoDto;
 import com.hand.hap.job.mapper.JobRunningInfoDtoMapper;
+import com.hand.hap.job.service.IJobRunningInfoService;
 
 /**
  * @author shiliyan
@@ -33,7 +33,7 @@ public class JobRunningInfoService implements IJobRunningInfoService {
 
     @Override
     public void createJobRunningInfo(JobRunningInfoDto jobCreateDto) {
-        jobRunningInfoDtoMapper.insert(jobCreateDto);
+        jobRunningInfoDtoMapper.insertSelective(jobCreateDto);
     }
 
     @Override

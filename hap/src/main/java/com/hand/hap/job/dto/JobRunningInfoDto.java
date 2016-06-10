@@ -5,28 +5,40 @@ package com.hand.hap.job.dto;
 
 import java.util.Date;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OrderBy;
+import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hand.hap.core.BaseConstants;
+import com.hand.hap.mybatis.annotation.Condition;
 import com.hand.hap.system.dto.BaseDTO;
 
 /**
  *
  * @author liyan.shi@hand-china.com
  */
+@Table(name = "SYS_JOB_RUNNING_INFO")
 public class JobRunningInfoDto extends BaseDTO {
     /**
      * 
      */
     private static final long serialVersionUID = -6714732735643965630L;
 
+    @Id
+    @GeneratedValue(generator = GENERATOR_TYPE)
     private Long jobRunningInfoId;
 
+    @Condition(operator = LIKE)
     private String jobName;
 
+    @Condition(operator = LIKE)
     private String jobGroup;
 
     private String jobResult;
 
+    @Condition(operator = LIKE)
     private String jobStatus;
 
     private String jobStatusMessage;
@@ -53,6 +65,7 @@ public class JobRunningInfoDto extends BaseDTO {
     private String schedulerInstanceId;
     
     @JsonFormat(pattern = BaseConstants.DATE_TIME_FORMAT)
+    @OrderBy("DESC")
     private Date scheduledFireTime;
 
     public Long getJobRunningInfoId() {
