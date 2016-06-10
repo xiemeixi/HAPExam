@@ -7,6 +7,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>hap</module>
+        <module>hapdb</module>
     </modules>
     <name>hap parent</name>
     <url>http://maven.apache.org</url>
