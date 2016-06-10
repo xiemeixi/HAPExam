@@ -119,7 +119,7 @@ public class MessageServiceImpl implements IMessageService {
         message.setMessageFrom(account.getAccountCode());
         initStd(message, userId, now);
 
-        messageMapper.insert(message);
+        messageMapper.insertSelective(message);
         // 附件
         if (attachmentIds != null && attachmentIds.size() > 0) {
             for (Long current : attachmentIds) {
@@ -128,7 +128,7 @@ public class MessageServiceImpl implements IMessageService {
                 attachment.setMessageId(message.getMessageId());
                 initStd(attachment, userId, now);
 
-                attachmentMapper.insert(attachment);
+                attachmentMapper.insertSelective(attachment);
             }
         }
         // 收件人(抄送/接收人)
@@ -136,7 +136,7 @@ public class MessageServiceImpl implements IMessageService {
             current.setMessageId(message.getMessageId());
             initStd(current, userId, now);
 
-            receiverMapper.insert(current);
+            receiverMapper.insertSelective(current);
         }
         return message;
     }
@@ -241,7 +241,7 @@ public class MessageServiceImpl implements IMessageService {
         message.setMessageFrom(account.getAccountCode());
         initStd(message, userId, now);
 
-        messageMapper.insert(message);
+        messageMapper.insertSelective(message);
         // 附件
         if (attachmentIds != null && attachmentIds.size() > 0) {
             for (Long current : attachmentIds) {
@@ -250,7 +250,7 @@ public class MessageServiceImpl implements IMessageService {
                 attachment.setMessageId(message.getMessageId());
                 initStd(attachment, userId, now);
 
-                attachmentMapper.insert(attachment);
+                attachmentMapper.insertSelective(attachment);
             }
         }
         // 收件人(抄送/接收人)
@@ -258,7 +258,7 @@ public class MessageServiceImpl implements IMessageService {
             current.setMessageId(message.getMessageId());
             initStd(current, userId, now);
 
-            receiverMapper.insert(current);
+            receiverMapper.insertSelective(current);
         }
         return message;
     }
@@ -288,7 +288,7 @@ public class MessageServiceImpl implements IMessageService {
         message.setMessageFrom(account.getAccountCode());
         initStd(message, userId, now);
 
-        messageMapper.insert(message);
+        messageMapper.insertSelective(message);
         // 附件
         if (attachmentIds != null && attachmentIds.size() > 0) {
             for (Long current : attachmentIds) {
@@ -297,7 +297,7 @@ public class MessageServiceImpl implements IMessageService {
                 attachment.setMessageId(message.getMessageId());
                 initStd(attachment, userId, now);
 
-                attachmentMapper.insert(attachment);
+                attachmentMapper.insertSelective(attachment);
             }
         }
         // 收件人(抄送/接收人)
@@ -305,7 +305,7 @@ public class MessageServiceImpl implements IMessageService {
             current.setMessageId(message.getMessageId());
             initStd(current, userId, now);
 
-            receiverMapper.insert(current);
+            receiverMapper.insertSelective(current);
         }
         return message;
     }
@@ -339,13 +339,13 @@ public class MessageServiceImpl implements IMessageService {
         message.setSendFlag("N");
         initStd(message, userId, now);
 
-        messageMapper.insert(message);
+        messageMapper.insertSelective(message);
         // 收件人(抄送/接收人)
         for (MessageReceiver current : receivers) {
             current.setMessageId(message.getMessageId());
             initStd(current, userId, now);
 
-            receiverMapper.insert(current);
+            receiverMapper.insertSelective(current);
         }
         return message;
     }
@@ -373,13 +373,13 @@ public class MessageServiceImpl implements IMessageService {
         message.setSendFlag("N");
         initStd(message, userId, now);
 
-        messageMapper.insert(message);
+        messageMapper.insertSelective(message);
         // 收件人(抄送/接收人)
         for (MessageReceiver current : receivers) {
             current.setMessageId(message.getMessageId());
             initStd(current, userId, now);
 
-            receiverMapper.insert(current);
+            receiverMapper.insertSelective(current);
         }
         return message;
     }
@@ -394,7 +394,7 @@ public class MessageServiceImpl implements IMessageService {
 
         MessageTemplate record = new MessageTemplate();
         record.setTemplateCode(templateCode);
-        List<MessageTemplate> selectMessageTemplates = templateMapper.selectMessageTemplates(record);
+        List<MessageTemplate> selectMessageTemplates = templateMapper.select(record);
 
         if (selectMessageTemplates == null || selectMessageTemplates.size() == 0) {
             // 没有该模板
@@ -486,7 +486,7 @@ public class MessageServiceImpl implements IMessageService {
         message.setMessageFrom(from(marketId, account.getAccountCode()));
         initStd(message, sender, now);
 
-        messageMapper.insert(message);
+        messageMapper.insertSelective(message);
         // 附件
         if (attachmentIds != null && attachmentIds.size() > 0) {
             for (Long current : attachmentIds) {
@@ -496,7 +496,7 @@ public class MessageServiceImpl implements IMessageService {
                 attachment.setFileId(current);
                 initStd(attachment, sender, now);
 
-                attachmentMapper.insert(attachment);
+                attachmentMapper.insertSelective(attachment);
             }
         }
         // 收件人(抄送/接收人)
@@ -504,7 +504,7 @@ public class MessageServiceImpl implements IMessageService {
             current.setMessageId(message.getMessageId());
             initStd(current, sender, now);
 
-            receiverMapper.insert(current);
+            receiverMapper.insertSelective(current);
         }
         return message;
     }

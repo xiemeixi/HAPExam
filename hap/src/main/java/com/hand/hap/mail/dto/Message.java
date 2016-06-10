@@ -3,6 +3,10 @@
  */
 package com.hand.hap.mail.dto;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.hand.hap.system.dto.BaseDTO;
 
 /**
@@ -11,10 +15,13 @@ import com.hand.hap.system.dto.BaseDTO;
  * @author njq.niu@hand-china.com
  * @author xiawang.liu@hand-china.com 2016年3月2日
  */
+@Table(name = "SYS_MESSAGE")
 public class Message extends BaseDTO {
 
     private static final long serialVersionUID = -5838987819601451602L;
 
+    @Id
+    @GeneratedValue(generator = GENERATOR_TYPE)
     private Long messageId;
 
     private String messageType;

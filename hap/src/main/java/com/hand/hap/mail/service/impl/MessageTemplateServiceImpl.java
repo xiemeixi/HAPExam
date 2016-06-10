@@ -39,7 +39,7 @@ public class MessageTemplateServiceImpl implements IMessageTemplateService {
         if (validMsgTem(request, obj) == false) {
             throw new EmailException(EmailException.MSG_ERROR_SAME_CODE_AND_MARKET_ID_IS_EXISTS);
         }
-        templateMapper.insert(obj);
+        templateMapper.insertSelective(obj);
         return obj;
     }
 
@@ -53,7 +53,7 @@ public class MessageTemplateServiceImpl implements IMessageTemplateService {
         if (validMsgTem(request, obj) == false) {
             throw new EmailException(EmailException.MSG_ERROR_SAME_CODE_AND_MARKET_ID_IS_EXISTS);
         }
-        templateMapper.updateByPrimaryKey(obj);
+        templateMapper.updateByPrimaryKeySelective(obj);
         return obj;
     }
 
@@ -93,7 +93,7 @@ public class MessageTemplateServiceImpl implements IMessageTemplateService {
     public List<MessageTemplate> selectMessageTemplates(IRequest request, MessageTemplate example, int page,
             int pageSize) {
         PageHelper.startPage(page, pageSize);
-        List<MessageTemplate> list = templateMapper.selectMessageTemplates(example);
+        List<MessageTemplate> list = templateMapper.select(example);
         return list;
     }
     

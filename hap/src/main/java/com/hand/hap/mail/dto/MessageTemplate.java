@@ -3,9 +3,18 @@
  */
 package com.hand.hap.mail.dto;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import com.hand.hap.system.dto.BaseDTO;
 
+@Table(name = "SYS_MESSAGE_TEMPLATE")
 public class MessageTemplate extends BaseDTO {
+
+    @Id
+    @GeneratedValue(generator = GENERATOR_TYPE)
     private Long templateId;
 
     private Long accountId;
@@ -21,7 +30,8 @@ public class MessageTemplate extends BaseDTO {
     private String subject;
 
     private String content;
-    
+
+    @Transient
     private String meaning;
 
     public Long getTemplateId() {
