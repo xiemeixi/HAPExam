@@ -3,32 +3,17 @@
  */
 package com.hand.hap.attachment.mapper;
 
-import java.util.List;
 import java.util.Map;
 
 import com.hand.hap.attachment.dto.Attachment;
+import com.hand.hap.mybatis.common.Mapper;
 
 /**
  * Created by xiaohua on 16/2/1.
  * @author hua.xiao@hand-china.com
  */
-public interface AttachmentMapper {
+public interface  AttachmentMapper extends Mapper<Attachment> {
 
-    /**
-     * 返回附件列表.
-     * 
-     * @param attachment Attachment参数对象
-     * @return List Attachment列表
-     */
-    List<Attachment> selectAttachments(Attachment attachment);
-
-    /**
-     * 插入一条附件.
-     * 
-     * @param record Attachment对象
-     * @return int 插入成功条数
-     */
-    int insert(Attachment record);
 
     /**
      * 根据Attachment对象查找单个Attachment.
@@ -38,14 +23,7 @@ public interface AttachmentMapper {
      */
     Attachment selectAttachment(Attachment attachment);
     
-    /**
-     * 删除.
-     * 
-     * @param record
-     * @return
-     */
-    int delete(Attachment record);
-    
+
     /**
      * 更新来源主键.
      * 

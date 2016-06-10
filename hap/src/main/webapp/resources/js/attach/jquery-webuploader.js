@@ -7,7 +7,7 @@ $.createUploader = function(opt) {
 		auto : true,
 		swf : BASE_URL + '/js/Uploader.swf',
 		contextPath : "/dsis",
-		uploaderPath : "/sys/attach/attachment",
+		uploaderPath : "/sys/attach/upload",
 		accepts : null,
 		fileNumLimit : undefined,
 		fileSizeLimit : undefined, // 16 M
@@ -22,7 +22,7 @@ $.createUploader = function(opt) {
 	}, opt || {});
 
 	if ($("#" + opt.picker).length <= 0) {
-		throw new Error("attachment picker is not correct!");
+		throw new Error("upload picker is not correct!");
 	}
 
 	uploader = WebUploader.create({

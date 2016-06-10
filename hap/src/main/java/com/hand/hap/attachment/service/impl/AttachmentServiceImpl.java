@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.hand.hap.core.annotation.StdWho;
-import com.hand.hap.core.IRequest;
 import com.hand.hap.attachment.dto.Attachment;
 import com.hand.hap.attachment.dto.SysFile;
 import com.hand.hap.attachment.mapper.AttachmentMapper;
 import com.hand.hap.attachment.mapper.SysFileMapper;
 import com.hand.hap.attachment.service.IAttachmentService;
 import com.hand.hap.attachment.service.ISysFileService;
+import com.hand.hap.core.IRequest;
+import com.hand.hap.core.annotation.StdWho;
 
 /**
  * 附件service.
@@ -59,7 +59,7 @@ public class AttachmentServiceImpl implements IAttachmentService {
         
         SysFile file = new SysFile();
         file.setAttachmentId(attach.getAttachmentId());
-        List<SysFile> files = sysFileMapper.selectSysFiles(file);
+        List<SysFile> files = sysFileMapper.select(file);
         for (SysFile f : files) {
             sysFileService.delete(requestContext, f);
         }

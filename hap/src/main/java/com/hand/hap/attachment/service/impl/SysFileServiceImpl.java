@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.hand.hap.attachment.exception.UniqueFileMutiException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,13 +15,14 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
-import com.hand.hap.core.annotation.StdWho;
-import com.hand.hap.core.IRequest;
 import com.hand.hap.attachment.dto.Attachment;
 import com.hand.hap.attachment.dto.SysFile;
+import com.hand.hap.attachment.exception.UniqueFileMutiException;
 import com.hand.hap.attachment.mapper.AttachmentMapper;
 import com.hand.hap.attachment.mapper.SysFileMapper;
 import com.hand.hap.attachment.service.ISysFileService;
+import com.hand.hap.core.IRequest;
+import com.hand.hap.core.annotation.StdWho;
 import com.hand.hap.core.util.UploadUtil;
 
 /**
@@ -88,7 +88,7 @@ public class SysFileServiceImpl implements ISysFileService {
         if (pagesize > NO_PAGE) {
             PageHelper.offsetPage(page, pagesize);
         }
-        return sysFileMapper.selectSysFiles(file);
+        return sysFileMapper.select(file);
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -146,7 +146,7 @@ public class SysFileServiceImpl implements ISysFileService {
     public List<SysFile> selectFilesByCategoryId(IRequest requestContext, SysFile file, Long categoryId, int page,
             int pagesize) {
         Attachment params = new Attachment(categoryId);
-        List<Attachment> attachments = attachmentMapper.selectAttachments(params);
+        List<Attachment> attachments = attachmentMapper.select(params);
         if (categoryId == null || attachments == null || attachments.size() <= 0) {
             return new LinkedList<SysFile>();
         }
@@ -176,10 +176,10 @@ public class SysFileServiceImpl implements ISysFileService {
             // 第二次上传,更新SysFile
             SysFile sysParams = new SysFile();
             sysParams.setAttachmentId(params.getAttachmentId());
-            List<SysFile> sysFiles = sysFileMapper.selectSysFiles(sysParams);
+            List<SysFile> sysFiles = sysFileMapper.select(sysParams);
             if (sysFiles.isEmpty()) {
                 file.setAttachmentId(params.getAttachmentId());
-                sysFileMapper.insert(file);
+                sysFileMapper.insertSelective(file);
                 return file;
             } else if (sysFiles.size() > 1) {
                 throw new UniqueFileMutiException();
@@ -217,7 +217,7 @@ public class SysFileServiceImpl implements ISysFileService {
     public SysFile deleteImage(IRequest requestContext, SysFile file) {
         SysFile sysFile = sysFileMapper.selectByPrimaryKey(file.getFileId());
         if (sysFile != null) {
-            sysFileMapper.delete(file);
+            sysFileMapper.deleteByPrimaryKey(file);
         } else {
             sysFile = file;
         }

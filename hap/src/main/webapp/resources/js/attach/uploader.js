@@ -78,7 +78,7 @@ jQuery(function() {
         chunked: false,
          //服务器地址
 //        server: 'http://localhost:8080/WebUploader/file/upload.do',
-        server: $("#contextPath").val()+'/sys/attach/attachment',
+        server: $("#contextPath").val()+'/sys/attach/upload',
         fileNumLimit: 5,
         fileSizeLimit: undefined,    
         fileSingleSizeLimit: undefined,

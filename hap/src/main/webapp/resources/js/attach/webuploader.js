@@ -741,8 +741,8 @@
     
         // 批量添加纯命令式方法。
         $.each({
-            upload: 'start-attachment',
-            stop: 'stop-attachment',
+            upload: 'start-upload',
+            stop: 'stop-upload',
             getFile: 'get-file',
             getFiles: 'get-files',
             addFile: 'add-file',
@@ -2960,7 +2960,7 @@
     
                 if ( me.options.auto ) {
                     setTimeout(function() {
-                        me.request('start-attachment');
+                        me.request('start-upload');
                     }, 20 );
                 }
             },
@@ -3039,7 +3039,7 @@
                 if ( file ) {
                     file = file.id ? file : me.queue.getFile( file );
                     file.setStatus( Status.QUEUED );
-                    noForceStart || me.request('start-attachment');
+                    noForceStart || me.request('start-upload');
                     return;
                 }
     
@@ -3052,7 +3052,7 @@
                     file.setStatus( Status.QUEUED );
                 }
     
-                me.request('start-attachment');
+                me.request('start-upload');
             },
     
             /**
@@ -3464,7 +3464,7 @@
             },
     
             reset: function() {
-                this.request( 'stop-attachment', true );
+                this.request( 'stop-upload', true );
                 this.runing = false;
                 this.pool = [];
                 this.stack = [];
@@ -3484,9 +3484,9 @@
              * 开始上传。此方法可以从初始状态调用开始上传流程，也可以从暂停状态调用，继续上传流程。
              *
              * 可以指定开始某一个文件。
-             * @grammar attachment() => undefined
-             * @grammar attachment( file | fileId) => undefined
-             * @method attachment
+             * @grammar upload() => undefined
+             * @grammar upload( file | fileId) => undefined
+             * @method upload
              * @for  Uploader
              */
             startUpload: function(file) {
@@ -7982,7 +7982,7 @@
         'widgets/image',
         'widgets/queue',
         'widgets/runtime',
-        'widgets/attachment',
+        'widgets/upload',
         'widgets/validator',
         'widgets/md5',
     
