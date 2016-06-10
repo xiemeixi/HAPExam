@@ -45,7 +45,7 @@ public class MonitorInterceptor extends HandlerInterceptorAdapter {
     private void fillMDC(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
-            Long userId = (Long) session.getAttribute(User.FILED_USER_ID);
+            Long userId = (Long) session.getAttribute(User.FIELD_USER_ID);
             String uuid = UUID.randomUUID().toString().replace("-", "");
             if (userId != null) {
                 MDC.put("userId", userId.toString());

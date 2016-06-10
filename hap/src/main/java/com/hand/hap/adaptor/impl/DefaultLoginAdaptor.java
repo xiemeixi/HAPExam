@@ -97,7 +97,7 @@ public class DefaultLoginAdaptor implements ILoginAdaptor {
             checkCaptcha(view, user, request, response);
             user = userService.login(user);
             HttpSession session = request.getSession(true);
-            session.setAttribute(User.FILED_USER_ID, user.getUserId());
+            session.setAttribute(User.FIELD_USER_ID, user.getUserId());
             session.setAttribute(User.FIELD_USER_NAME, user.getUserName());
             session.setAttribute(IRequest.FIELD_LOCALE, locale.toString());
             setTimeZoneFromPreference(session, user.getUserId());
@@ -229,7 +229,7 @@ public class DefaultLoginAdaptor implements ILoginAdaptor {
         // 选择角色
         HttpSession session = request.getSession(false);
         if (session != null && role != null && role.getRoleId() != null) {
-            Long userId = (Long) session.getAttribute(User.FILED_USER_ID);
+            Long userId = (Long) session.getAttribute(User.FIELD_USER_ID);
             roleService.checkUserRoleExists(userId, role.getRoleId());
             session.setAttribute(Role.FIELD_ROLE_ID, role.getRoleId());
             result.setViewName(REDIRECT + getIndexView(request));
@@ -327,12 +327,12 @@ public class DefaultLoginAdaptor implements ILoginAdaptor {
         HttpSession session = request.getSession(false);
         if (session != null) {
             // 获取user
-            Long userId = (Long) session.getAttribute(User.FILED_USER_ID);
+            Long userId = (Long) session.getAttribute(User.FIELD_USER_ID);
             if (userId != null) {
                 User user = new User();
                 user.setUserId(userId);
-                session.setAttribute(User.FILED_USER_ID, userId);
-                addCookie(User.FILED_USER_ID, userId.toString(), request, response);
+                session.setAttribute(User.FIELD_USER_ID, userId);
+                addCookie(User.FIELD_USER_ID, userId.toString(), request, response);
                 List<Role> roles = roleService.selectRolesByUser(RequestHelper.createServiceRequest(request), user);
                 mv.addObject("roles", roles);
             }
@@ -359,13 +359,13 @@ public class DefaultLoginAdaptor implements ILoginAdaptor {
             data.setCode((String) mm.get("code"));
             data.setMessage((String) mm.get("msg"));
         } else {
-            Object userIdObj = request.getParameter(User.FILED_USER_ID);
+            Object userIdObj = request.getParameter(User.FIELD_USER_ID);
             Object roleIdObj = request.getParameter(Role.FIELD_ROLE_ID);
             if (userIdObj != null && roleIdObj != null) {
                 Long userId = Long.valueOf(userIdObj.toString()), roleId = Long.valueOf(roleIdObj.toString());
                 roleService.checkUserRoleExists(userId, roleId);
                 HttpSession session = request.getSession();
-                session.setAttribute(User.FILED_USER_ID, userId);
+                session.setAttribute(User.FIELD_USER_ID, userId);
                 session.setAttribute(Role.FIELD_ROLE_ID, roleId);
             }
         }

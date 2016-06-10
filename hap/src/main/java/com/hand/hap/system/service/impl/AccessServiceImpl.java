@@ -92,7 +92,7 @@ public class AccessServiceImpl implements IAccessService {
     private Long getUserId() {
         HttpSession session = request.getSession(false);
         if (session != null) {
-            return (Long) session.getAttribute(User.FILED_USER_ID);
+            return (Long) session.getAttribute(User.FIELD_USER_ID);
         }
         return null;
     }

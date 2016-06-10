@@ -300,7 +300,7 @@ public class BaseController {
      */
     protected Long getUserId(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        return (Long) session.getAttribute(User.FILED_USER_ID);
+        return (Long) session.getAttribute(User.FIELD_USER_ID);
     }
 
     /**
