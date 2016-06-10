@@ -3,6 +3,7 @@
  */
 package com.hand.hap.account.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.hand.hap.core.annotation.StdWho;
@@ -50,4 +51,5 @@ public interface IUserService extends IBaseService<User>, ProxySelf<IUserService
 
     User selectByUserName(String userName);
 
+    void updatePassword(Long userId, String password, Date date);
 }

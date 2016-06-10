@@ -27,10 +27,11 @@ import java.util.Date;
 @Table(name = "sys_user")
 public class User extends BaseDTO {
 
-    public static final String FILED_USER_ID = "userId";
+    public static final String FIELD_USER_ID = "userId";
     public static final String FIELD_USER_NAME = "userName";
 
     public static final String STATUS_ACTV = "ACTV";
+    public static final String STATUS_EXPR = "EXPR";
     public static final String STATUS_LOCK = "LOCK";
 
     private static final long serialVersionUID = -1938818306103232890L;

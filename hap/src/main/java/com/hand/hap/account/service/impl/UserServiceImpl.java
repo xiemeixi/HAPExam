@@ -3,6 +3,7 @@
  */
 package com.hand.hap.account.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import com.hand.hap.account.dto.User;
@@ -81,6 +82,13 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     @Override
     public User selectByUserName(String userName) {
         return userMapper.selectByUserName(StringUtils.upperCase(userName));
+    }
+
+    @Override
+    @Transactional
+    public void updatePassword(Long userId, String password, Date date) {
+        String passwordEncrypted = passwordManager.encode(password);
+        userMapper.updatePassword(userId, passwordEncrypted);
     }
 
 }
