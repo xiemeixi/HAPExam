@@ -3,12 +3,18 @@
  */
 package com.hand.hap.mail.dto;
 
-import java.math.BigDecimal;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.hand.hap.system.dto.BaseDTO;
 
+@Table(name = "SYS_MESSAGE_ACCOUNT")
 public class MessageAccount extends BaseDTO {
-    private BigDecimal accountId;
+
+    @Id
+    @GeneratedValue(generator = GENERATOR_TYPE)
+    private Long accountId;
 
     private String description;
     
@@ -20,13 +26,11 @@ public class MessageAccount extends BaseDTO {
 
     private String password;
 
-    private String organization;
-    
-    public BigDecimal getAccountId() {
+    public Long getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(BigDecimal accountId) {
+    public void setAccountId(Long accountId) {
         this.accountId = accountId;
     }
 
@@ -70,12 +74,4 @@ public class MessageAccount extends BaseDTO {
         this.description = description;
     }
 
-    public String getOrganization() {
-        return organization;
-    }
-
-    public void setOrganization(String organization) {
-        this.organization = organization;
-    }
-    
 }

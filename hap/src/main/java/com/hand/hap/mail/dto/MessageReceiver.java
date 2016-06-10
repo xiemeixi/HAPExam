@@ -3,6 +3,10 @@
  */
 package com.hand.hap.mail.dto;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.hand.hap.system.dto.BaseDTO;
 
 /**
@@ -11,9 +15,14 @@ import com.hand.hap.system.dto.BaseDTO;
  *
  * 2016年3月2日
  */
+@Table(name = "SYS_MESSAGE_RECEIVER")
 public class MessageReceiver extends BaseDTO {
-    
+
     private static final long serialVersionUID = 6189604448869596205L;
+
+    @Id
+    @GeneratedValue(generator = GENERATOR_TYPE)
+    private Long receiverId;
 
     private String messageAddress;
 
@@ -21,8 +30,6 @@ public class MessageReceiver extends BaseDTO {
 
     //使用此枚举类型ReceiverTypeEnum
     private String messageType;
-
-    private Long receiverId;
 
     public String getMessageAddress() {
         return messageAddress;

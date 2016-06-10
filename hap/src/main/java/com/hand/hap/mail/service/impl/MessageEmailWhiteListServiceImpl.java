@@ -5,10 +5,6 @@ package com.hand.hap.mail.service.impl;
 
 import java.util.List;
 
-import com.hand.hap.core.IRequest;
-import com.hand.hap.mail.dto.MessageEmailWhiteList;
-import com.hand.hap.mail.mapper.MessageEmailWhiteListMapper;
-import com.hand.hap.mail.service.IMessageEmailWhiteListService;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +13,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
+import com.hand.hap.core.IRequest;
+import com.hand.hap.mail.dto.MessageEmailWhiteList;
+import com.hand.hap.mail.mapper.MessageEmailWhiteListMapper;
+import com.hand.hap.mail.service.IMessageEmailWhiteListService;
 
 /**
  * 邮箱白名单impl.
@@ -46,7 +46,7 @@ public class MessageEmailWhiteListServiceImpl implements IMessageEmailWhiteListS
         if (obj == null) {
             return null;
         }
-        mapper.insert(obj);
+        mapper.insertSelective(obj);
         return obj;
     }
 
@@ -74,7 +74,7 @@ public class MessageEmailWhiteListServiceImpl implements IMessageEmailWhiteListS
         if (obj.getId() == null) {
             return 0;
         }
-        return mapper.deleteByPrimaryKey(obj.getId());
+        return mapper.deleteByPrimaryKey(obj);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class MessageEmailWhiteListServiceImpl implements IMessageEmailWhiteListS
     public List<MessageEmailWhiteList> selectMessageEmailWhiteLists(IRequest request, MessageEmailWhiteList example, int page,
             int pageSize) {
         PageHelper.startPage(page, pageSize);
-        List<MessageEmailWhiteList> list = mapper.selectMessageEmailWhiteLists(example);
+        List<MessageEmailWhiteList> list = mapper.select(example);
         return list;
     }
 

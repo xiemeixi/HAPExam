@@ -5,6 +5,10 @@ package com.hand.hap.mail.dto;
 
 import java.util.List;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import com.hand.hap.core.annotation.Children;
@@ -14,10 +18,13 @@ import com.hand.hap.system.dto.BaseDTO;
  * 邮箱配置
  * @author Clerifen Li
  */
+@Table(name = "SYS_MESSAGE_EMAIL_CONFIG")
 public class MessageEmailConfig extends BaseDTO {
     
     private static final long serialVersionUID = 8742354571330468329L;
 
+    @Id
+    @GeneratedValue(generator = GENERATOR_TYPE)
     private Long configId;
 
     private String configCode;
@@ -34,15 +41,15 @@ public class MessageEmailConfig extends BaseDTO {
     
     private String description;
 
-    private String organization;
-
     private String useWhiteList;
     
     @Children
     @NotNull
+    @Transient
     private List<MessageEmailAccount> emailAccounts;
     
     @Children
+    @Transient
     private List<MessageEmailWhiteList> whiteLists;
     
     public List<MessageEmailAccount> getEmailAccounts() {
@@ -107,14 +114,6 @@ public class MessageEmailConfig extends BaseDTO {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getOrganization() {
-        return organization;
-    }
-
-    public void setOrganization(String organization) {
-        this.organization = organization;
     }
 
     public String getUseWhiteList() {

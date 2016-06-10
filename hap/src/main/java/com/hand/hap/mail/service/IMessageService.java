@@ -8,9 +8,9 @@ import java.util.Map;
 
 import com.hand.hap.core.IRequest;
 import com.hand.hap.core.ProxySelf;
+import com.hand.hap.mail.PriorityLevelEnum;
 import com.hand.hap.mail.dto.Message;
 import com.hand.hap.mail.dto.MessageReceiver;
-import com.hand.hap.mail.PriorityLevelEnum;
 
 /**
  * 消息服务,email/sms增删查改.
@@ -42,12 +42,6 @@ public interface IMessageService extends ProxySelf<IMessageService> {
             List<Long> attachmentIds, List<MessageReceiver> receivers) throws Exception;
 
     Message addEmailMessage(Long userId, String accountCode, String subject, String content, PriorityLevelEnum priority,
-            List<Long> attachmentIds, List<MessageReceiver> receivers) throws Exception;
-
-    Message addEmailMessage(Long userId, Long marketId, String templateCode, Map<String, Object> data,
-            List<Long> attachmentIds, List<MessageReceiver> receivers) throws Exception;
-
-    Message addEmailMessage(Long userId, Long marketId, String subject, String content, PriorityLevelEnum priority,
             List<Long> attachmentIds, List<MessageReceiver> receivers) throws Exception;
 
     Message addSiteMessage(Long userId, String templateCode, Map<String, Object> data, List<MessageReceiver> receivers)

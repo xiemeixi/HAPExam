@@ -12,19 +12,6 @@ import java.util.Map;
 
 import javax.mail.internet.MimeMessage;
 
-import com.hand.hap.mail.dto.MessageAddress;
-import com.hand.hap.mail.dto.MessageAttachment;
-import com.hand.hap.mail.dto.MessageEmailWhiteList;
-import com.hand.hap.mail.dto.MessageTransaction;
-import com.hand.hap.job.SendMessageJob;
-import com.hand.hap.mail.EmailStatusEnum;
-import com.hand.hap.mail.EnvironmentEnum;
-import com.hand.hap.mail.MailSender;
-import com.hand.hap.mail.mapper.MessageMapper;
-import com.hand.hap.mail.mapper.MessageReceiverMapper;
-import com.hand.hap.mail.mapper.MessageTransactionMapper;
-import com.hand.hap.security.service.IAESClientService;
-import com.hand.hap.mail.service.IEmailService;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -41,17 +28,30 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.hand.hap.attachment.dto.SysFile;
+import com.hand.hap.attachment.service.ISysFileService;
+import com.hand.hap.job.SendMessageJob;
+import com.hand.hap.mail.EmailStatusEnum;
+import com.hand.hap.mail.EnvironmentEnum;
+import com.hand.hap.mail.MailSender;
+import com.hand.hap.mail.ReceiverTypeEnum;
 import com.hand.hap.mail.dto.Message;
+import com.hand.hap.mail.dto.MessageAddress;
+import com.hand.hap.mail.dto.MessageAttachment;
 import com.hand.hap.mail.dto.MessageEmailAccount;
 import com.hand.hap.mail.dto.MessageEmailAccountVo;
 import com.hand.hap.mail.dto.MessageEmailConfig;
+import com.hand.hap.mail.dto.MessageEmailWhiteList;
 import com.hand.hap.mail.dto.MessageReceiver;
-import com.hand.hap.mail.ReceiverTypeEnum;
+import com.hand.hap.mail.dto.MessageTransaction;
 import com.hand.hap.mail.mapper.MessageAttachmentMapper;
 import com.hand.hap.mail.mapper.MessageEmailAccountMapper;
 import com.hand.hap.mail.mapper.MessageEmailConfigMapper;
 import com.hand.hap.mail.mapper.MessageEmailWhiteListMapper;
-import com.hand.hap.attachment.service.ISysFileService;
+import com.hand.hap.mail.mapper.MessageMapper;
+import com.hand.hap.mail.mapper.MessageReceiverMapper;
+import com.hand.hap.mail.mapper.MessageTransactionMapper;
+import com.hand.hap.mail.service.IEmailService;
+import com.hand.hap.security.service.IAESClientService;
 
 /**
  * @author Clerifen Li
@@ -150,14 +150,7 @@ public class EmailServiceImpl implements IEmailService, BeanFactoryAware {
                         error(currentMessage, "email account is no more exists:" + messageFrom);
                         continue;
                     }
-                    MessageEmailAccountVo account = null;
-                    for (MessageEmailAccountVo messageEmailAccount : selectMessageEmailAccounts) {
-                        if (iMarket.equals("I" + messageEmailAccount.getMarketId())) {
-                            account = messageEmailAccount;
-                            break;
-                        }
-                    }
-                    MessageEmailAccountVo mailAccount = account;
+                    MessageEmailAccountVo mailAccount = selectMessageEmailAccounts.get(0);
 
                     // email账号被删除的情况
                     if (mailAccount == null) {
@@ -175,7 +168,9 @@ public class EmailServiceImpl implements IEmailService, BeanFactoryAware {
                     mailSender.setUsername(config.getUserName());
                     // 是否需要密码
                     if (config.getPassword() != null) {
-                        mailSender.setPassword(aceClientService.decrypt(config.getPassword()));
+                        mailSender.setPassword(config.getPassword());
+                        // FIXME 不再加密密码
+                        //mailSender.setPassword(aceClientService.decrypt(config.getPassword()));
                     }
 
                     // 白名单
@@ -355,7 +350,7 @@ public class EmailServiceImpl implements IEmailService, BeanFactoryAware {
         if (message != null) {
             messageMapper.updateByPrimaryKeySelective(message);
         }
-        transactionMapper.insert(obj);
+        transactionMapper.insertSelective(obj);
     }
 
     @Override

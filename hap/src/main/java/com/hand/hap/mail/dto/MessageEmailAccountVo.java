@@ -23,13 +23,7 @@ public class MessageEmailAccountVo extends BaseDTO {
 
     private String password;
 
-    private Long marketId;
-
-    private String marketName;
-    
     private String description;
-
-    private String organization;
 
     public Long getAccountId() {
         return accountId;
@@ -69,42 +63,6 @@ public class MessageEmailAccountVo extends BaseDTO {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Long getMarketId() {
-        return marketId;
-    }
-
-    public void setMarketId(Long marketId) {
-        this.marketId = marketId;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getOrganization() {
-        return organization;
-    }
-
-    public void setOrganization(String organization) {
-        this.organization = organization;
-    }
-
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
-
-    public String getMarketName() {
-        return marketName;
-    }
-
-    public void setMarketName(String marketName) {
-        this.marketName = marketName;
     }
 
 }

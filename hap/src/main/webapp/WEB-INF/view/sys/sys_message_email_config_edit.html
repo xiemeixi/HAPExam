@@ -115,25 +115,15 @@
         mainform.attr("action", "${base.contextPath}/sys/code/submit");
         emailAccountGrid = $("#emailAccountGrid").ligerGrid({
             columns : [
-            	/* {display:'<@spring.message "messageaccount.accountCode"/>', name:"accountCode", align:"left", width:130,
+	            {display:'<@spring.message "messageaccount.accountCode"/>', name:"accountCode", align:"left", width:130,
                     editor : {
                         type : 'text'
                     },
                     validate : {
                         required : true
                     }
-            	} */
-            	{
-                    display: '<@spring.message "messageaccount.accountCode"/>',
-                    name: "accountCode", align:"left", width:130,
-                    valueField: 'value', textField: 'value',
-                    editor: $.extend(
-                    	${lovService.getLov(base.contextPath,base.locale, "lov_eml_account_code")},null
-                	),
-                    validate: {
-                        required: true
-                    }
-                },{display:'<@spring.message "messageaccount.userName"/>', name:"userName", align:"left", width:180,
+            	} ,
+	            {display:'<@spring.message "messageaccount.userName"/>', name:"userName", align:"left", width:180,
                     editor : {
                         type : 'text'
                     },
@@ -167,7 +157,7 @@
             toolbar : {
                 items : [{
                     text : '<@spring.message "messageaccount.account"/>',
-                    disable : true,
+                    disable : true
                 }, {
                     text : '<@spring.message "hap.new"/>',
                     disable : false,

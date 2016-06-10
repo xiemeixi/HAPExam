@@ -3,11 +3,8 @@
  */
 package com.hand.hap.mail.service.impl;
 
-import java.math.BigDecimal;
 import java.util.List;
 
-import com.hand.hap.core.exception.EmailException;
-import com.hand.hap.mail.mapper.MessageTemplateMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -15,7 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.hand.hap.core.IRequest;
+import com.hand.hap.core.exception.EmailException;
 import com.hand.hap.mail.dto.MessageTemplate;
+import com.hand.hap.mail.mapper.MessageTemplateMapper;
 import com.hand.hap.mail.service.IMessageTemplateService;
 
 /**
@@ -63,7 +62,7 @@ public class MessageTemplateServiceImpl implements IMessageTemplateService {
         if (objId == null) {
             return null;
         }
-        return templateMapper.selectByPrimaryKey(new BigDecimal(objId));
+        return templateMapper.selectByPrimaryKey(objId);
     }
 
     @Override
@@ -99,7 +98,7 @@ public class MessageTemplateServiceImpl implements IMessageTemplateService {
     }
     
     private boolean validMsgTem(IRequest request, MessageTemplate obj){
-        MessageTemplate mt = templateMapper.getMsgTemByCodeAndMarketId(obj.getTemplateId(), obj.getTemplateCode(), obj.getMarketId());
+        MessageTemplate mt = templateMapper.getMsgTemByCode(obj.getTemplateId(), obj.getTemplateCode());
         if (mt != null) {
             return false;
         }

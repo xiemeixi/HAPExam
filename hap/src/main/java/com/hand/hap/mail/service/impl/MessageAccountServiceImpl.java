@@ -6,8 +6,6 @@ package com.hand.hap.mail.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.hand.hap.mail.dto.MessageAccount;
-import com.hand.hap.security.service.IAESClientService;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.hand.hap.core.IRequest;
+import com.hand.hap.mail.dto.MessageAccount;
 import com.hand.hap.mail.mapper.MessageAccountMapper;
 import com.hand.hap.mail.service.IMessageAccountService;
+import com.hand.hap.security.service.IAESClientService;
 
 /**
  * 消息模板impl.
@@ -54,7 +54,7 @@ public class MessageAccountServiceImpl implements IMessageAccountService, BeanFa
         // aes加密
 //        AESEncryptors encryptor = (AESEncryptors) beanFactory.getBean("aesEncryptor");
         obj.setPassword(aceClientService.encrypt(obj.getPassword()));
-        accountMapper.insert(obj);
+        accountMapper.insertSelective(obj);
         return obj;
     }
 
@@ -97,7 +97,7 @@ public class MessageAccountServiceImpl implements IMessageAccountService, BeanFa
         if (obj.getAccountId() == null) {
             return 0;
         }
-        return accountMapper.deleteByPrimaryKey(obj.getAccountId());
+        return accountMapper.deleteByPrimaryKey(obj);
     }
 
     @Override
@@ -119,7 +119,7 @@ public class MessageAccountServiceImpl implements IMessageAccountService, BeanFa
     public List<MessageAccount> selectMessageAccounts(IRequest request, MessageAccount example, int page,
             int pageSize) {
         PageHelper.startPage(page, pageSize);
-        List<MessageAccount> list = accountMapper.selectMessageAccounts(example);
+        List<MessageAccount> list = accountMapper.select(example);
         return list;
     }
 

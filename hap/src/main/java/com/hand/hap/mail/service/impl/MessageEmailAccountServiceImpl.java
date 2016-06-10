@@ -5,7 +5,6 @@ package com.hand.hap.mail.service.impl;
 
 import java.util.List;
 
-import com.hand.hap.security.service.IAESClientService;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +18,7 @@ import com.hand.hap.mail.dto.MessageEmailAccount;
 import com.hand.hap.mail.dto.MessageEmailAccountVo;
 import com.hand.hap.mail.mapper.MessageEmailAccountMapper;
 import com.hand.hap.mail.service.IMessageEmailAccountService;
+import com.hand.hap.security.service.IAESClientService;
 
 /**
  * 邮箱账号impl.
@@ -97,7 +97,7 @@ public class MessageEmailAccountServiceImpl implements IMessageEmailAccountServi
         if (obj.getAccountId() == null) {
             return 0;
         }
-        return mapper.deleteByPrimaryKey(obj.getAccountId());
+        return mapper.deleteByPrimaryKey(obj);
     }
 
     @Override

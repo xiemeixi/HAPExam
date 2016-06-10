@@ -4,7 +4,6 @@
 
 package com.hand.hap.mail.mapper;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -12,13 +11,13 @@ import org.apache.ibatis.annotations.Param;
 import com.hand.hap.mail.dto.MessageTemplate;
 
 public interface MessageTemplateMapper {
-    int deleteByPrimaryKey(BigDecimal templateId);
+    int deleteByPrimaryKey(Long templateId);
 
     int insert(MessageTemplate record);
 
     int insertSelective(MessageTemplate record);
 
-    MessageTemplate selectByPrimaryKey(BigDecimal templateId);
+    MessageTemplate selectByPrimaryKey(Long templateId);
     
     MessageTemplate selectByCode(String templateCode);
 
@@ -30,6 +29,6 @@ public interface MessageTemplateMapper {
 
     int updateByPrimaryKey(MessageTemplate record);
     
-    MessageTemplate getMsgTemByCodeAndMarketId(@Param("templateId") BigDecimal templateId, 
-            @Param("templateCode") String templateCode, @Param("marketId") Long marketId);
+    MessageTemplate getMsgTemByCode(@Param("templateId") Long templateId,
+                                    @Param("templateCode") String templateCode);
 }

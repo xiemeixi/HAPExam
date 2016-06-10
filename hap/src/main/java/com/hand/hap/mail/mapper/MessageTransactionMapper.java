@@ -5,26 +5,14 @@
 package com.hand.hap.mail.mapper;
 
 import com.hand.hap.mail.dto.MessageTransaction;
+import com.hand.hap.mybatis.common.Mapper;
 
 /**
  * @author chuangsheng.zhang
  */
-public interface MessageTransactionMapper {
-    int deleteByPrimaryKey(Long transactionId);
+public interface MessageTransactionMapper extends Mapper<MessageTransaction> {
 
     int deleteByMessageId(Long messageId);
-    
-    int insert(MessageTransaction record);
 
-    int insertSelective(MessageTransaction record);
-
-    MessageTransaction selectByPrimaryKey(Long transactionId);
-
-    int updateByPrimaryKeySelective(MessageTransaction record);
-
-    int updateByPrimaryKeyWithBLOBs(MessageTransaction record);
-
-    int updateByPrimaryKey(MessageTransaction record);
-    
     long selectSuccessCountByMessageId(Long messageId);
 }

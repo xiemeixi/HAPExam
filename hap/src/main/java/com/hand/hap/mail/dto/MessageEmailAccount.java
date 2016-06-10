@@ -3,31 +3,35 @@
  */
 package com.hand.hap.mail.dto;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.hand.hap.system.dto.BaseDTO;
 
 /**
  * 邮箱账号 vo
+ * 
  * @author Clerifen Li
  */
+@Table(name = "SYS_MESSAGE_EMAIL_ACCOUNT")
 public class MessageEmailAccount extends BaseDTO {
-   
+
     private static final long serialVersionUID = 9164922042055278043L;
 
+    @Id
+    @GeneratedValue(generator = GENERATOR_TYPE)
     private Long accountId;
 
     private Long configId;
-    
+
     private String accountCode;
 
     private String userName;
 
     private String password;
 
-    private Long marketId;
-
     private String description;
-
-    private String organization;
 
     public Long getAccountId() {
         return accountId;
@@ -69,32 +73,12 @@ public class MessageEmailAccount extends BaseDTO {
         this.password = password;
     }
 
-    public Long getMarketId() {
-        return marketId;
-    }
-
-    public void setMarketId(Long marketId) {
-        this.marketId = marketId;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getOrganization() {
-        return organization;
-    }
-
-    public void setOrganization(String organization) {
-        this.organization = organization;
-    }
-
-    public static long getSerialversionuid() {
-        return serialVersionUID;
     }
 
 }

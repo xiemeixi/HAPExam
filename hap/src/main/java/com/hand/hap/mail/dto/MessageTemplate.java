@@ -3,14 +3,12 @@
  */
 package com.hand.hap.mail.dto;
 
-import java.math.BigDecimal;
-
 import com.hand.hap.system.dto.BaseDTO;
 
 public class MessageTemplate extends BaseDTO {
-    private BigDecimal templateId;
+    private Long templateId;
 
-    private BigDecimal accountId;
+    private Long accountId;
 
     private String templateCode;
 
@@ -24,25 +22,21 @@ public class MessageTemplate extends BaseDTO {
 
     private String content;
     
-    private Long marketId;
-    
-    private String marketName;
-    
     private String meaning;
 
-    public BigDecimal getTemplateId() {
+    public Long getTemplateId() {
         return templateId;
     }
 
-    public void setTemplateId(BigDecimal templateId) {
+    public void setTemplateId(Long templateId) {
         this.templateId = templateId;
     }
 
-    public BigDecimal getAccountId() {
+    public Long getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(BigDecimal accountId) {
+    public void setAccountId(Long accountId) {
         this.accountId = accountId;
     }
 
@@ -92,23 +86,6 @@ public class MessageTemplate extends BaseDTO {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
-    }
-
-    
-    public Long getMarketId() {
-        return marketId;
-    }
-
-    public void setMarketId(Long marketId) {
-        this.marketId = marketId;
-    }
-
-    public String getMarketName() {
-        return marketName;
-    }
-
-    public void setMarketName(String marketName) {
-        this.marketName = marketName == null ? null : marketName.trim();
     }
 
     public String getMeaning() {

@@ -7,16 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.hand.hap.core.IRequest;
-import com.hand.hap.mail.dto.MessageEmailAccount;
-import com.hand.hap.mail.dto.MessageEmailConfig;
-import com.hand.hap.mail.dto.MessageEmailWhiteList;
-import com.hand.hap.core.exception.EmailException;
-import com.hand.hap.mail.mapper.MessageEmailAccountMapper;
-import com.hand.hap.mail.mapper.MessageEmailConfigMapper;
-import com.hand.hap.security.service.IAESClientService;
-import com.hand.hap.mail.service.IMessageEmailConfigService;
-
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +15,16 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
+import com.hand.hap.core.IRequest;
+import com.hand.hap.core.exception.EmailException;
+import com.hand.hap.mail.dto.MessageEmailAccount;
+import com.hand.hap.mail.dto.MessageEmailConfig;
+import com.hand.hap.mail.dto.MessageEmailWhiteList;
+import com.hand.hap.mail.mapper.MessageEmailAccountMapper;
+import com.hand.hap.mail.mapper.MessageEmailConfigMapper;
 import com.hand.hap.mail.mapper.MessageEmailWhiteListMapper;
+import com.hand.hap.mail.service.IMessageEmailConfigService;
+import com.hand.hap.security.service.IAESClientService;
 
 /**
  * 邮箱配置impl.
@@ -113,7 +112,7 @@ public class MessageEmailConfigServiceImpl implements IMessageEmailConfigService
         int count = 0;
         count += accountMapper.deleteByConfigId(obj.getConfigId());
         count += addressMapper.deleteByConfigId(obj.getConfigId());
-        count += mapper.deleteByPrimaryKey(obj.getConfigId());
+        count += mapper.deleteByPrimaryKey(obj);
         return count;
     }
 
@@ -261,8 +260,8 @@ public class MessageEmailConfigServiceImpl implements IMessageEmailConfigService
     }
     
     private boolean validEmailAccount(IRequest request, MessageEmailAccount obj) {
-        MessageEmailAccount acc = accountMapper.getMsgEmailAccountByCodeAndMarketId(obj.getAccountId(), 
-                obj.getAccountCode(), obj.getMarketId());
+        MessageEmailAccount acc = accountMapper.getMsgEmailAccountByCode(obj.getAccountId(),
+                obj.getAccountCode());
         if (acc == null) {
             return true;
         }

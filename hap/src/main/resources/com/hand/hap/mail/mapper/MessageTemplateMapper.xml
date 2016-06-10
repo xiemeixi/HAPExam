@@ -117,7 +117,7 @@
     from SYS_MESSAGE_TEMPLATE
     where TEMPLATE_CODE = #{templateCode,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from SYS_MESSAGE_TEMPLATE
     where TEMPLATE_ID = #{templateId,jdbcType=DECIMAL}
   </delete>
@@ -520,19 +520,13 @@
       MARKET_ID = #{marketId,jdbcType=DECIMAL}
     where TEMPLATE_ID = #{templateId,jdbcType=DECIMAL}
   </update>
-  <select id="getMsgTemByCodeAndMarketId" resultMap="BaseResultMap">
+  <select id="getMsgTemByCode" resultMap="BaseResultMap">
 		select 
 		<include refid="Base_Column_List" />
 		FROM SYS_MESSAGE_TEMPLATE tem
 		<where>
 			<if test="templateCode != null">
 				tem.TEMPLATE_CODE = #{templateCode,jdbcType=VARCHAR}
-			</if>
-			<if test="marketId == null">
-				AND tem.MARKET_ID is null
-			</if>
-			<if test="marketId != null">
-				AND tem.MARKET_ID = #{marketId,jdbcType=DECIMAL}
 			</if>
 			<if test="templateId != null">
 				AND tem.TEMPLATE_ID != #{templateId, jdbcType=DECIMAL}

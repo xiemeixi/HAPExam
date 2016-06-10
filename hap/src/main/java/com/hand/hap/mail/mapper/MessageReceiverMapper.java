@@ -7,29 +7,18 @@ package com.hand.hap.mail.mapper;
 import java.util.List;
 
 import com.hand.hap.mail.dto.MessageReceiver;
+import com.hand.hap.mybatis.common.Mapper;
 
 /**
  * @author chuangsheng.zhang
  * @author xiawang.liu@hand-china.com
  */
-public interface MessageReceiverMapper {
-    int deleteByPrimaryKey(Long receiverId);
+public interface MessageReceiverMapper extends Mapper<MessageReceiver> {
 
     int deleteByMessageId(Long messageId);
 
-    int insert(MessageReceiver record);
-
-    int insertSelective(MessageReceiver record);
-
-    MessageReceiver selectByPrimaryKey(Long receiverId);
-
-    int updateByPrimaryKeySelective(MessageReceiver record);
-
-    int updateByPrimaryKey(MessageReceiver record);
-
     List<MessageReceiver> selectByMessageId(Long messageId);
-    
-    
+
     /*
      * 根据MessageId查询消息地址
      */

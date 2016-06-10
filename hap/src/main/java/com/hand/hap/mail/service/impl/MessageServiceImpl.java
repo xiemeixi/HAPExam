@@ -8,6 +8,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.github.pagehelper.PageHelper;
 import com.hand.hap.core.IRequest;
 import com.hand.hap.core.exception.EmailException;
 import com.hand.hap.mail.MessageTypeEnum;
@@ -29,11 +34,6 @@ import com.hand.hap.mail.mapper.MessageTransactionMapper;
 import com.hand.hap.mail.service.IMessageService;
 import com.hand.hap.system.dto.BaseDTO;
 import com.hand.hap.system.service.IProfileService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.github.pagehelper.PageHelper;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -167,7 +167,7 @@ public class MessageServiceImpl implements IMessageService {
     @Override
     public List<Message> selectMessages(Message message, int page, int pagesize) throws Exception {
         PageHelper.startPage(page, pagesize);
-        return messageMapper.selectMessages(message);
+        return messageMapper.select(message);
     }
 
     @Override
@@ -176,7 +176,7 @@ public class MessageServiceImpl implements IMessageService {
         transactionMapper.deleteByMessageId(message.getMessageId());
         attachmentMapper.deleteByMessageId(message.getMessageId());
         receiverMapper.deleteByMessageId(message.getMessageId());
-        return messageMapper.deleteByPrimaryKey(message.getMessageId());
+        return messageMapper.deleteByPrimaryKey(message);
     }
 
     @Override
@@ -186,7 +186,7 @@ public class MessageServiceImpl implements IMessageService {
             transactionMapper.deleteByMessageId(message.getMessageId());
             attachmentMapper.deleteByMessageId(message.getMessageId());
             receiverMapper.deleteByMessageId(message.getMessageId());
-            messageMapper.deleteByPrimaryKey(message.getMessageId());
+            messageMapper.deleteByPrimaryKey(message);
         }
     }
 
@@ -310,104 +310,6 @@ public class MessageServiceImpl implements IMessageService {
         return message;
     }
 
-    @Deprecated
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Message addEmailMessage(Long userId, Long marketId, String templateCode, Map<String, Object> data,
-            List<Long> attachmentIds, List<MessageReceiver> receivers) throws Exception {
-        if (receivers == null || receivers.size() == 0) {
-            // 没有设置收件人,报错
-            throw new EmailException(MSG_NO_MESSAGE_RECEIVER);
-        }
-        MessageTemplate template = templateMapper.selectByCode(templateCode);
-        if (template == null) {
-            // 没有该模板
-            throw new EmailException(MSG_NO_MESSAGE_TEMPLATE);
-        }
-        if (template.getPriorityLevel() == null) {
-            // 没有设置优先级
-            throw new EmailException(MSG_MESSAGE_PRIORITY_EMPTY);
-        }
-
-        Date now = new Date();
-        MessageEmailAccount account = emailAccountMapper.selectByMarketId(marketId);
-        Message message = new Message();
-        message.setMessageType(MessageTypeEnum.EMAIL.getCode());
-        message.setPriorityLevel(template.getPriorityLevel());
-        message.setSubject(translateData(template.getSubject(), data));
-        message.setContent(translateData(template.getContent(), data));
-        message.setSendFlag("N");
-        message.setMessageFrom(account.getAccountCode());
-        initStd(message, userId, now);
-
-        messageMapper.insert(message);
-        // 附件
-        if (attachmentIds != null && attachmentIds.size() > 0) {
-            for (Long current : attachmentIds) {
-                MessageAttachment attachment = new MessageAttachment();
-                attachment.setAttachmentId(current);
-                attachment.setMessageId(message.getMessageId());
-                initStd(attachment, userId, now);
-
-                attachmentMapper.insert(attachment);
-            }
-        }
-        // 收件人(抄送/接收人)
-        for (MessageReceiver current : receivers) {
-            current.setMessageId(message.getMessageId());
-            initStd(current, userId, now);
-
-            receiverMapper.insert(current);
-        }
-        return message;
-    }
-
-    @Deprecated
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Message addEmailMessage(Long userId, Long marketId, String subject, String content,
-            PriorityLevelEnum priority, List<Long> attachmentIds, List<MessageReceiver> receivers) throws Exception {
-        if (receivers == null || receivers.size() == 0) {
-            // 没有设置收件人,报错
-            throw new EmailException(MSG_NO_MESSAGE_RECEIVER);
-        }
-        if (priority == null) {
-            // 没有设置优先级
-            throw new EmailException(MSG_MESSAGE_PRIORITY_EMPTY);
-        }
-
-        Date now = new Date();
-        MessageEmailAccount account = emailAccountMapper.selectByMarketId(marketId);
-        Message message = new Message();
-        message.setMessageType(MessageTypeEnum.EMAIL.getCode());
-        message.setPriorityLevel(priority.getCode());
-        message.setSubject(subject);
-        message.setContent(content);
-        message.setSendFlag("N");
-        message.setMessageFrom(account.getAccountCode());
-        initStd(message, userId, now);
-
-        messageMapper.insert(message);
-        // 附件
-        if (attachmentIds != null && attachmentIds.size() > 0) {
-            for (Long current : attachmentIds) {
-                MessageAttachment attachment = new MessageAttachment();
-                attachment.setAttachmentId(current);
-                attachment.setMessageId(message.getMessageId());
-                initStd(attachment, userId, now);
-
-                attachmentMapper.insert(attachment);
-            }
-        }
-        // 收件人(抄送/接收人)
-        for (MessageReceiver current : receivers) {
-            current.setMessageId(message.getMessageId());
-            initStd(current, userId, now);
-
-            receiverMapper.insert(current);
-        }
-        return message;
-    }
 
     @Deprecated
     @Override
@@ -498,18 +400,7 @@ public class MessageServiceImpl implements IMessageService {
             // 没有该模板
             throw new EmailException(MessageServiceImpl.MSG_NO_MESSAGE_TEMPLATE);
         }
-        MessageTemplate template = null;
-        for (MessageTemplate messageTemplate : selectMessageTemplates) {
-
-            if (marketId == null && messageTemplate.getMarketId() == null) {
-                template = messageTemplate;
-                break;
-            }
-            if (marketId != null && marketId.equals(messageTemplate.getMarketId())) {
-                template = messageTemplate;
-                break;
-            }
-        }
+        MessageTemplate template = selectMessageTemplates.get(0);
 
         if (template == null) {
             throw new EmailException(MessageServiceImpl.MSG_NO_MESSAGE_TEMPLATE);
@@ -580,17 +471,7 @@ public class MessageServiceImpl implements IMessageService {
             // 没有设置email Account
             throw new EmailException("msg.warning.system.sms_message.email_account.empty");
         }
-        MessageEmailAccountVo account = null;
-        for (MessageEmailAccountVo messageEmailAccount : selectMessageEmailAccounts) {
-            if (marketId == null && messageEmailAccount.getMarketId() == null) {
-                account = messageEmailAccount;
-                break;
-            }
-            if (marketId != null && marketId.equals(messageEmailAccount.getMarketId())) {
-                account = messageEmailAccount;
-                break;
-            }
-        }
+        MessageEmailAccountVo account = selectMessageEmailAccounts.get(0);
         if (account == null) {
             // 没有设置email Account
             throw new EmailException("msg.warning.system.sms_message.email_account.empty");
