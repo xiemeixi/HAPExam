@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hand.hap.core.IRequest;
 import com.hand.hap.system.dto.SysPreferences;
 import com.hand.hap.system.service.ISysPreferencesService;
+
 /**
  * 系统首选项service.
  * 
@@ -28,55 +29,55 @@ public class SysPreferencesServiceImpl implements ISysPreferencesService {
 
     @Autowired
     private SysPreferencesMapper sysPreferencesMapper;
+
     /**
      * 保存首选项.
      * 
      * @param requestContext
-     *          系统上下文
+     *            系统上下文
      * @param preferences
-     *          首选项信息集合
-     * @return List<SysPreferences>
-     *          返回保存结果
+     *            首选项信息集合
+     * @return List<SysPreferences> 返回保存结果
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public List<SysPreferences> saveSysPreferences(IRequest requestContext, List<SysPreferences> preferences) {
-        if(preferences.isEmpty()){
+        if (preferences.isEmpty()) {
             if (logger.isDebugEnabled()) {
                 logger.debug("sysPreferences is null");
             }
         }
-        for(SysPreferences sysPreferences:preferences){
-          //判断该首选项信息是否存在，存在更新，否则新增
-            if(self().querySysPreferencesLine(requestContext, sysPreferences)==null){
+        for (SysPreferences sysPreferences : preferences) {
+            // 判断该首选项信息是否存在，存在更新，否则新增
+            if (self().querySysPreferencesLine(requestContext, sysPreferences) == null) {
                 sysPreferencesMapper.insertSelective(sysPreferences);
-            }else{
+            } else {
                 sysPreferencesMapper.updatePreferLine(sysPreferences);
             }
-            
+
         }
         return preferences;
     }
-    
+
     /**
      * 查询首选项.
      * 
-     * @param request
-     * @param sysPreferences
-     *          根据SysPreferences.accountId;SysPreferences.preferencesLevel查询条件
-     *          查询当前首选项
+     * @param requestContext
+     * @param preferences
+     *            根据SysPreferences.accountId;SysPreferences.preferencesLevel查询条件
+     *            查询当前首选项
      * @return
      */
     @Override
     public List<SysPreferences> querySysPreferences(IRequest requestContext, SysPreferences preferences) {
-        return sysPreferencesMapper.selectPreferences(preferences);
+        return sysPreferencesMapper.select(preferences);
     }
 
     /**
      * 查询当前用户首选项集合
      * 
-     * @param request
-     * @param sysPreferences
+     * @param requestContext
+     * @param preferences
      *            根据SysPreferences.accountId;SysPreferences.preferencesLevel查询条件
      *            查询当前首选项
      * @return
@@ -85,7 +86,5 @@ public class SysPreferencesServiceImpl implements ISysPreferencesService {
     public SysPreferences querySysPreferencesLine(IRequest requestContext, SysPreferences preferences) {
         return sysPreferencesMapper.selectPreferLine(preferences);
     }
-    
-    
 
 }

@@ -23,10 +23,10 @@
 </style>
 <body style="padding: 10px;">
 <script
-        src="${base.contextPath}/common/code?timeZone=SPM.TIME_ZONE&dateFormat=SYS.DATE_FORMAT&timeFormat=SYS.TIME_FORMAT&weekStartDate=SYS.WEEK_START_DATE"
+        src="${base.contextPath}/common/code?timeZone=SYS.TIME_ZONE&weekStartDate=SYS.WEEK_START_DATE"
         type="text/javascript"></script>
 <div id="form_title">
-    <p><@spring.message "sys.hand.btn.preferences"/></p>
+    <p><@spring.message "hap.preferences"/></p>
 </div>
 <div id="form_f1">
     <form id="preference_form" autocomplete="off"></form>
@@ -35,7 +35,7 @@
     function init() {
         var SysPreferences = {};
         SysPreferences.preferencesLevel = 10;
-        SysPreferences.accountId =${Session.userId};
+        SysPreferences.userId =${Session.userId};
         $.ajax({
             type       : "POST",
             url        : "${base.contextPath}/sys/preferences/queryPreferences",
@@ -70,7 +70,7 @@
                 preferences     : k,
                 preferencesValue: v,
                 preferencesLevel: sysLevel,
-                accountId       :${Session.userId}
+                userId       :${Session.userId}
             });
         });
 

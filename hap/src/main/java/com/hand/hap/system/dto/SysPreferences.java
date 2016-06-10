@@ -3,6 +3,8 @@
  */
 package com.hand.hap.system.dto;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -17,6 +19,8 @@ import com.hand.hap.system.dto.BaseDTO;
 public class SysPreferences extends BaseDTO {
 
     private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(generator = GENERATOR_TYPE)
     private Long preferencesId;
 
     @NotNull
