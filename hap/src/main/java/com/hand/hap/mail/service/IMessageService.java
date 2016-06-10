@@ -50,18 +50,6 @@ public interface IMessageService extends ProxySelf<IMessageService> {
     Message addEmailMessage(Long userId, Long marketId, String subject, String content, PriorityLevelEnum priority,
             List<Long> attachmentIds, List<MessageReceiver> receivers) throws Exception;
 
-    Message addSmsMessage(Long userId, String accountCode, String templateCode, Map<String, Object> data,
-            List<MessageReceiver> receivers) throws Exception;
-
-    Message addSmsMessage(Long userId, String accountCode, String subject, String content, PriorityLevelEnum priority,
-            List<MessageReceiver> receivers) throws Exception;
-
-    Message addSmsMessage(Long userId, Long marketId, String templateCode, Map<String, Object> data,
-            List<MessageReceiver> receivers) throws Exception;
-
-    Message addSmsMessage(Long userId, Long marketId, String subject, String content, PriorityLevelEnum priority,
-            List<MessageReceiver> receivers) throws Exception;
-
     Message addSiteMessage(Long userId, String templateCode, Map<String, Object> data, List<MessageReceiver> receivers)
             throws Exception;
 
@@ -156,27 +144,6 @@ public interface IMessageService extends ProxySelf<IMessageService> {
      *            发送人ID user_id
      * @param marketId
      *            市场ID
-     * @param smsAccountCode
-     *            发送账号编号
-     * @param subject
-     *            标题
-     * @param content
-     *            内容
-     * @param priority
-     *            优先级
-     * @param receivers
-     *            接收者
-     * @return Message
-     * @throws Exception
-     */
-    Message sendSmsMessage(Long sender, Long marketId, String smsAccountCode, String subject, String content,
-            PriorityLevelEnum priority, List<MessageReceiver> receivers) throws Exception;
-
-    /**
-     * @param sender
-     *            发送人ID user_id
-     * @param marketId
-     *            市场ID
      * @param templateCode
      *            模版编号
      * @param emailAccountCode
@@ -192,24 +159,5 @@ public interface IMessageService extends ProxySelf<IMessageService> {
      */
     Message sendEmailMessage(Long sender, Long marketId, String templateCode, String emailAccountCode,
             Map<String, Object> data, List<MessageReceiver> receivers, List<Long> attachmentIds) throws Exception;
-
-    /**
-     * @param sender
-     *            发送人ID user_id
-     * @param marketId
-     *            市场ID
-     * @param templateCode
-     *            模版编号
-     * @param smsAccountCode
-     *            发送账号编号
-     * @param data
-     *            模版数据
-     * @param receivers
-     *            接收者
-     * @return Message
-     * @throws Exception
-     */
-    Message sendSmsMessage(Long sender, Long marketId, String templateCode, String smsAccountCode,
-            Map<String, Object> data, List<MessageReceiver> receivers) throws Exception;
 
 }
