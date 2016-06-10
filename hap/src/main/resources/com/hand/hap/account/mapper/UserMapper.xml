@@ -21,6 +21,11 @@
         USER_ID, USER_NAME,PASSWORD_ENCRYPTED, USER_TYPE, EMAIL, PHONE, START_ACTIVE_DATE,
         END_ACTIVE_DATE, STATUS
     </sql>
+    <update id="updatePassword">
+        update sys_user u
+        set u.password_encrypted = #{password,jdbcType=VARCHAR}
+        where u.user_id = #{userId,jdbcType=DECIMAL}
+    </update>
 
     <select id="selectByUserName" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
