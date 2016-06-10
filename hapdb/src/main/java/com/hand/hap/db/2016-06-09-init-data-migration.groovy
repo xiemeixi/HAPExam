@@ -5,14 +5,14 @@ dbType = MigrationHelper.getInstance().dbType()
 databaseChangeLog(logicalFilePath:"2016-06-09-init-data-migration.groovy"){
 
     changeSet(author: "hailor", id: "20160609-hailor-data-1") {
-        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_code_b.sql"), encoding: "UTF-8")
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_code.sql"), encoding: "UTF-8")
     }
 
     changeSet(author: "hailor", id: "20160609-hailor-data-2") {
-        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_code_value_b.sql"), encoding: "UTF-8")
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_code_value.sql"), encoding: "UTF-8")
     }
     changeSet(author: "hailor", id: "20160609-hailor-data-3") {
-        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_function_b.sql"), encoding: "UTF-8")
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_function.sql"), encoding: "UTF-8")
     }
     changeSet(author: "hailor", id: "20160609-hailor-data-4") {
         sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_function_resource.sql"), encoding: "UTF-8")
@@ -21,7 +21,7 @@ databaseChangeLog(logicalFilePath:"2016-06-09-init-data-migration.groovy"){
         sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_job_running_info.sql"), encoding: "UTF-8")
     }
     changeSet(author: "hailor", id: "20160609-hailor-data-6") {
-        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_lang_b.sql"), encoding: "UTF-8")
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_lang.sql"), encoding: "UTF-8")
     }
     changeSet(author: "hailor", id: "20160609-hailor-data-7") {
         sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_lov.sql"), encoding: "UTF-8")
@@ -40,15 +40,15 @@ databaseChangeLog(logicalFilePath:"2016-06-09-init-data-migration.groovy"){
     }
 
     changeSet(author: "hailor", id: "20160609-hailor-data-12") {
-        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_resource_b.sql"), encoding: "UTF-8")
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_resource.sql"), encoding: "UTF-8")
     }
 
     changeSet(author: "hailor", id: "20160609-hailor-data-13") {
-        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_resource_item_b.sql"), encoding: "UTF-8")
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_resource_item.sql"), encoding: "UTF-8")
     }
 
     changeSet(author: "hailor", id: "20160609-hailor-data-14") {
-        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_role_b.sql"), encoding: "UTF-8")
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_role.sql"), encoding: "UTF-8")
     }
 
     changeSet(author: "hailor", id: "20160609-hailor-data-15") {

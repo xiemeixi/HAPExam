@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS SYS_ACCOUNT_RETRIEVE;
+CREATE TABLE `SYS_ACCOUNT_RETRIEVE`(
+  `USER_ID` bigint COMMENT '其他表做外键',
+  `RETRIEVE_TYPE` varchar(30) COMMENT '类型:NAME/PWD',
+  `RETRIEVE_DATE` datetime COMMENT '时间',
+  `OBJECT_VERSION_NUMBER` decimal(20,0) DEFAULT 1 ,
+  `REQUEST_ID` bigint DEFAULT -1 ,
+  `PROGRAM_ID` bigint DEFAULT -1 ,
+  `CREATION_DATE` datetime DEFAULT now() ,
+  `CREATED_BY` decimal(20,0) DEFAULT -1 ,
+  `LAST_UPDATED_BY` decimal(20,0) DEFAULT -1 ,
+  `LAST_UPDATE_DATE` datetime DEFAULT now() ,
+  `LAST_UPDATE_LOGIN` decimal(20,0)
+) COMMENT = '找回帐号密码历史表';
+alter table `SYS_ACCOUNT_RETRIEVE` change `RETRIEVE_TYPE` `RETRIEVE_TYPE` varchar(30) binary;
+
