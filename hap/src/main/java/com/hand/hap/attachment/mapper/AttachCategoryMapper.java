@@ -6,36 +6,14 @@ package com.hand.hap.attachment.mapper;
 import java.util.List;
 
 import com.hand.hap.attachment.dto.AttachCategory;
+import com.hand.hap.mybatis.common.Mapper;
 
 /**
  * Created by xiaohua on 16/2/1.
  * @author hua.xiao@hand-china.com
  */
-public interface AttachCategoryMapper {
+public interface AttachCategoryMapper extends Mapper<AttachCategory> {
 
-    /**
-     * 根据主健查找AttachCategory.
-     * 
-     * @param categoryId AttachCategory主健id
-     * @return AttachCategory AttachCategory对象
-     */
-    AttachCategory selectByPrimaryKey(Long categoryId);
-
-    /**
-     * 返回分类列表.
-     * 
-     * @param category AttachCategory参数
-     * @return List AttachCategory列表
-     */
-    List<AttachCategory> selectCategories(AttachCategory category);
-
-    /**
-     * 插入分类.
-     * 
-     * @param attachCategory  AttachCategory对象
-     * @return int 插入成功条数
-     */
-    int insert(AttachCategory attachCategory);
 
     /**
      * 根据参数查找AttachCategory.
@@ -53,20 +31,12 @@ public interface AttachCategoryMapper {
     List<String> selectAllSourceTypes();
 
     /**
-     * 更新目录分类.
-     * @param attachCategory AttachCategory
-     * @return int 更新成功条数
-     */
-    int  updateAttachCateory(AttachCategory attachCategory);
-    
-    
-    /**
      * 查询父节点目录.
      * 
-     * @param categoryId
+     * @param idList
      * @return List
      */ 
-    List<AttachCategory> selectAllParentCategory(Long categoryId);
+    List<AttachCategory> selectAllParentCategory(List<Long> idList);
     
     
     

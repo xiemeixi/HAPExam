@@ -32,7 +32,7 @@
                 
                 <li>
                 <#if c_has_next>
-                    <a href="${base.contextPath}/sys/sys_attach_category_manage.html?parentCategoryId=${c.categoryId}">${c.categoryName}</a>
+                    <a href="${base.contextPath}/attach/sys_attach_category_manage.html?parentCategoryId=${c.categoryId}">${c.categoryName}</a>
                 <#else>
                     ${c.categoryName}
                 </#if>
@@ -63,7 +63,7 @@
                       dto: 'AttachCategory'
                     } ,
                     render:function(item){
-                        return '<a href="${base.contextPath}/sys/sys_attach_category_manage.html?parentCategoryId='+item.categoryId+'">'+item.categoryName + '</a>';
+                        return '<a href="${base.contextPath}/attach/sys_attach_category_manage.html?parentCategoryId='+item.categoryId+'">'+item.categoryName + '</a>';
                     }
                   }, { 
                     display: '<@spring.message "attachcategory.categorypath"/>',

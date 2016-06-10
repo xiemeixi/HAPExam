@@ -89,6 +89,12 @@ public class AttachCategory extends BaseDTO {
     private String categoryPath;
 
     /**
+     * 层级路径
+     */
+    private String path;
+
+
+    /**
      * 可上传类型,以后缀名结尾.
      */
     @Column
@@ -167,6 +173,14 @@ public class AttachCategory extends BaseDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public String getStatus() {

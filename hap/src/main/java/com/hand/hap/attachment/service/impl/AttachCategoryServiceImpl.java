@@ -3,6 +3,7 @@
  */
 package com.hand.hap.attachment.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.hand.hap.core.BaseConstants;
@@ -27,7 +28,6 @@ import com.hand.hap.core.IRequest;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class AttachCategoryServiceImpl implements IAttachCategoryService {
-    
 
     /**
      * 找不到对应的路径.
@@ -52,9 +52,20 @@ public class AttachCategoryServiceImpl implements IAttachCategoryService {
         AttachCategory parent = categoryMapper.selectByPrimaryKey(category.getParentCategoryId());
         if (parent != null && AttachCategory.LEAF_TRUE.equals(parent.getLeafFlag())) {
             parent.setLeafFlag(AttachCategory.LEAF_FALSE);
-            categoryMapper.updateAttachCateory(parent);
+            categoryMapper.updateByPrimaryKeySelective(parent);
         }
-        categoryMapper.insert(category);
+        categoryMapper.insertSelective(category);
+        category.setPath(String.valueOf(category.getCategoryId()));
+        if (category.getParentCategoryId() != null) {
+            AttachCategory p1 = new AttachCategory();
+            p1.setCategoryId(category.getParentCategoryId());
+            p1 = categoryMapper.selectByPrimaryKey(p1);
+            if (p1 != null) {
+                category.setPath(p1.getPath() + "." + category.getCategoryId());
+            }
+        }
+        // update path
+        categoryMapper.updateByPrimaryKeySelective(category);
         return category;
     }
 
@@ -73,9 +84,7 @@ public class AttachCategoryServiceImpl implements IAttachCategoryService {
     /*
      * 根据sourceType 查找绝对路径 比如：/home/attachment/image/2015/1
      * 
-     * @see
-     * IAttachCategoryService#selectPathByCode(
-     * IRequest, java.lang.String)
+     * @see IAttachCategoryService#selectPathByCode( IRequest, java.lang.String)
      */
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
@@ -93,7 +102,7 @@ public class AttachCategoryServiceImpl implements IAttachCategoryService {
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public List<AttachCategory> selectCategories(AttachCategory category) {
-        return categoryMapper.selectCategories(category);
+        return categoryMapper.select(category);
     }
 
     @Override
@@ -103,7 +112,7 @@ public class AttachCategoryServiceImpl implements IAttachCategoryService {
             if (category.getCategoryId() == null) {
                 self().insert(requestCtx, category);
             } else {
-                categoryMapper.updateAttachCateory(category);
+                categoryMapper.updateByPrimaryKeySelective(category);
             }
         }
         return categories;
@@ -122,7 +131,7 @@ public class AttachCategoryServiceImpl implements IAttachCategoryService {
             return false;
         } else {
             category.setStatus(AttachCategory.STATUS_DELETED);
-            categoryMapper.updateAttachCateory(category);
+            categoryMapper.updateByPrimaryKeySelective(category);
             return true;
         }
     }
@@ -130,7 +139,7 @@ public class AttachCategoryServiceImpl implements IAttachCategoryService {
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public List<AttachCategory> selectCategories(IRequest requestContext, AttachCategory category) {
-        return categoryMapper.selectCategories(category);
+        return categoryMapper.select(category);
     }
 
     @Override
@@ -143,10 +152,26 @@ public class AttachCategoryServiceImpl implements IAttachCategoryService {
         }
         return null;
     }
-    
-    
+
     public List<AttachCategory> selectCategoryBreadcrumbList(IRequest requestContext, Long categoryId) {
-        List<AttachCategory> cates = categoryMapper.selectAllParentCategory(categoryId);
+
+        AttachCategory a1 = new AttachCategory();
+        a1.setCategoryId(categoryId);
+
+        AttachCategory current = categoryMapper.selectByPrimaryKey(a1);
+
+        String path = "";
+        if (current != null) {
+            path = StringUtils.trimToEmpty(current.getPath());
+        }
+        List<Long> idList = new ArrayList<>();
+        idList.add(-1L);
+        String[] paths = StringUtils.split(path, ".");
+        for (int i = 0; i < paths.length - 1; i++) {
+            idList.add(Long.parseLong(paths[i]));
+        }
+
+        List<AttachCategory> cates = categoryMapper.selectAllParentCategory(idList);
         if (cates != null && !cates.isEmpty()) {
             cates.sort((a, b) -> {
                 if (a.getCategoryId().equals(b.getParentCategoryId())) {
