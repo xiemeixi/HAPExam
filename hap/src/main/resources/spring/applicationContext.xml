@@ -64,8 +64,8 @@
         <property name="properties">
             <value>
                 mappers=com.hand.hap.mybatis.common.Mapper
-                ORDER=BEFORE
-                IDENTITY=SEQUENCE
+                ORDER=AFTER
+                IDENTITY=JDBC
                 seqFormat={3}_s.nextVal
             </value>
         </property>

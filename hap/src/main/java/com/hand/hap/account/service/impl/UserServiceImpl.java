@@ -8,6 +8,7 @@ import java.util.List;
 import com.hand.hap.account.dto.User;
 import com.hand.hap.account.exception.UserException;
 import com.hand.hap.account.mapper.UserMapper;
+import com.hand.hap.mybatis.util.StringUtil;
 import com.hand.hap.security.PasswordManager;
 import com.hand.hap.system.service.impl.BaseServiceImpl;
 import org.apache.commons.lang.StringUtils;
@@ -75,6 +76,11 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
             throw new UserException(UserException.MSG_LOGIN_NAME_PASSWORD, UserException.MSG_LOGIN_NAME_PASSWORD, null);
         }
         return user1;
+    }
+
+    @Override
+    public User selectByUserName(String userName) {
+        return userMapper.selectByUserName(StringUtils.upperCase(userName));
     }
 
 }

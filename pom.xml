@@ -2,10 +2,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.hand</groupId>
-    <artifactId>hap</artifactId>
-    <packaging>war</packaging>
+    <artifactId>hap-parent</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>hap</name>
+    <modules>
+        <module>hap</module>
+    </modules>
+    <name>hap parent</name>
     <url>http://maven.apache.org</url>
 
     <!-- 私有仓库 -->
@@ -280,7 +283,6 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>hap</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

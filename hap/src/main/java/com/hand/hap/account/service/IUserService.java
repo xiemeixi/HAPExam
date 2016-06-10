@@ -48,4 +48,6 @@ public interface IUserService extends IBaseService<User>, ProxySelf<IUserService
      */
     User login(User user) throws UserException;
 
+    User selectByUserName(String userName);
+
 }
