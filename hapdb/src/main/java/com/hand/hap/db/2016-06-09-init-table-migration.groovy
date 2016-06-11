@@ -57,7 +57,7 @@ databaseChangeLog(logicalFilePath:"2016-06-09-init-table-migration.groovy"){
     }
 
     changeSet(author: "hailor", id: "20160609-hailor-14") {
-        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/tables/sys_prompt.sql"), encoding: "UTF-8")
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/tables/sys_prompts.sql"), encoding: "UTF-8")
     }
 
     changeSet(author: "hailor", id: "20160609-hailor-15") {
@@ -86,5 +86,17 @@ databaseChangeLog(logicalFilePath:"2016-06-09-init-table-migration.groovy"){
 
     changeSet(author: "hailor", id: "20160609-hailor-21") {
         sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/tables/sys_user_role.sql"), encoding: "UTF-8")
+    }
+
+    changeSet(author: "jessen", id: "20160610-sys-attach-category-1") {
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/tables/sys_attach_category.sql"), encoding: "UTF-8")
+    }
+
+    changeSet(author: "jessen", id: "20160610-sys-attachment-1") {
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/tables/sys_attachment.sql"), encoding: "UTF-8")
+    }
+
+    changeSet(author: "jessen", id: "20160610-sys-file-1") {
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/tables/sys_file.sql"), encoding: "UTF-8")
     }
 }
