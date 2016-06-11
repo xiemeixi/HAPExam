@@ -27,7 +27,7 @@
 
         window.newCronJob = function () {
             window.popWin = $.ligerDialog.open({
-                title : '<@spring.message "type.com.lkkhpg.dsis.platform.job.schedulenewjob"/>',
+                title : '<@spring.message "job.schedulenewjob"/>',
                 width : 720,
                 height: 550,
                 url   : 'job_cron_add.html'
@@ -35,7 +35,7 @@
         };
         window.newSimpleJob = function () {
             window.popWin = $.ligerDialog.open({
-                title : '<@spring.message "type.com.lkkhpg.dsis.platform.job.schedulenewjob"/>',
+                title : '<@spring.message "job.schedulenewjob"/>',
                 width : 720,
                 height: 550,
                 url   : 'job_simple_add.html'
@@ -213,13 +213,13 @@
             toolbar          : {
                 items: [
                     {
-                        text   : '<@spring.message "jobdetaildto.newcronjob"/>',
+                        text   : '<@spring.message "job.newcronjob"/>',
                         disable: false,
                         click  : newCronJob,
                         icon   : 'add2'
                     },
                     {
-                        text   : '<@spring.message "jobdetaildto.newsimplejob"/>',
+                        text   : '<@spring.message "job.newsimplejob"/>',
                         disable: false,
                         click  : newSimpleJob,
                         icon   : 'add2'

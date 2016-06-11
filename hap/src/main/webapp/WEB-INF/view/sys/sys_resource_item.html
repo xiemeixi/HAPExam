@@ -31,7 +31,7 @@
         var resourceItemGrid = $("#resourceItemGrid").ligerGrid({
                columns: [
                 { 
-                    display: '<@spring.message "com.lkkhpg.dsis.platform.dto.system.resourceitem.itemid"/>',
+                    display: '<@spring.message "resourceitem.itemid"/>',
                     name: 'itemId', 
                     align: 'left', 
                     width: 150,  
@@ -44,21 +44,21 @@
                     }
                 },
                 { 
-                    display: '<@spring.message "com.lkkhpg.dsis.platform.dto.system.resourceitem.itemname"/>',
+                    display: '<@spring.message "resourceitem.itemname"/>',
                     name: 'itemName', 
                     align: 'left', 
                     width: 200,
                     editor: { type: 'text' }
                 },
                 { 
-                    display: '<@spring.message "com.lkkhpg.dsis.platform.dto.system.resourceitem.description"/>',
+                    display: '<@spring.message "resourceitem.description"/>',
                     name: 'description', 
                     align: 'left', 
                     width: 200,  
                     editor: { type: 'text' }
                 },
                 {
-                    display : '<@spring.message "com.lkkhpg.dsis.platform.dto.system.resourceitem.resource"/>',
+                    display : '<@spring.message "resourceitem.resource"/>',
                     name : 'targetResourceId',
                     width : 180,
                     align : 'left',

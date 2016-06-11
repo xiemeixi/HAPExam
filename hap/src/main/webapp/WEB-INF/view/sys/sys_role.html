@@ -23,7 +23,7 @@
                 newline : false
             }, {
                 type : 'text',
-                label : '<@spring.message "role.roledesc"/>',
+                label : '<@spring.message "role.roledescription"/>',
                 name : 'roleDescription'
             } ],
             buttons : [ {
@@ -58,22 +58,14 @@
                     type : 'text'
                 }
             }, {
-                display : '<@spring.message "role.roledesc"/>',
+                display : '<@spring.message "role.roledescription"/>',
                 name : 'roleDescription',
                 align : 'left',
                 width : 180,
                 editor : {
                     type : 'text'
                 }
-            }, {
-                display : '<@spring.message "role.areaid"/>',
-                name : 'areaId',
-                align : 'left',
-                width : 100,
-                editor : {
-                    type : 'int'
-                }
-            } ],
+            }],
             url : '${base.contextPath}/sys/role/query',
             toolbar : {
                 items : [ {

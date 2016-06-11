@@ -178,6 +178,14 @@
             return false;
         });
     });
+
+    function changeLanguage(){
+        $.ligerDialog.confirm("<@spring.message "msg.info.sys.change_language"/>", function (yes){
+            if(yes) {
+                jQuery('#langForm').submit()
+            }
+        });
+    }
 </script>
 <div id="pageloading"></div>
 <div id="topmenu" class="l-topmenu">
@@ -457,20 +465,13 @@
 
 <#if accessService.accessFunction("OM_QUICK_OPERATING")>
 <div id="pop_sign" style="background-color: #E22628; z-index: 1000; position: absolute; width: 25px; height: 55px; font-size: 18px; line-height: 55px; color: white; text-align: center; border-radius: 5px 0 0 5px; font-weight: bold;">
-    <
+
 </div>
 <script type="text/javascript">
 
     var popupWidth = 350;
     var popupHeight = 800;
 
-    function changeLanguage(){
-        $.ligerDialog.confirm("<@spring.message "msg.info.sys.change_language"/>", function (yes){
-            if(yes) {
-                jQuery('#langForm').submit()
-            }
-        });
-    }
 
     window.onresize = function() {
         var left = $(window).width() - popupWidth;

@@ -12,7 +12,7 @@
          window['d_um_002_form'] = $("#d_um_002_form").ligerForm({
               fields: [
                   { type: 'text', label: '<@spring.message "profile.profilename"/>', name: 'profileName' },
-                  { type: 'text', label: '<@spring.message "profile.profiledesc"/>', newline:false,name: 'description' }
+                  { type: 'text', label: '<@spring.message "profile.description"/>', newline:false,name: 'description' }
               ], buttons: [
                   { text: '<@spring.message "hap.query"/>', disabled:false, width: 60, click: function(){
                       Hap.gridQuery({
@@ -64,7 +64,7 @@
                 	width: 200,
                     editor: { type: 'text' }
                 }, {   
-                	display: '<@spring.message "profile.profiledesc"/>',
+                	display: '<@spring.message "profile.description"/>',
                 	name: 'description', 
                 	align: 'left', 
                 	width: 300,

@@ -28,11 +28,11 @@
         window['dataForm'] = $("#dataForm").ligerForm({
             fields : [{
                 type : 'text',
-                label: '<@spring.message "messagetype.templatecode"/>',
+                label: '<@spring.message "messagetemplate.templatecode"/>',
                 name : 'templateCode'
             }, {
                 type   : 'text',
-                label  : '<@spring.message "messagetype.name"/>',
+                label  : '<@spring.message "messagetemplate.name"/>',
                 name   : 'description',
                 newline: false
             }],
@@ -53,12 +53,12 @@
         window['dataGrid'] = $("#dataGrid").ligerGrid({
             columns : [
                 {
-                    display: '<@spring.message "messagetype.templatecode"/>',
+                    display: '<@spring.message "messagetemplate.templatecode"/>',
                     name   : "templateCode",
                     align  : "left",
                     width  : 180
                 },
-                {display: '<@spring.message "messagetype.name"/>', name: "description", align: "center", width: 180},
+                {display: '<@spring.message "messagetemplate.name"/>', name: "description", align: "center", width: 180},
                 {
                     display: '<@spring.message "hap.action"/>', width: 100, align: 'center',
                     render : function (rowdata) {
@@ -70,7 +70,7 @@
             toolbar : {
                 items: [
                     {
-                        text: '<@spring.message "hap.create"/>', icon: 'add', click: function () {
+                        text: '<@spring.message "hap.new"/>', icon: 'add', click: function () {
                         editData();
                     }
                     },

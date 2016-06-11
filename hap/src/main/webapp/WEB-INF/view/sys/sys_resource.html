@@ -16,7 +16,7 @@
 	        $.ligerDialog.open({
                 width : 850,
                 height : 600,
-                title : '<@spring.message "type.com.lkkhpg.dsis.platform.resourceallocation"/>',
+                title : '<@spring.message "resource.itemallocation"/>',
                 url : 'sys_resource_item.html?resourceId=' + id
             });     
 	    }
@@ -42,7 +42,7 @@
 	            name : 'name'
 	        }, {
 	            type : 'combobox',
-	            label : '<@spring.message "resource.login_require"/>',
+	            label : '<@spring.message "resource.loginrequire"/>',
 	            name : 'loginRequire',
 	            options : {
 	                valueField : 'ID',
@@ -105,7 +105,7 @@
                     dto:'Resource',
                 }
             }, {
-	            display : '<@spring.message "resource.login_require"/>',
+	            display : '<@spring.message "resource.loginrequire"/>',
 	            name : 'loginRequire',
 	            width : 80,
 	            align : 'center',
@@ -122,7 +122,7 @@
 	                } ]
 	            }
 	        }, {
-	            display : '<@spring.message "resource.access_checked"/>',
+	            display : '<@spring.message "resource.accesscheck"/>',
 	            name : 'accessCheck',
 	            width : 80,
 	            align : 'center',
@@ -146,7 +146,7 @@
                 editor : {
                     type : 'tl',
                     idField:'resourceId',
-                    dto:'Resource',
+                    dto:'Resource'
                 }
             } ,{
                 display : '<@spring.message "resource.resourceitem"/>',

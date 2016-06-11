@@ -16,16 +16,16 @@
         window['dataForm'] = $("#dataForm").ligerForm({
             fields : [{
                 type : 'text',
-                label: '<@spring.message "messageaccount.accountcode"/>',
+                label: '<@spring.message "messageemailconfig.accountcode"/>',
                 name : 'accountCode'
             }, {
                 type : 'text',
                 label: '<@spring.message "message.subject"/>',
                 name : 'subject'
             }, {
-                type   : 'textarea',
-                label  : '<@spring.message "message.content"/>',
-                name   : 'content'
+                type : 'textarea',
+                label: '<@spring.message "message.content"/>',
+                name : 'content'
             }, {
                 type : 'text',
                 label: '<@spring.message "message.receivers"/>',
@@ -43,9 +43,10 @@
                         contentType: "application/json",
                         data       : JSON2.stringify(dataForm.getData()),
                         success    : function (args) {
-                            //alert(JSON2.stringify(args));
+                            if (args.success) {
+                                alert('send success');
+                            }
                         }
-
                     });
                 }
             }]

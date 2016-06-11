@@ -46,7 +46,7 @@
                 name:'configId',
                 type:'hidden'
             },{
-                display : '<@spring.message "messageaccount.configCode"/>',
+                display : '<@spring.message "messageemailconfig.configCode"/>',
                 name : "configCode",
                 type : "text",
                 newline:true,
@@ -54,12 +54,12 @@
                     required : true
                 }
             },{
-                display : '<@spring.message "messageaccount.introduction"/>',
+                display : '<@spring.message "messageemailconfig.introduction"/>',
                 name : "description",
                 type : "text",
                 newline:false
             },{
-                display : '<@spring.message "messageaccount.host"/>',
+                display : '<@spring.message "messageemailconfig.host"/>',
                 name : "host",
                 type : "text",
                 newline:true,
@@ -67,7 +67,7 @@
                     required : true
                 }
             },{
-                display : '<@spring.message "messageaccount.port"/>',
+                display : '<@spring.message "messageemailconfig.port"/>',
                 name : "port",
                 type : "digits",
                 newline:false,
@@ -75,7 +75,7 @@
                     required : true
                 }
             },{
-                display: '<@spring.message "messageaccount.userName"/>',
+                display: '<@spring.message "messageemailconfig.userName"/>',
                 name: "userName",
                 type: "text",
                 newline: true,
@@ -83,7 +83,7 @@
                 	required: true
                 }
             },{
-                display: '<@spring.message "messageaccount.password"/>',
+                display: '<@spring.message "messageemailconfig.password"/>',
                 name: "password",
                 type: "text",
                 newline: false,
@@ -91,7 +91,7 @@
                 	required: true
                 }
             },{
-                display : '<@spring.message "messageaccount.tryTimes"/>',
+                display : '<@spring.message "messageemailconfig.tryTimes"/>',
                 name : "tryTimes",
                 type : "digits",
                 newline:true,
@@ -99,7 +99,7 @@
                     required : true
                 }
             },{
-                display: '<@spring.message "messageaccount.useWhiteList"/>',
+                display: '<@spring.message "messageemailconfig.useWhiteList"/>',
                 type: 'checkbox',  
                 name: 'useWhiteList',
                 space:0,
@@ -115,7 +115,7 @@
         mainform.attr("action", "${base.contextPath}/sys/code/submit");
         emailAccountGrid = $("#emailAccountGrid").ligerGrid({
             columns : [
-	            {display:'<@spring.message "messageaccount.accountCode"/>', name:"accountCode", align:"left", width:130,
+	            {display:'<@spring.message "messageemailconfig.accountCode"/>', name:"accountCode", align:"left", width:130,
                     editor : {
                         type : 'text'
                     },
@@ -123,7 +123,7 @@
                         required : true
                     }
             	} ,
-	            {display:'<@spring.message "messageaccount.userName"/>', name:"userName", align:"left", width:180,
+	            {display:'<@spring.message "messageemailconfig.userName"/>', name:"userName", align:"left", width:180,
                     editor : {
                         type : 'text'
                     },
@@ -131,7 +131,7 @@
                         required : true
                     }
 				}
-            	/* ,{display:'<@spring.message "messageaccount.password"/>', name:"password", align:"left", width:180,
+            	/* ,{display:'<@spring.message "messageemailconfig.password"/>', name:"password", align:"left", width:180,
                     editor : {
                         type : 'text'
                     },
@@ -139,12 +139,6 @@
                         required : true
                     }
 				} */
-            	,{display : '<@spring.message "messageaccount.market"/>', name : 'marketId', width:180,
-					textField : 'marketName',
-					align : 'left',
-					isSort : false,
-					editor : ${lovService.getLov(base.contextPath, base.locale, "lov_market")}
-				}
 			],
             width : '99%', 
             height : 200,  
@@ -156,7 +150,7 @@
             </#if>
             toolbar : {
                 items : [{
-                    text : '<@spring.message "messageaccount.account"/>',
+                    text : '<@spring.message "messageemailconfig.account"/>',
                     disable : true
                 }, {
                     text : '<@spring.message "hap.new"/>',
@@ -181,7 +175,7 @@
         });
         whiteListGrid = $("#whiteListGrid").ligerGrid({
             columns : [
-            	{display:'<@spring.message "messageaccount.mail.address"/>', name:"address", align:"left", width:250,
+            	{display:'<@spring.message "messageemailconfig.address"/>', name:"address", align:"left", width:250,
                     editor : {
                         type : 'text'
                     },
@@ -200,7 +194,7 @@
             </#if>
             toolbar : {
                 items : [{
-                    text : '<@spring.message "messageaccount.whitelist"/>',
+                    text : '<@spring.message "messageemailconfig.whitelist"/>',
                     disable : true,
                 }, {
                     text : '<@spring.message "hap.new"/>',
