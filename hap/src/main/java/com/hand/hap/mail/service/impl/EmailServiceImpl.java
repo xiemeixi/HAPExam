@@ -128,12 +128,6 @@ public class EmailServiceImpl implements IEmailService, BeanFactoryAware {
                 String messageFrom = currentMessage.getMessageFrom();
                 MessageAddress address = MessageAddress.toAddressObject(messageFrom);
                 messageFrom = address.getAddress();
-                String iMarket = address.getType();
-
-                if (messageFrom == null || iMarket == null) {
-                    error(currentMessage, "iMarket is no more exists:" + messageFrom);
-                    continue;
-                }
 
                 // 获得mailSender,currentMessage.getMessageFrom()是noReplyAccount的发送邮箱编号
 

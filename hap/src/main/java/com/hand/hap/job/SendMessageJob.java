@@ -7,11 +7,12 @@ package com.hand.hap.job;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.hand.hap.mail.service.IEmailService;
 import org.quartz.JobExecutionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.hand.hap.mail.service.IEmailService;
 
 
 /**
@@ -52,9 +53,7 @@ public class SendMessageJob extends AbstractJob {
             Map<String, Object> param = new HashMap<>();
             param.put("batch", batch);
 
-            if ("EMAIL".equalsIgnoreCase(type)) {
-                mailService.sendMessage(vip, param);
-            }
+            mailService.sendMessage(vip, param);
             setExecutionSummary((String) param.get(SUMMARY));
         } catch (Exception e) {
             if (logger.isErrorEnabled()) {

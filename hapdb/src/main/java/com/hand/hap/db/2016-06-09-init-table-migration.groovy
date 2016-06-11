@@ -99,4 +99,20 @@ databaseChangeLog(logicalFilePath:"2016-06-09-init-table-migration.groovy"){
     changeSet(author: "jessen", id: "20160610-sys-file-1") {
         sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/tables/sys_file.sql"), encoding: "UTF-8")
     }
+
+    changeSet(author: "jessen", id: "20160611-sys-message-transaction-1") {
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/tables/sys_message_transaction.sql"), encoding: "UTF-8")
+    }
+
+    changeSet(author: "jessen", id: "20160611-sys-message-attachment-1") {
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/tables/sys_message_attachment.sql"), encoding: "UTF-8")
+    }
+
+    changeSet(author: "jessen", id: "20160611-sys-message-email-account-1") {
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/tables/sys_message_email_account.sql"), encoding: "UTF-8")
+    }
+
+    changeSet(author: "jessen", id: "20160611-sys-message-email-config-1") {
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/tables/sys_message_email_config.sql"), encoding: "UTF-8")
+    }
 }

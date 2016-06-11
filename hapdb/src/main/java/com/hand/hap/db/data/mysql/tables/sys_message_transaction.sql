@@ -1,0 +1,37 @@
+DROP TABLE IF EXISTS SYS_MESSAGE_TRANSACTION;
+CREATE TABLE `SYS_MESSAGE_TRANSACTION`(
+  `TRANSACTION_ID` bigint AUTO_INCREMENT COMMENT '主键',
+  `MESSAGE_ID` bigint COMMENT '消息id',
+  `TRANSACTION_STATUS` varchar(25) COMMENT '发送状态',
+  `TRANSACTION_MESSAGE` longtext COMMENT '返回信息',
+  `MESSAGE_ADDRESS` varchar(255) COMMENT '消息地址,邮箱/手机号/会员/用户',
+  `OBJECT_VERSION_NUMBER` bigint DEFAULT 1  COMMENT 'Record的版本号，每发生update则自增',
+  `REQUEST_ID` bigint DEFAULT -1  COMMENT '对Record最后一次操作的系统内部请求id',
+  `PROGRAM_ID` bigint DEFAULT -1  COMMENT '对Record最后一次操作的系统内部程序id',
+  `CREATED_BY` bigint DEFAULT -1  COMMENT '被用户创建',
+  `CREATION_DATE` datetime DEFAULT now()  COMMENT '创建日期',
+  `LAST_UPDATED_BY` bigint DEFAULT -1  COMMENT '最后被用户修改',
+  `LAST_UPDATE_DATE` datetime DEFAULT now()  COMMENT '最后修改日期',
+  `ATTRIBUTE1` varchar(255) COMMENT '属性1',
+  `ATTRIBUTE2` varchar(255) COMMENT '属性2',
+  `ATTRIBUTE3` varchar(255) COMMENT '属性3',
+  `ATTRIBUTE4` varchar(255) COMMENT '属性4',
+  `ATTRIBUTE5` varchar(255) COMMENT '属性5',
+  `ATTRIBUTE6` varchar(255) COMMENT '属性6',
+  `ATTRIBUTE7` varchar(255) COMMENT '属性7',
+  `ATTRIBUTE8` varchar(255) COMMENT '属性8',
+  `ATTRIBUTE9` varchar(255) COMMENT '属性9',
+  `ATTRIBUTE10` varchar(255) COMMENT '属性10',
+  `ATTRIBUTE11` varchar(255) COMMENT '属性11',
+  `ATTRIBUTE12` varchar(255) COMMENT '属性12',
+  `ATTRIBUTE13` varchar(255) COMMENT '属性13',
+  `ATTRIBUTE14` varchar(255) COMMENT '属性14',
+  `ATTRIBUTE15` varchar(255) COMMENT '属性15',
+  PRIMARY KEY(`TRANSACTION_ID`),
+  KEY `SYS_MESSAGE_TRANSACTION_N2`(`TRANSACTION_STATUS`),
+  KEY `SYS_MESSAGE_TRANSACTION_N1`(`MESSAGE_ID`)
+) COMMENT = '消息事务表';
+alter table `SYS_MESSAGE_TRANSACTION` change `TRANSACTION_STATUS` `TRANSACTION_STATUS` varchar(25) binary;
+alter table `SYS_MESSAGE_TRANSACTION` change `MESSAGE_ADDRESS` `MESSAGE_ADDRESS` varchar(255) binary;
+
+
