@@ -20,6 +20,13 @@
             <url>http://112.74.105.117:8081/nexus/content/groups/public</url>
         </repository>
     </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>nexus</id>
+            <name>LKKHPG POS2.0 Nexus Repository</name>
+            <url>http://112.74.105.117:8081/nexus/content/groups/public</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <properties>
         <!--<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>-->
