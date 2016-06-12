@@ -212,7 +212,7 @@
                     <i class="icon-caret-down drawdown_icon" ></i>
                 </a>
                 <ul id="drawdownNav" class="profile_drawdown hide" style="display:none">
-                    <li> <a href="javascript:void(0)" onclick="editUserInfo(${Session.userId})"><i class="icon-info-sign drawdown_icon"></i><@spring.message "hap.user.info"/></a></li>
+                    <li> <a href="javascript:void(0)" onclick="editUserInfo(${Session.userId})"><i class="icon-info-sign drawdown_icon"></i><@spring.message "user.info"/></a></li>
                     <li><a href="javascript:void(0)" style="text-decoration: none;" onclick="sysPreferences();"><i class="icon-cogs drawdown_icon"></i><@spring.message "hap.preferences"/></a></li>
                     <li><a href="javascript:void(0)" sysPreferencesstyle="text-decoration: none;" onclick="logout();"><i class="icon-off drawdown_icon"></i><@spring.message "hap.logout"/></a></li>
                 </ul>
@@ -571,7 +571,7 @@
 
     function editUserInfo(userId) {
         window.top.f_addTab("editUser_" + userId,
-                "<@spring.message "type.com.lkkhpg.dsis.common.user.userdetail"/>",
+                "<@spring.message "user.info"/>",
                 "${base.contextPath}/sys/um/sys_user_info.html?userId=" + userId);
     }
 

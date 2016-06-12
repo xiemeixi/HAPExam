@@ -22,8 +22,6 @@
                     return;
                 }
             }
-            levelId: 30
-            levelName: "testpage"
             //提交保存
             Hap.submitForm({
                 form:form,
@@ -59,12 +57,11 @@
                 display : '<@spring.message "profile.profilename"/>',
                 name : "profileName",
                 type : "text",
-                width:150,
                 validate : {
                     required : true
                 }
             }, {
-                display : '<@spring.message "profile.profiledesc"/>',
+                display : '<@spring.message "profile.description"/>',
                 name : "description",
                 type : "text",
                 validate : {

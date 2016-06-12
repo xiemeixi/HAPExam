@@ -31,7 +31,7 @@
 <script src="${base.contextPath}/common/code?userStatusData=SYS.USER_STATUS&allAdminData=SYS.ADMIN_MANAGEMENT"
         type="text/javascript"></script>
 <div id="form_title">
-    <p><@spring.message 'user.userdetail'/></p>
+    <p><@spring.message 'user.info'/></p>
 </div>
 <form id="d_um_001_form" autocomplete="off"></form>
 <script type="text/javascript">
@@ -92,6 +92,15 @@
                     });
                 }
             }
+        });
+    }
+
+    function editPassword() {
+        $.ligerDialog.open({
+            url   : '${base.contextPath}/sys/um/sys_update_password.html',
+            title : '<@spring.message "user.updatepassword"/>',
+            width : 400,
+            height: 250
         });
     }
 
@@ -157,8 +166,17 @@
                 {
                     name    : 'userName',
                     type    : 'text',
-                    label   : '<@spring.message "user.usertype"/>',
+                    label   : '<@spring.message "user.username"/>',
                     readonly: true
+                },
+                {
+                    name   : 'userId',
+                    type   : 'html',
+                    label  : ' ',
+                    render : function (args) {
+                        return "<a href='javascript:editPassword()'><@spring.message "user.updatepassword"/></a>"
+                    },
+                    newline: false
                 },
                 {
                     name    : 'status',
@@ -183,12 +201,10 @@
                     newline: false
                 },
                 {
-                    name        : 'phoneNo',
+                    name        : 'phone',
                     id          : 'phoneNoInMainPage',
                     type        : 'text',
-                    label       : '-',
-                    labelWidth  : 3,
-                    width       : 119,
+                    label       : '<@spring.message "user.phone"/>',
                     newline     : false,
                     afterContent: '<input name="avoidAuto" autocomplete="off" style="display:none"/><input type="password" style="display:none"/>',
                     validate    : {required: true}
@@ -208,7 +224,7 @@
 
             ], buttons: [
                 {
-                    id   : 'saveInfo', text: '<@spring.message "sys.hand.btn.submit"/>', disabled: false, width: 60,
+                    id   : 'saveInfo', text: '<@spring.message "hap.submit"/>', disabled: false, width: 60,
                     click: function () {
                         save();
                     }
