@@ -6,19 +6,19 @@ package com.hand.hap.attachment.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hand.hap.core.BaseConstants;
-import com.hand.hap.attachment.dto.AttachCategory;
-import com.hand.hap.attachment.exception.StoragePathNotExsitException;
-import com.hand.hap.attachment.mapper.AttachCategoryMapper;
-import com.hand.hap.attachment.service.IAttachCategoryService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.hand.hap.core.annotation.StdWho;
+import com.hand.hap.attachment.dto.AttachCategory;
+import com.hand.hap.attachment.exception.StoragePathNotExsitException;
+import com.hand.hap.attachment.mapper.AttachCategoryMapper;
+import com.hand.hap.attachment.service.IAttachCategoryService;
+import com.hand.hap.core.BaseConstants;
 import com.hand.hap.core.IRequest;
+import com.hand.hap.core.annotation.StdWho;
 
 /**
  * 附件类型service.
@@ -167,7 +167,7 @@ public class AttachCategoryServiceImpl implements IAttachCategoryService {
         List<Long> idList = new ArrayList<>();
         idList.add(-1L);
         String[] paths = StringUtils.split(path, ".");
-        for (int i = 0; i < paths.length - 1; i++) {
+        for (int i = 0; i < paths.length; i++) {
             idList.add(Long.parseLong(paths[i]));
         }
 
