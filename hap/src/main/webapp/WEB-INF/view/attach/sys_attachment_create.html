@@ -34,15 +34,13 @@
     <script type="text/javascript">
         window['attForm'] = $("#attForm").ligerForm({
             fields : [{ 
-                display:'<@spring.message "attachcategory.categoryname"/>',
-                type:'text',
+                display:'<@spring.message "attachcategory.sourceType"/>',
+                type:'popup',
                 name:'sourceType',
                 id:'sourceType',
                 textField:'categoryName',
                 newline : false,
-                options : {
-
-                },
+                options : <@lov "ATTACH_SOURCE_TYPE"/>,
                 validate : {
                     required : true
                 }
@@ -56,7 +54,8 @@
                 }
             }]
         });
-        
+
+
         function closeUploadDialog(){
             var dialog = frameElement.dialog;
             dialog.close();
@@ -65,7 +64,7 @@
         Hap.setFormDefaultBtn(closeUploadDialog, function(){
             if(Hap.validateForm(attForm)) {
                 uploader.option('formData', {
-                    sourceType: $.ligerui.get('sourceType').getValue(),
+                    sourceType: attForm.getData().sourceType,
                     sourceKey: '1' 
                 });
                 uploader.upload();
@@ -78,11 +77,11 @@
             server : '${base.contextPath}/sys/attach/upload',
             pick : '#picker',
             auto : false,
-             accept: {
-                title: 'Images',
-                extensions: 'gif,jpg,jpeg,bmp,png',
-                mimeTypes: 'image/*'
-            },
+//             accept: {
+//                title: 'Images',
+//                extensions: 'gif,jpg,jpeg,bmp,png',
+//                mimeTypes: 'image/*'
+//            },
             onFileQueued : function(file){
                 $('#file_info').show();
                 $('#file_info >#info').html(file.name);
@@ -94,7 +93,7 @@
                         closeUploadDialog();
                     });
                 }else{ 
-                    alert('error')
+                    alert(response.info)
                 }
                 
             }

@@ -42,7 +42,7 @@
         var data = form.getData();
         //所有校验之前，先做一个特殊校验
         if (!data.email) {
-            $.ligerDialog.error("<@spring.message 'msg.error.email_not_null'/>", $l("sys.hand.tip.info"));
+            $.ligerDialog.error("<@spring.message 'error.user.email_is_empty'/>", $l("hap.tip.info"));
             return;
         }
         if (!Hap.validateForm(form)) return;
@@ -50,17 +50,17 @@
         var phoneReg = /^[0-9]{1,14}$/;
         var passwordReg = /^[0-9]{8}$/;
         if (data.userName == "") {
-            $.ligerDialog.error("<@spring.message 'msg.error.system.username.is.empty'/>", $l("sys.hand.tip.info"));
+            $.ligerDialog.error("<@spring.message 'error.user.username_is_empty'/>", $l("hap.tip.info"));
             return;
         }
         if (phoneReg.test(data.phoneNo) == false) {
-            $.ligerDialog.error("<@spring.message 'msg.error.system.user.phone.format.not.correct'/>", $l("sys.hand.tip.info"));
+            $.ligerDialog.error("<@spring.message 'error.user.phone_format_not_correct'/>", $l("hap.tip.info"));
             return;
         }
         //管理员修改资料时,检测是否修改了密码
         if (condition == 3 && $.ligerui.get("password").getValue() != "" && $.ligerui.get("password").getValue() != null) {
             if (passwordReg.test(data.password) == false) {
-                $.ligerDialog.error("<@spring.message 'msg.error.system.user.tmppassword.format.not.correct'/>", $l("sys.hand.tip.info"));
+                $.ligerDialog.error("<@spring.message 'error.user.tmppassword_format_not_correct'/>", $l("hap.tip.info"));
                 return;
             }
         }
@@ -81,13 +81,13 @@
                 if (data.success) {
                     if (condition == 2) {
                         var userId = data.rows[0].userId;
-                        $.ligerDialog.success("<@spring.message 'msg.infor.dm.save_success'/>", $l("sys.hand.tip.info"), function () {
+                        $.ligerDialog.success("<@spring.message 'msg.infor.dm.save_success'/>", $l("hap.tip.info"), function () {
                             parent.f_addTab("sys_user_" + userId, "<@spring.message 'user.userdetail'/>", "${base.contextPath}/sys/um/sys_user_info.html?userId=" + userId);
                             window.top.f_removeTab("sys_user_create");
                         });
                         return;
                     }
-                    $.ligerDialog.success("<@spring.message 'msg.infor.dm.save_success'/>", $l("sys.hand.tip.info"), function () {
+                    $.ligerDialog.success("<@spring.message 'msg.infor.dm.save_success'/>", $l("hap.tip.info"), function () {
                         location.reload();
                     });
                 }

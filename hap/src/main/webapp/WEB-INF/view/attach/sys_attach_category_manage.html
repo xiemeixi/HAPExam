@@ -60,7 +60,7 @@
                     editor : {
                       type: 'tl',
                       idField: 'categoryId',
-                      dto: 'AttachCategory'
+                      dto: 'com.hand.hap.attachment.dto.AttachCategory'
                     } ,
                     render:function(item){
                         return '<a href="${base.contextPath}/attach/sys_attach_category_manage.html?parentCategoryId='+item.categoryId+'">'+item.categoryName + '</a>';
@@ -81,7 +81,7 @@
                       editor : {
                           type: 'tl',
                           idField: 'categoryId',
-                          dto: 'AttachCategory'
+                          dto: 'com.hand.hap.attachment.dto.AttachCategory'
                       }
                   },{ 
                     display: '<@spring.message "attachcategory.categoryext"/>',
@@ -130,7 +130,7 @@
                     toolbar : {
                         items : [
                                 {
-                                    text : '<@spring.message "hap.create"/>',
+                                    text : '<@spring.message "hap.new"/>',
                                     icon : 'add',
                                     click: function(){
                                         newCategory("${RequestParameters.parentCategoryId!}");
@@ -150,7 +150,7 @@
                             },{
                                 line : true
                             },{
-                                text : '<@spring.message "hap.archive" />',click : function() {
+                                text : '<@spring.message "attachcategory.archive" />',click : function() {
                                      var rows = attachcategory_grid.getSelectedRows();
                                      if(rows.length==1){
                                          if(rows[0].leafFlag != 1){

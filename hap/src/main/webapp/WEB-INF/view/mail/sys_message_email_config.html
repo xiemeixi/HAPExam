@@ -52,13 +52,13 @@
 	    /* dataGrid表格提交 */
 	    window['dataGrid'] = $("#dataGrid").ligerGrid({
 	        columns : [
-				{display:'<@spring.message "messageemailconfig.configCode"/>', name:"configCode", align:"left", width:130},
+				{display:'<@spring.message "messageemailconfig.configCode"/>', name:"configCode", align:"left", width:100},
 				{display:'<@spring.message "messageemailconfig.introduction"/>', name:"description", align:"left", width:180},
-				{display:'<@spring.message "messageemailconfig.host"/>', name:"host", align:"left", width:180},
-				{display:'<@spring.message "messageemailconfig.port"/>', name:"port", align:"right", width:180},
-				{display:'<@spring.message "messageemailconfig.tryTimes"/>', name:"tryTimes", align:"right", width:180},
-				{display:'<@spring.message "messageemailconfig.useWhiteList"/>', name:"useWhiteList", align:"center", width:180},
-				{display : '<@spring.message "hap.action"/>', width : 120, align : 'center',
+				{display:'<@spring.message "messageemailconfig.host"/>', name:"host", align:"left", width:140},
+				{display:'<@spring.message "messageemailconfig.port"/>', name:"port", align:"right", width:60},
+				{display:'<@spring.message "messageemailconfig.tryTimes"/>', name:"tryTimes", align:"right", width:100},
+				{display:'<@spring.message "messageemailconfig.useWhiteList"/>', name:"useWhiteList", align:"center", width:100},
+				{display : '<@spring.message "hap.action"/>', width : 60, align : 'center',
 	                render : function(rowdata) {
 	                    return '<a href="#" onclick="editData('+rowdata.configId+')"><@spring.message "hap.edit"/></a>'
 	                }

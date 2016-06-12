@@ -67,7 +67,10 @@
 	                    grid : resource_grid
 	                })
 	            }
-	        } ]
+	        } ],
+            onEnterDown : function () {
+                this.options.buttons[0].click();
+            }
 	    });
 
 	    /* resource_grid表格提交 */
@@ -102,7 +105,7 @@
                 editor : {
                     type : 'tl',
                     idField:'resourceId',
-                    dto:'Resource',
+                    dto:'com.hand.hap.function.dto.Resource'
                 }
             }, {
 	            display : '<@spring.message "resource.loginrequire"/>',
@@ -146,7 +149,7 @@
                 editor : {
                     type : 'tl',
                     idField:'resourceId',
-                    dto:'Resource'
+                    dto:'com.hand.hap.function.dto.Resource'
                 }
             } ,{
                 display : '<@spring.message "resource.resourceitem"/>',
