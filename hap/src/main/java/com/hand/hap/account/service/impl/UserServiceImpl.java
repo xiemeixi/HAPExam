@@ -6,19 +6,18 @@ package com.hand.hap.account.service.impl;
 import java.util.Date;
 import java.util.List;
 
-import com.hand.hap.account.dto.User;
-import com.hand.hap.account.exception.UserException;
-import com.hand.hap.account.mapper.UserMapper;
-import com.hand.hap.mybatis.util.StringUtil;
-import com.hand.hap.security.PasswordManager;
-import com.hand.hap.system.service.impl.BaseServiceImpl;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.hand.hap.core.IRequest;
+import com.hand.hap.account.dto.User;
+import com.hand.hap.account.exception.UserException;
+import com.hand.hap.account.mapper.UserMapper;
 import com.hand.hap.account.service.IUserService;
+import com.hand.hap.core.IRequest;
+import com.hand.hap.security.PasswordManager;
+import com.hand.hap.system.service.impl.BaseServiceImpl;
 
 /**
  * @author njq.niu@hand-china.com
@@ -73,7 +72,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
             throw new UserException(UserException.MSG_LOGIN_ACCOUNT_INVALID, UserException.MSG_LOGIN_ACCOUNT_INVALID,
                     null);
         }
-        if (!passwordManager.encode(user.getPassword()).equalsIgnoreCase(user1.getPasswordEncrypted())) {
+        if (!passwordManager.matches(user.getPassword(),user1.getPasswordEncrypted())) {
             throw new UserException(UserException.MSG_LOGIN_NAME_PASSWORD, UserException.MSG_LOGIN_NAME_PASSWORD, null);
         }
         return user1;

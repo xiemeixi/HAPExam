@@ -3,7 +3,9 @@
  */
 package com.hand.hap.security;
 
-import org.springframework.util.DigestUtils;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 /**
  * 
@@ -11,9 +13,12 @@ import org.springframework.util.DigestUtils;
  *
  *         2016年1月31日
  */
-public class PasswordManager {
+public class PasswordManager implements PasswordEncoder, InitializingBean {
 
-    private String salt;
+    private PasswordEncoder delegate;
+
+    private String siteWideSecret = "my-secret-key";
+
     private String defaultPassword = "111111";
 
     public String getDefaultPassword() {
@@ -24,47 +29,26 @@ public class PasswordManager {
         this.defaultPassword = defaultPassword;
     }
 
-    public String getSalt() {
-        return salt;
+    public String getSiteWideSecret() {
+        return siteWideSecret;
     }
 
-    public void setSalt(String salt) {
-        this.salt = salt;
+    public void setSiteWideSecret(String siteWideSecret) {
+        this.siteWideSecret = siteWideSecret;
     }
 
-    /**
-     * MD5处理.
-     * <p>
-     * 加盐,变大写,MD5,大写
-     * 
-     * @param password
-     *            原始明文密码
-     * @return 大写的 MD5
-     */
-    public String encode(String password) {
-        return DigestUtils.md5DigestAsHex(mergePasswordAndSalt(password).toUpperCase().getBytes()).toUpperCase();
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        delegate = new StandardPasswordEncoder(siteWideSecret);
     }
 
-    /**
-     * 加盐处理.
-     * 
-     * @param password
-     *            原始铭文密码
-     * @return 加盐的密码
-     */
-    private String mergePasswordAndSalt(String password) {
-        if (password == null) {
-            password = "";
-        }
-        if ((salt == null) || "".equals(salt)) {
-            return password;
-        } else {
-            return password + "." + salt;
-        }
+    @Override
+    public String encode(CharSequence rawPassword) {
+        return delegate.encode(rawPassword);
     }
 
-    public static void main(String[] args) {
-        PasswordManager pm = new PasswordManager();
-        pm.setSalt("infinitus");
+    @Override
+    public boolean matches(CharSequence rawPassword, String encodedPassword) {
+        return delegate.matches(rawPassword, encodedPassword);
     }
 }

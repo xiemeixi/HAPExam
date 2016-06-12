@@ -183,7 +183,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
         User userInDB = userService.selectByPrimaryKey(request, tmp);
         String pwd = userInDB.getPasswordEncrypted();
         // 验证旧密码是否正确
-        if (!passwordManager.encode(oldPwd).equals(pwd)) {
+        if (!passwordManager.matches(oldPwd,pwd)) {
             throw new UserException(UserException.USER_PASSWORD_WRONG, null);
         }
         // 验证新密码有效1-格式
@@ -193,7 +193,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
             throw new UserException(UserException.USER_PASSWORD_REQUIREMENT, null);
         }
         // 验证新密码有效2-与旧密码不一致
-        if (passwordManager.encode(newPwd).equals(pwd)) {
+        if (passwordManager.matches(newPwd,pwd)) {
             throw new UserException(UserException.USER_PASSWORD_SAME, null);
         }
         return true;
@@ -221,7 +221,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
             throw new UserException(UserException.USER_PASSWORD_REQUIREMENT, null);
         }
         // 验证新密码有效2-与旧密码不一致
-        if (passwordManager.encode(newPwd).equals(pwd)) {
+        if (passwordManager.matches(newPwd,pwd)) {
             throw new UserException(UserException.USER_PASSWORD_SAME, null);
         }
         return true;

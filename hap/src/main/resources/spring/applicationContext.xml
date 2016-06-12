@@ -71,9 +71,9 @@
         </property>
     </bean>
 
-    <!-- 密码加密 -->
+    <!-- 密码加密 PasswordEncoder-->
     <bean id="passwordManager" class="com.hand.hap.security.PasswordManager">
-        <property name="salt" value="Zxa1pO6S6uvBMlY"/>
+        <property name="siteWideSecret" value="Zxa1pO6S6uvBMlY"/>
         <property name="defaultPassword" value="123456"/>
     </bean>
 

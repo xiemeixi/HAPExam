@@ -1,8 +1,10 @@
 package com.hand.hap.security.service.impl;
 
-import com.hand.hap.account.dto.User;
-import com.hand.hap.account.service.IUserService;
-import com.hand.hap.security.dto.CustomUserDetails;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,17 +12,26 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
+import com.hand.hap.account.dto.Role;
+import com.hand.hap.account.dto.User;
+import com.hand.hap.account.service.IRoleService;
+import com.hand.hap.account.service.IUserService;
+import com.hand.hap.core.IRequest;
+import com.hand.hap.core.impl.RequestHelper;
+import com.hand.hap.security.dto.CustomUserDetails;
 
 /**
+ * (register manual).
+ * 
  * @author shengyang.zhou@hand-china.com
  */
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IRoleService roleService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -36,9 +47,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         userDetails.setAccountLocked(User.STATUS_LOCK.equalsIgnoreCase(user.getStatus()));
 
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ADMIN"));
+
+        IRequest iRequest = RequestHelper.newEmptyRequest();
+        List<Role> roles = roleService.selectRolesByUser(iRequest, user);
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getRoleCode()));
+        }
         userDetails.setAuthorities(authorities);
-        // TODO grants
         return userDetails;
     }
 }
