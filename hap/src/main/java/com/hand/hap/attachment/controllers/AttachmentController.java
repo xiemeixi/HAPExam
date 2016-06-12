@@ -19,11 +19,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hand.hap.core.exception.TokenException;
-import com.hand.hap.attachment.exception.UniqueFileMutiException;
-import com.hand.hap.attachment.UpConstants;
-import net.coobird.thumbnailator.Thumbnails;
-
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,21 +28,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.hand.hap.core.BaseConstants;
-import com.hand.hap.system.controllers.BaseController;
-import com.hand.hap.core.IRequest;
+import com.hand.hap.attachment.FileInfo;
+import com.hand.hap.attachment.UpConstants;
+import com.hand.hap.attachment.Uploader;
+import com.hand.hap.attachment.UploaderFactory;
 import com.hand.hap.attachment.dto.AttachCategory;
 import com.hand.hap.attachment.dto.Attachment;
 import com.hand.hap.attachment.dto.SysFile;
 import com.hand.hap.attachment.exception.FileReadIOException;
 import com.hand.hap.attachment.exception.StoragePathNotExsitException;
-import com.hand.hap.security.TokenUtils;
+import com.hand.hap.attachment.exception.UniqueFileMutiException;
 import com.hand.hap.attachment.service.IAttachCategoryService;
 import com.hand.hap.attachment.service.ISysFileService;
-import com.hand.hap.attachment.FileInfo;
-import com.hand.hap.attachment.Uploader;
-import com.hand.hap.attachment.UploaderFactory;
+import com.hand.hap.core.BaseConstants;
+import com.hand.hap.core.IRequest;
+import com.hand.hap.core.exception.TokenException;
 import com.hand.hap.core.util.UploadUtil;
+import com.hand.hap.security.TokenUtils;
+import com.hand.hap.system.controllers.BaseController;
+
+import net.coobird.thumbnailator.Thumbnails;
 
 /**
  * 附件管理器.
@@ -130,7 +130,7 @@ public class AttachmentController extends BaseController {
      *            关联业务code
      * @param sourceKey
      *            关联业务表主健
-     * @return ModelAndView 视图(admin/attach/sys_attach_manage)
+     * @return ModelAndView 视图(/attach/sys_attach_manage)
      */
     @RequestMapping(value = "/sys/attach/manage", method = RequestMethod.GET)
     public ModelAndView manager(HttpServletRequest request, String sourceType, String sourceKey) {
@@ -142,7 +142,7 @@ public class AttachmentController extends BaseController {
             request.setAttribute("files", fileService.selectFilesByTypeAndKey(requestContext, sourceType, sourceKey));
             request.setAttribute(MESSAGE_NAME, MESG_SUCCESS);
         }
-        return new ModelAndView("admin/attach/sys_attach_manage");
+        return new ModelAndView(getViewPath() + "/attach/sys_attach_manage");
     }
 
     /**
