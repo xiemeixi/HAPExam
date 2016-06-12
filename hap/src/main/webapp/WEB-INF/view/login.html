@@ -168,8 +168,8 @@ input[type="text"].m-wrap, input[type="password"].m-wrap {
         var src = imgSrc.attr("src");
         imgSrc.attr("src", chgUrl(src));
     }
-    //时间戳   
-    //为了使每次生成图片不一致，即不让浏览器读缓存，所以需要加上时间戳   
+    //时间戳
+    //为了使每次生成图片不一致，即不让浏览器读缓存，所以需要加上时间戳
     function chgUrl(url) {
         var timestamp = (new Date()).valueOf();
         url = url.substring(0, 17);
@@ -187,7 +187,7 @@ input[type="text"].m-wrap, input[type="password"].m-wrap {
         <img src="${base.contextPath}/resources/images/logo2.png" />
     </div>
     <div class="content">
-        <form class="form-vertical login-form" action="login" method="POST">
+        <form class="form-vertical login-form" action="login" method="post">
             <h3 class="form-title">Login to your account</h3>
             <#if msg??>
             <div class="alert-error">
@@ -199,7 +199,7 @@ input[type="text"].m-wrap, input[type="password"].m-wrap {
                 <label class="control-label">Username</label>
                 <div class="controls">
                     <div class="input-icon left">
-                        <i class="icon-user"></i> <input class="m-wrap" type="text" placeholder="Username" name="userName">
+                        <i class="icon-user"></i> <input class="m-wrap" type="text" placeholder="Username" name="username">
                     </div>
                 </div>
             </div>
