@@ -15,16 +15,16 @@
     <!-- 私有仓库 -->
     <repositories>
         <repository>
-            <id>nexus</id>
-            <name>LKKHPG POS2.0 Nexus Repository</name>
-            <url>http://112.74.105.117:8081/nexus/content/groups/public</url>
+            <id>RDC thirdparty</id>
+            <name>RDC thirdparty Repository</name>
+            <url>http://nexus.saas.hand-china.com/content/repositories/thirdparty</url>
         </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
-            <id>nexus</id>
-            <name>LKKHPG POS2.0 Nexus Repository</name>
-            <url>http://112.74.105.117:8081/nexus/content/groups/public</url>
+            <id>RDC thirdparty</id>
+            <name>RDC thirdparty Repository</name>
+            <url>http://nexus.saas.hand-china.com/content/repositories/thirdparty</url>
         </pluginRepository>
     </pluginRepositories>
 
@@ -108,6 +108,11 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.34</version>
+        </dependency>
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>sqljdbc4</artifactId>
+            <version>4.2</version>
         </dependency>
         <dependency>
             <groupId>org.freemarker</groupId>
@@ -230,7 +235,7 @@
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
-            <version>4.1.1</version>
+            <version>4.1.6</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
