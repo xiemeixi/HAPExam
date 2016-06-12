@@ -9,8 +9,10 @@
         <intercept-url pattern="/lib/**" access="permitAll" />
         <intercept-url pattern="/verifiCode" access="permitAll" />
         <intercept-url pattern="/login" access="permitAll" />
+        <intercept-url pattern="/login.html" access="permitAll" />
+        <intercept-url pattern="/common/**" access="permitAll" />
         <intercept-url pattern="/**" access="hasRole('ADMIN')" />
-        <form-login login-page='/login'  authentication-success-handler-ref="successHandler"
+        <form-login login-page='/login' authentication-success-handler-ref="successHandler"
                     authentication-failure-url="/login?error=true"/>
         <custom-filter ref="captchaVerifierFilter" before="FORM_LOGIN_FILTER"/>
 
