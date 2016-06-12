@@ -24,17 +24,19 @@
 
 package com.hand.hap.mybatis.mapperhelper;
 
-import com.hand.hap.mybatis.annotation.Condition;
-import com.hand.hap.mybatis.util.StringUtil;
-import com.hand.hap.system.dto.DTOClassInfo;
+import java.lang.reflect.Field;
+import java.util.Set;
+
+import javax.persistence.Table;
+
 import org.apache.commons.lang.StringUtils;
+
+import com.hand.hap.mybatis.annotation.Condition;
 import com.hand.hap.mybatis.entity.EntityColumn;
 import com.hand.hap.mybatis.entity.EntityTable;
 import com.hand.hap.mybatis.entity.IDynamicTableName;
-
-import javax.persistence.Table;
-import java.lang.reflect.Field;
-import java.util.Set;
+import com.hand.hap.mybatis.util.StringUtil;
+import com.hand.hap.system.dto.DTOClassInfo;
 
 /**
  * 拼常用SQL的工具类
@@ -571,6 +573,12 @@ public class SqlHelper {
     public static String orderByDefault(Class<?> entityClass) {
         StringBuilder sql = new StringBuilder();
         String orderByClause = EntityHelper.getOrderByClause(entityClass);
+        if (StringUtil.isEmpty(orderByClause)) {
+            Field[] idField = DTOClassInfo.getIdFields(entityClass);
+            if (idField.length > 0) {
+                orderByClause = DTOClassInfo.getColumnName(idField[0]);
+            }
+        }
         if (orderByClause.length() > 0) {
             sql.append(" ORDER BY ");
             sql.append(orderByClause);
@@ -589,6 +597,13 @@ public class SqlHelper {
                     sql.append("b.");
                 }
                 sql.append(column.getColumn()).append(" ").append(column.getOrderBy()).append(",");
+            }
+        }
+
+        if (sql.length() == 0) {
+            Field[] idField = DTOClassInfo.getIdFields(entityClass);
+            if (idField.length > 0) {
+                sql.append("b.").append(DTOClassInfo.getColumnName(idField[0])).append("  ");
             }
         }
 

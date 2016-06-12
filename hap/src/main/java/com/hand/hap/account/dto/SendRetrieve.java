@@ -3,15 +3,18 @@
  */
 package com.hand.hap.account.dto;
 
-import com.hand.hap.system.dto.BaseDTO;
-
 import java.util.Date;
+
+import javax.persistence.Table;
+
+import com.hand.hap.system.dto.BaseDTO;
 
 /**
  * 发送次数限制dto.
  * @author Zhao
  *
  */
+@Table(name = "SYS_ACCOUNT_RETRIEVE")
 public class SendRetrieve extends BaseDTO {
     private Long userId;
 

@@ -53,5 +53,20 @@
                #{id}
            </foreach>
     </select>
+
+
+    <select id="selectAllLeafCategory" resultMap="BaseResultMap" parameterType="com.hand.hap.attachment.dto.AttachCategory">
+        select *
+        from SYS_ATTACH_CATEGORY_B B
+        LEFT JOIN SYS_ATTACH_CATEGORY_TL T
+        ON (B.category_id = T.category_id AND t.lang = #{request.locale,jdbcType=VARCHAR})
+        where b.leaf_flag = 1
+        <if test="categoryName!=null">
+            AND t.category_name like concat('%',concat(#{categoryName},'%'))
+        </if>
+        <if test="sourceType!=null">
+            AND b.source_type=#{sourceType}
+        </if>
+    </select>
     
 </mapper>
