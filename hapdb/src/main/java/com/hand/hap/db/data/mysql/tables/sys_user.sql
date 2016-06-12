@@ -3,7 +3,7 @@ CREATE TABLE `SYS_USER`(
     `USER_ID` bigint AUTO_INCREMENT COMMENT '表ID，主键，供其他表做外键',
     `USER_TYPE` varchar(30) COMMENT '用户类型',
     `USER_NAME` varchar(40) COMMENT '用户名',
-    `PASSWORD_ENCRYPTED` varchar(40) COMMENT '加密过的密码',
+    `PASSWORD_ENCRYPTED` varchar(80) COMMENT '加密过的密码',
     `EMAIL` varchar(150) COMMENT '邮箱地址',
     `PHONE` varchar(40) COMMENT '电话号码',
     `START_ACTIVE_DATE` datetime COMMENT '有效期从',
