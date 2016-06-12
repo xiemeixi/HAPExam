@@ -19,7 +19,7 @@ import com.hand.hap.function.mapper.RoleFunctionMapper;
  * 
  * @author wuyichu
  */
-public class RoleResourceCache extends HashStringRedisCache<Set<Long>> {
+public class RoleResourceCache extends HashStringRedisCache<Long[]> {
 
     private String roleResouceQuerySqlId = RoleFunctionMapper.class.getName() + ".selectAllRoleResources";
 
@@ -28,7 +28,7 @@ public class RoleResourceCache extends HashStringRedisCache<Set<Long>> {
     private final Logger logger = LoggerFactory.getLogger(RoleResourceCache.class);
 
     {
-        setType(HashSet.class);
+        setType(Long[].class);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class RoleResourceCache extends HashStringRedisCache<Set<Long>> {
      * @return values
      */
     @Override
-    public Set<Long> getValue(String key) {
+    public Long[] getValue(String key) {
         return super.getValue(key);
     }
 
@@ -57,7 +57,7 @@ public class RoleResourceCache extends HashStringRedisCache<Set<Long>> {
      * java.lang.Object)
      */
     @Override
-    public void setValue(String key, Set<Long> values) {
+    public void setValue(String key, Long[] values) {
         super.setValue(key, values);
     }
 
@@ -77,7 +77,7 @@ public class RoleResourceCache extends HashStringRedisCache<Set<Long>> {
             });
 
             roleResources.forEach((k, v) -> {
-                setValue(k, v);
+                setValue(k, v.toArray(new Long[v.size()]));
             });
         } catch (Throwable e) {
             if (logger.isErrorEnabled()) {
@@ -106,7 +106,7 @@ public class RoleResourceCache extends HashStringRedisCache<Set<Long>> {
             });
 
             roleResources.forEach((k, v) -> {
-                setValue(k.toString(), v);
+                setValue(k.toString(), v.toArray(new Long[v.size()]));
             });
         } catch (Throwable e) {
             if (logger.isErrorEnabled()) {
