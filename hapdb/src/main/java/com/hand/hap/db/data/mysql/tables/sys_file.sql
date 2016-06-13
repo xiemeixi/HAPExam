@@ -5,20 +5,20 @@ CREATE TABLE `SYS_FILE` (
   `ATTACHMENT_ID`         BIGINT COMMENT '附件ID',
   `FILE_NAME`             VARCHAR(255) COMMENT '文件名',
   `FILE_PATH`             VARCHAR(255) COMMENT '文件虚拟路径',
-  `FILE_SIZE`             DECIMAL(20, 2) COMMENT '文件大小',
+  `FILE_SIZE`             DECIMAL(20,0) COMMENT '文件大小',
   `FILE_TYPE`             VARCHAR(240) COMMENT '文件类型',
   `UPLOAD_DATE`           DATETIME COMMENT '上传时间',
-  `OBJECT_VERSION_NUMBER` DECIMAL(20, 2) DEFAULT 1
+  `OBJECT_VERSION_NUMBER` DECIMAL(20,0) DEFAULT 1
   COMMENT '行版本号，用来处理锁',
   `REQUEST_ID`            BIGINT         DEFAULT -1
   COMMENT '对Record最后一次操作的系统内部请求id',
   `PROGRAM_ID`            BIGINT         DEFAULT -1
   COMMENT '对Record最后一次操作的系统内部程序id',
   `CREATION_DATE`         DATETIME       DEFAULT now(),
-  `CREATED_BY`            DECIMAL(20, 2) DEFAULT -1,
-  `LAST_UPDATED_BY`       DECIMAL(20, 2) DEFAULT -1,
+  `CREATED_BY`            DECIMAL(20,0) DEFAULT -1,
+  `LAST_UPDATED_BY`       DECIMAL(20,0) DEFAULT -1,
   `LAST_UPDATE_DATE`      DATETIME       DEFAULT now(),
-  `LAST_UPDATE_LOGIN`     DECIMAL(20, 2),
+  `LAST_UPDATE_LOGIN`     DECIMAL(20,0),
   `ATTRIBUTE_CATEGORY`    VARCHAR(30),
   `ATTRIBUTE1`            VARCHAR(240),
   `ATTRIBUTE2`            VARCHAR(240),
