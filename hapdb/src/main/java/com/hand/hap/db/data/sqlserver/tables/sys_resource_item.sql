@@ -13,37 +13,37 @@ IF EXISTS(SELECT *
   DROP TABLE [dbo].[sys_resource_item_b]
 GO
 CREATE TABLE [dbo].[sys_resource_item_b] (
-  [RESOURCE_ITEM_ID]      BIGINT                                  NOT NULL,
-  [OWNER_RESOURCE_ID]     BIGINT                                  NULL,
-  [TARGET_RESOURCE_ID]    BIGINT                                  NULL,
-  [ITEM_ID]               NVARCHAR(50) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ITEM_NAME]             NVARCHAR(50) COLLATE Chinese_PRC_CI_AS  NULL,
-  [DESCRIPTION]           NVARCHAR(240) COLLATE Chinese_PRC_CI_AS NULL,
-  [ITEM_TYPE]             NVARCHAR(10) COLLATE Chinese_PRC_CI_AS  NULL,
-  [OBJECT_VERSION_NUMBER] DECIMAL(20, 0)                          NULL,
-  [REQUEST_ID]            BIGINT                                  NULL,
-  [PROGRAM_ID]            BIGINT                                  NULL,
-  [CREATION_DATE]         DATETIME2(0)                            NULL,
-  [CREATED_BY]            DECIMAL(20, 0)                          NULL,
-  [LAST_UPDATED_BY]       DECIMAL(20, 0)                          NULL,
-  [LAST_UPDATE_DATE]      DATETIME2(0)                            NULL,
-  [LAST_UPDATE_LOGIN]     DECIMAL(20, 0)                          NULL,
-  [ATTRIBUTE_CATEGORY]    VARCHAR(30) COLLATE Chinese_PRC_CI_AS   NULL,
-  [ATTRIBUTE1]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE2]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE3]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE4]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE5]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE6]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE7]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE8]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE9]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE10]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE11]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE12]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE13]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE14]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE15]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL
+  [RESOURCE_ITEM_ID]      BIGINT IDENTITY (10001, 1) NOT NULL,
+  [OWNER_RESOURCE_ID]     BIGINT                     NULL,
+  [TARGET_RESOURCE_ID]    BIGINT                     NULL,
+  [ITEM_ID]               NVARCHAR(50)               NULL,
+  [ITEM_NAME]             NVARCHAR(50)               NULL,
+  [DESCRIPTION]           NVARCHAR(240)              NULL,
+  [ITEM_TYPE]             NVARCHAR(10)               NULL,
+  [OBJECT_VERSION_NUMBER] DECIMAL(20, 0)             NULL,
+  [REQUEST_ID]            BIGINT                     NULL,
+  [PROGRAM_ID]            BIGINT                     NULL,
+  [CREATION_DATE]         DATETIME2(0)               NULL,
+  [CREATED_BY]            DECIMAL(20, 0)             NULL,
+  [LAST_UPDATED_BY]       DECIMAL(20, 0)             NULL,
+  [LAST_UPDATE_DATE]      DATETIME2(0)               NULL,
+  [LAST_UPDATE_LOGIN]     DECIMAL(20, 0)             NULL,
+  [ATTRIBUTE_CATEGORY]    VARCHAR(30)                NULL,
+  [ATTRIBUTE1]            VARCHAR(240)               NULL,
+  [ATTRIBUTE2]            VARCHAR(240)               NULL,
+  [ATTRIBUTE3]            VARCHAR(240)               NULL,
+  [ATTRIBUTE4]            VARCHAR(240)               NULL,
+  [ATTRIBUTE5]            VARCHAR(240)               NULL,
+  [ATTRIBUTE6]            VARCHAR(240)               NULL,
+  [ATTRIBUTE7]            VARCHAR(240)               NULL,
+  [ATTRIBUTE8]            VARCHAR(240)               NULL,
+  [ATTRIBUTE9]            VARCHAR(240)               NULL,
+  [ATTRIBUTE10]           VARCHAR(240)               NULL,
+  [ATTRIBUTE11]           VARCHAR(240)               NULL,
+  [ATTRIBUTE12]           VARCHAR(240)               NULL,
+  [ATTRIBUTE13]           VARCHAR(240)               NULL,
+  [ATTRIBUTE14]           VARCHAR(240)               NULL,
+  [ATTRIBUTE15]           VARCHAR(240)               NULL
 )
 ON [PRIMARY]
 GO
@@ -72,53 +72,22 @@ GO
 -- ----------------------------
 ALTER TABLE [dbo].[sys_resource_item_b]
   ADD
-  CONSTRAINT [PK__sys_reso__D848BA6AD90C5F32] PRIMARY KEY CLUSTERED ([RESOURCE_ITEM_ID])
-    WITH (PAD_INDEX = OFF,
-      IGNORE_DUP_KEY = OFF,
-      ALLOW_ROW_LOCKS = ON,
-      ALLOW_PAGE_LOCKS = ON)
-    ON [default]
+  CONSTRAINT [SYS_RESOURCE_ITEM_B_PK] PRIMARY KEY CLUSTERED ([RESOURCE_ITEM_ID])
 GO
+
+
 
 -- ----------------------------
 --  Indexes structure for table sys_resource_item_b
 -- ----------------------------
 CREATE NONCLUSTERED INDEX [SYS_RESOURCE_ITEM_B_N1]
 ON [dbo].[sys_resource_item_b] ([OWNER_RESOURCE_ID] ASC)
-  WITH (PAD_INDEX = OFF,
-    IGNORE_DUP_KEY = OFF,
-    STATISTICS_NORECOMPUTE = OFF,
-    SORT_IN_TEMPDB = OFF,
-    ONLINE = OFF,
-    ALLOW_ROW_LOCKS = ON,
-    ALLOW_PAGE_LOCKS = ON)
-  ON [PRIMARY]
 GO
+
 CREATE NONCLUSTERED INDEX [SYS_RESOURCE_ITEM_B_U1]
 ON [dbo].[sys_resource_item_b] ([ITEM_ID] ASC, [OWNER_RESOURCE_ID] ASC)
-  WITH (PAD_INDEX = OFF,
-    IGNORE_DUP_KEY = OFF,
-    STATISTICS_NORECOMPUTE = OFF,
-    SORT_IN_TEMPDB = OFF,
-    ONLINE = OFF,
-    ALLOW_ROW_LOCKS = ON,
-    ALLOW_PAGE_LOCKS = ON)
-  ON [PRIMARY]
 GO
 
--- ----------------------------
---  Options for table sys_resource_item_b
--- ----------------------------
-ALTER TABLE [dbo].[sys_resource_item_b]
-  SET ( LOCK_ESCALATION = TABLE )
-GO
-
-
-/*
-
-
- Date: 06/12/2016 21:55:36 PM
-*/
 
 -- ----------------------------
 --  Table structure for sys_resource_item_tl
@@ -129,34 +98,34 @@ IF EXISTS(SELECT *
   DROP TABLE [dbo].[sys_resource_item_tl]
 GO
 CREATE TABLE [dbo].[sys_resource_item_tl] (
-  [RESOURCE_ITEM_ID]      BIGINT                                  NOT NULL,
-  [LANG]                  NVARCHAR(10) COLLATE Chinese_PRC_CI_AS  NOT NULL,
-  [ITEM_NAME]             NVARCHAR(150) COLLATE Chinese_PRC_CI_AS NULL,
-  [DESCRIPTION]           NVARCHAR(240) COLLATE Chinese_PRC_CI_AS NULL,
-  [OBJECT_VERSION_NUMBER] DECIMAL(20, 0)                          NULL,
-  [REQUEST_ID]            BIGINT                                  NULL,
-  [PROGRAM_ID]            BIGINT                                  NULL,
-  [CREATION_DATE]         DATETIME2(0)                            NULL,
-  [CREATED_BY]            DECIMAL(20, 0)                          NULL,
-  [LAST_UPDATED_BY]       DECIMAL(20, 0)                          NULL,
-  [LAST_UPDATE_DATE]      DATETIME2(0)                            NULL,
-  [LAST_UPDATE_LOGIN]     DECIMAL(20, 0)                          NULL,
-  [ATTRIBUTE_CATEGORY]    VARCHAR(30) COLLATE Chinese_PRC_CI_AS   NULL,
-  [ATTRIBUTE1]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE2]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE3]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE4]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE5]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE6]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE7]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE8]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE9]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE10]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE11]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE12]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE13]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE14]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE15]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL
+  [RESOURCE_ITEM_ID]      BIGINT         NOT NULL,
+  [LANG]                  NVARCHAR(10)   NOT NULL,
+  [ITEM_NAME]             NVARCHAR(150)  NULL,
+  [DESCRIPTION]           NVARCHAR(240)  NULL,
+  [OBJECT_VERSION_NUMBER] DECIMAL(20, 0) NULL,
+  [REQUEST_ID]            BIGINT         NULL,
+  [PROGRAM_ID]            BIGINT         NULL,
+  [CREATION_DATE]         DATETIME2(0)   NULL,
+  [CREATED_BY]            DECIMAL(20, 0) NULL,
+  [LAST_UPDATED_BY]       DECIMAL(20, 0) NULL,
+  [LAST_UPDATE_DATE]      DATETIME2(0)   NULL,
+  [LAST_UPDATE_LOGIN]     DECIMAL(20, 0) NULL,
+  [ATTRIBUTE_CATEGORY]    VARCHAR(30)    NULL,
+  [ATTRIBUTE1]            VARCHAR(240)   NULL,
+  [ATTRIBUTE2]            VARCHAR(240)   NULL,
+  [ATTRIBUTE3]            VARCHAR(240)   NULL,
+  [ATTRIBUTE4]            VARCHAR(240)   NULL,
+  [ATTRIBUTE5]            VARCHAR(240)   NULL,
+  [ATTRIBUTE6]            VARCHAR(240)   NULL,
+  [ATTRIBUTE7]            VARCHAR(240)   NULL,
+  [ATTRIBUTE8]            VARCHAR(240)   NULL,
+  [ATTRIBUTE9]            VARCHAR(240)   NULL,
+  [ATTRIBUTE10]           VARCHAR(240)   NULL,
+  [ATTRIBUTE11]           VARCHAR(240)   NULL,
+  [ATTRIBUTE12]           VARCHAR(240)   NULL,
+  [ATTRIBUTE13]           VARCHAR(240)   NULL,
+  [ATTRIBUTE14]           VARCHAR(240)   NULL,
+  [ATTRIBUTE15]           VARCHAR(240)   NULL
 )
 ON [PRIMARY]
 GO
@@ -170,19 +139,7 @@ GO
 -- ----------------------------
 ALTER TABLE [dbo].[sys_resource_item_tl]
   ADD
-  CONSTRAINT [PK__sys_reso__4EE057FD15A43A8B] PRIMARY KEY CLUSTERED ([RESOURCE_ITEM_ID], [LANG])
-    WITH (PAD_INDEX = OFF,
-      IGNORE_DUP_KEY = OFF,
-      ALLOW_ROW_LOCKS = ON,
-      ALLOW_PAGE_LOCKS = ON)
-    ON [default]
-GO
-
--- ----------------------------
---  Options for table sys_resource_item_tl
--- ----------------------------
-ALTER TABLE [dbo].[sys_resource_item_tl]
-  SET ( LOCK_ESCALATION = TABLE )
+  CONSTRAINT [SYS_RESOURCE_ITEM_TL_PK] PRIMARY KEY CLUSTERED ([RESOURCE_ITEM_ID], [LANG])
 GO
 
 

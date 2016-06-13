@@ -13,42 +13,42 @@ IF EXISTS(SELECT *
   DROP TABLE [dbo].[sys_attach_category_b]
 GO
 CREATE TABLE [dbo].[sys_attach_category_b] (
-  [CATEGORY_ID]           BIGINT                                  NOT NULL,
-  [CATEGORY_NAME]         NVARCHAR(40) COLLATE Chinese_PRC_CI_AS  NULL,
-  [LEAF_FLAG]             NVARCHAR(1) COLLATE Chinese_PRC_CI_AS   NULL,
-  [DESCRIPTION]           NVARCHAR(240) COLLATE Chinese_PRC_CI_AS NULL,
-  [STATUS]                NVARCHAR(1) COLLATE Chinese_PRC_CI_AS   NULL,
-  [PARENT_CATEGORY_ID]    BIGINT                                  NULL,
-  [PATH]                  VARCHAR(200) COLLATE Chinese_PRC_CI_AS  NULL,
-  [SOURCE_TYPE]           NVARCHAR(30) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ALLOWED_FILE_TYPE]     NVARCHAR(30) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ALLOWED_FILE_SIZE]     DECIMAL(20, 2)                          NULL,
-  [CATEGORY_PATH]         NVARCHAR(255) COLLATE Chinese_PRC_CI_AS NULL,
-  [OBJECT_VERSION_NUMBER] DECIMAL(20, 2)                          NULL,
-  [REQUEST_ID]            BIGINT                                  NULL,
-  [PROGRAM_ID]            BIGINT                                  NULL,
-  [CREATION_DATE]         DATETIME2(0)                            NULL,
-  [CREATED_BY]            DECIMAL(20, 2)                          NULL,
-  [LAST_UPDATED_BY]       DECIMAL(20, 2)                          NULL,
-  [LAST_UPDATE_DATE]      DATETIME2(0)                            NULL,
-  [LAST_UPDATE_LOGIN]     DECIMAL(20, 2)                          NULL,
-  [ATTRIBUTE_CATEGORY]    VARCHAR(30) COLLATE Chinese_PRC_CI_AS   NULL,
-  [ATTRIBUTE1]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE2]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE3]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE4]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE5]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE6]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE7]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE8]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE9]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE10]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE11]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE12]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE13]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE14]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE15]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [IS_UNIQUE]             NVARCHAR(1) COLLATE Chinese_PRC_CI_AS   NULL
+  [CATEGORY_ID]           BIGINT IDENTITY (10001, 1) NOT NULL,
+  [CATEGORY_NAME]         NVARCHAR(40)               NULL,
+  [LEAF_FLAG]             NVARCHAR(1)                NULL,
+  [DESCRIPTION]           NVARCHAR(240)              NULL,
+  [STATUS]                NVARCHAR(1)                NULL,
+  [PARENT_CATEGORY_ID]    BIGINT                     NULL,
+  [PATH]                  VARCHAR(200)               NULL,
+  [SOURCE_TYPE]           NVARCHAR(30)               NULL,
+  [ALLOWED_FILE_TYPE]     NVARCHAR(30)               NULL,
+  [ALLOWED_FILE_SIZE]     DECIMAL(20, 2)             NULL,
+  [CATEGORY_PATH]         NVARCHAR(255)              NULL,
+  [OBJECT_VERSION_NUMBER] DECIMAL(20, 2)             NULL,
+  [REQUEST_ID]            BIGINT                     NULL,
+  [PROGRAM_ID]            BIGINT                     NULL,
+  [CREATION_DATE]         DATETIME2(0)               NULL,
+  [CREATED_BY]            DECIMAL(20, 2)             NULL,
+  [LAST_UPDATED_BY]       DECIMAL(20, 2)             NULL,
+  [LAST_UPDATE_DATE]      DATETIME2(0)               NULL,
+  [LAST_UPDATE_LOGIN]     DECIMAL(20, 2)             NULL,
+  [ATTRIBUTE_CATEGORY]    VARCHAR(30)                NULL,
+  [ATTRIBUTE1]            VARCHAR(240)               NULL,
+  [ATTRIBUTE2]            VARCHAR(240)               NULL,
+  [ATTRIBUTE3]            VARCHAR(240)               NULL,
+  [ATTRIBUTE4]            VARCHAR(240)               NULL,
+  [ATTRIBUTE5]            VARCHAR(240)               NULL,
+  [ATTRIBUTE6]            VARCHAR(240)               NULL,
+  [ATTRIBUTE7]            VARCHAR(240)               NULL,
+  [ATTRIBUTE8]            VARCHAR(240)               NULL,
+  [ATTRIBUTE9]            VARCHAR(240)               NULL,
+  [ATTRIBUTE10]           VARCHAR(240)               NULL,
+  [ATTRIBUTE11]           VARCHAR(240)               NULL,
+  [ATTRIBUTE12]           VARCHAR(240)               NULL,
+  [ATTRIBUTE13]           VARCHAR(240)               NULL,
+  [ATTRIBUTE14]           VARCHAR(240)               NULL,
+  [ATTRIBUTE15]           VARCHAR(240)               NULL,
+  [IS_UNIQUE]             NVARCHAR(1)                NULL
 )
 ON [PRIMARY]
 GO
@@ -62,20 +62,10 @@ GO
 -- ----------------------------
 ALTER TABLE [dbo].[sys_attach_category_b]
   ADD
-  CONSTRAINT [PK__sys_atta__E7DA297C71543BC5] PRIMARY KEY CLUSTERED ([CATEGORY_ID])
-    WITH (PAD_INDEX = OFF,
-      IGNORE_DUP_KEY = OFF,
-      ALLOW_ROW_LOCKS = ON,
-      ALLOW_PAGE_LOCKS = ON)
-    ON [default]
+  CONSTRAINT [sys_attach_category_b_pk] PRIMARY KEY CLUSTERED ([CATEGORY_ID])
 GO
 
--- ----------------------------
---  Options for table sys_attach_category_b
--- ----------------------------
-ALTER TABLE [dbo].[sys_attach_category_b]
-  SET ( LOCK_ESCALATION = TABLE )
-GO
+
 
 
 /*
@@ -93,34 +83,34 @@ IF EXISTS(SELECT *
   DROP TABLE [dbo].[sys_attach_category_tl]
 GO
 CREATE TABLE [dbo].[sys_attach_category_tl] (
-  [CATEGORY_ID]           BIGINT                                  NOT NULL,
-  [CATEGORY_NAME]         NVARCHAR(40) COLLATE Chinese_PRC_CI_AS  NULL,
-  [DESCRIPTION]           NVARCHAR(240) COLLATE Chinese_PRC_CI_AS NULL,
-  [LANG]                  NVARCHAR(10) COLLATE Chinese_PRC_CI_AS  NOT NULL,
-  [OBJECT_VERSION_NUMBER] DECIMAL(20, 0)                          NULL,
-  [REQUEST_ID]            BIGINT                                  NULL,
-  [PROGRAM_ID]            BIGINT                                  NULL,
-  [CREATION_DATE]         DATETIME2(0)                            NULL,
-  [CREATED_BY]            DECIMAL(20, 0)                          NULL,
-  [LAST_UPDATED_BY]       DECIMAL(20, 0)                          NULL,
-  [LAST_UPDATE_DATE]      DATETIME2(0)                            NULL,
-  [LAST_UPDATE_LOGIN]     DECIMAL(20, 0)                          NULL,
-  [ATTRIBUTE_CATEGORY]    VARCHAR(30) COLLATE Chinese_PRC_CI_AS   NULL,
-  [ATTRIBUTE1]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE2]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE3]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE4]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE5]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE6]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE7]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE8]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE9]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE10]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE11]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE12]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE13]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE14]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE15]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL
+  [CATEGORY_ID]           BIGINT         NOT NULL,
+  [CATEGORY_NAME]         NVARCHAR(40)   NULL,
+  [DESCRIPTION]           NVARCHAR(240)  NULL,
+  [LANG]                  NVARCHAR(10)   NOT NULL,
+  [OBJECT_VERSION_NUMBER] DECIMAL(20, 0) NULL,
+  [REQUEST_ID]            BIGINT         NULL,
+  [PROGRAM_ID]            BIGINT         NULL,
+  [CREATION_DATE]         DATETIME2(0)   NULL,
+  [CREATED_BY]            DECIMAL(20, 0) NULL,
+  [LAST_UPDATED_BY]       DECIMAL(20, 0) NULL,
+  [LAST_UPDATE_DATE]      DATETIME2(0)   NULL,
+  [LAST_UPDATE_LOGIN]     DECIMAL(20, 0) NULL,
+  [ATTRIBUTE_CATEGORY]    VARCHAR(30)    NULL,
+  [ATTRIBUTE1]            VARCHAR(240)   NULL,
+  [ATTRIBUTE2]            VARCHAR(240)   NULL,
+  [ATTRIBUTE3]            VARCHAR(240)   NULL,
+  [ATTRIBUTE4]            VARCHAR(240)   NULL,
+  [ATTRIBUTE5]            VARCHAR(240)   NULL,
+  [ATTRIBUTE6]            VARCHAR(240)   NULL,
+  [ATTRIBUTE7]            VARCHAR(240)   NULL,
+  [ATTRIBUTE8]            VARCHAR(240)   NULL,
+  [ATTRIBUTE9]            VARCHAR(240)   NULL,
+  [ATTRIBUTE10]           VARCHAR(240)   NULL,
+  [ATTRIBUTE11]           VARCHAR(240)   NULL,
+  [ATTRIBUTE12]           VARCHAR(240)   NULL,
+  [ATTRIBUTE13]           VARCHAR(240)   NULL,
+  [ATTRIBUTE14]           VARCHAR(240)   NULL,
+  [ATTRIBUTE15]           VARCHAR(240)   NULL
 )
 ON [PRIMARY]
 GO
@@ -143,21 +133,8 @@ GO
 -- ----------------------------
 ALTER TABLE [dbo].[sys_attach_category_tl]
   ADD
-  CONSTRAINT [PK__sys_atta__7172C4EB0A4F79CC] PRIMARY KEY CLUSTERED ([CATEGORY_ID], [LANG])
-    WITH (PAD_INDEX = OFF,
-      IGNORE_DUP_KEY = OFF,
-      ALLOW_ROW_LOCKS = ON,
-      ALLOW_PAGE_LOCKS = ON)
-    ON [default]
+  CONSTRAINT [SYS_ATTACH_CATEGORY_TL_PK] PRIMARY KEY CLUSTERED ([CATEGORY_ID], [LANG])
+
 GO
-
--- ----------------------------
---  Options for table sys_attach_category_tl
--- ----------------------------
-ALTER TABLE [dbo].[sys_attach_category_tl]
-  SET ( LOCK_ESCALATION = TABLE )
-GO
-
-
 
 

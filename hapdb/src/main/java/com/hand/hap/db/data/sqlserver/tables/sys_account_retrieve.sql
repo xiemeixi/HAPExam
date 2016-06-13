@@ -13,17 +13,17 @@ IF EXISTS(SELECT *
   DROP TABLE [dbo].[sys_account_retrieve]
 GO
 CREATE TABLE [dbo].[sys_account_retrieve] (
-  [ACCOUNT_ID]            BIGINT                                 NULL,
-  [RETRIEVE_TYPE]         NVARCHAR(30) COLLATE Chinese_PRC_CI_AS NULL,
-  [RETRIEVE_DATE]         DATETIME2(0)                           NULL,
-  [OBJECT_VERSION_NUMBER] DECIMAL(20, 2)                         NULL,
-  [REQUEST_ID]            BIGINT                                 NULL,
-  [PROGRAM_ID]            BIGINT                                 NULL,
-  [CREATION_DATE]         DATETIME2(0)                           NULL,
-  [CREATED_BY]            DECIMAL(20, 2)                         NULL,
-  [LAST_UPDATED_BY]       DECIMAL(20, 2)                         NULL,
-  [LAST_UPDATE_DATE]      DATETIME2(0)                           NULL,
-  [LAST_UPDATE_LOGIN]     DECIMAL(20, 2)                         NULL
+  [ACCOUNT_ID]            BIGINT         NULL,
+  [RETRIEVE_TYPE]         NVARCHAR(30)   NULL,
+  [RETRIEVE_DATE]         DATETIME2(0)   NULL,
+  [OBJECT_VERSION_NUMBER] DECIMAL(20, 2) NULL,
+  [REQUEST_ID]            BIGINT         NULL,
+  [PROGRAM_ID]            BIGINT         NULL,
+  [CREATION_DATE]         DATETIME2(0)   NULL,
+  [CREATED_BY]            DECIMAL(20, 2) NULL,
+  [LAST_UPDATED_BY]       DECIMAL(20, 2) NULL,
+  [LAST_UPDATE_DATE]      DATETIME2(0)   NULL,
+  [LAST_UPDATE_LOGIN]     DECIMAL(20, 2) NULL
 )
 ON [PRIMARY]
 GO
@@ -32,13 +32,5 @@ EXEC sp_addextendedproperty 'MS_Description', N'其他表做外键', 'SCHEMA', '
 GO
 EXEC sp_addextendedproperty 'MS_Description', N'时间', 'SCHEMA', 'dbo', 'TABLE', 'sys_account_retrieve', 'COLUMN',
                             'RETRIEVE_DATE'
-GO
-
-
--- ----------------------------
---  Options for table sys_account_retrieve
--- ----------------------------
-ALTER TABLE [dbo].[sys_account_retrieve]
-  SET ( LOCK_ESCALATION = TABLE )
 GO
 

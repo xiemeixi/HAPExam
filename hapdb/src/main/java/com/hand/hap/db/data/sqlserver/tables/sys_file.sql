@@ -13,37 +13,37 @@ IF EXISTS(SELECT *
   DROP TABLE [dbo].[sys_file]
 GO
 CREATE TABLE [dbo].[sys_file] (
-  [FILE_ID]               BIGINT                                  NOT NULL,
-  [ATTACHMENT_ID]         BIGINT                                  NULL,
-  [FILE_NAME]             NVARCHAR(255) COLLATE Chinese_PRC_CI_AS NULL,
-  [FILE_PATH]             NVARCHAR(255) COLLATE Chinese_PRC_CI_AS NULL,
-  [FILE_SIZE]             DECIMAL(20, 2)                          NULL,
-  [FILE_TYPE]             NVARCHAR(240) COLLATE Chinese_PRC_CI_AS NULL,
-  [UPLOAD_DATE]           DATETIME2(0)                            NULL,
-  [OBJECT_VERSION_NUMBER] DECIMAL(20, 2)                          NULL,
-  [REQUEST_ID]            BIGINT                                  NULL,
-  [PROGRAM_ID]            BIGINT                                  NULL,
-  [CREATION_DATE]         DATETIME2(0)                            NULL,
-  [CREATED_BY]            DECIMAL(20, 2)                          NULL,
-  [LAST_UPDATED_BY]       DECIMAL(20, 2)                          NULL,
-  [LAST_UPDATE_DATE]      DATETIME2(0)                            NULL,
-  [LAST_UPDATE_LOGIN]     DECIMAL(20, 2)                          NULL,
-  [ATTRIBUTE_CATEGORY]    VARCHAR(30) COLLATE Chinese_PRC_CI_AS   NULL,
-  [ATTRIBUTE1]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE2]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE3]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE4]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE5]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE6]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE7]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE8]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE9]            VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE10]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE11]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE12]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE13]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE14]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL,
-  [ATTRIBUTE15]           VARCHAR(240) COLLATE Chinese_PRC_CI_AS  NULL
+  [FILE_ID]               BIGINT IDENTITY (10001, 1) NOT NULL,
+  [ATTACHMENT_ID]         BIGINT                     NULL,
+  [FILE_NAME]             NVARCHAR(255)              NULL,
+  [FILE_PATH]             NVARCHAR(255)              NULL,
+  [FILE_SIZE]             DECIMAL(20, 2)             NULL,
+  [FILE_TYPE]             NVARCHAR(240)              NULL,
+  [UPLOAD_DATE]           DATETIME2(0)               NULL,
+  [OBJECT_VERSION_NUMBER] DECIMAL(20, 2)             NULL,
+  [REQUEST_ID]            BIGINT                     NULL,
+  [PROGRAM_ID]            BIGINT                     NULL,
+  [CREATION_DATE]         DATETIME2(0)               NULL,
+  [CREATED_BY]            DECIMAL(20, 2)             NULL,
+  [LAST_UPDATED_BY]       DECIMAL(20, 2)             NULL,
+  [LAST_UPDATE_DATE]      DATETIME2(0)               NULL,
+  [LAST_UPDATE_LOGIN]     DECIMAL(20, 2)             NULL,
+  [ATTRIBUTE_CATEGORY]    VARCHAR(30)                NULL,
+  [ATTRIBUTE1]            VARCHAR(240)               NULL,
+  [ATTRIBUTE2]            VARCHAR(240)               NULL,
+  [ATTRIBUTE3]            VARCHAR(240)               NULL,
+  [ATTRIBUTE4]            VARCHAR(240)               NULL,
+  [ATTRIBUTE5]            VARCHAR(240)               NULL,
+  [ATTRIBUTE6]            VARCHAR(240)               NULL,
+  [ATTRIBUTE7]            VARCHAR(240)               NULL,
+  [ATTRIBUTE8]            VARCHAR(240)               NULL,
+  [ATTRIBUTE9]            VARCHAR(240)               NULL,
+  [ATTRIBUTE10]           VARCHAR(240)               NULL,
+  [ATTRIBUTE11]           VARCHAR(240)               NULL,
+  [ATTRIBUTE12]           VARCHAR(240)               NULL,
+  [ATTRIBUTE13]           VARCHAR(240)               NULL,
+  [ATTRIBUTE14]           VARCHAR(240)               NULL,
+  [ATTRIBUTE15]           VARCHAR(240)               NULL
 )
 ON [PRIMARY]
 GO
@@ -72,33 +72,16 @@ GO
 -- ----------------------------
 ALTER TABLE [dbo].[sys_file]
   ADD
-  CONSTRAINT [PK__sys_file__49C04C7A2BCC21C5] PRIMARY KEY CLUSTERED ([FILE_ID])
-    WITH (PAD_INDEX = OFF,
-      IGNORE_DUP_KEY = OFF,
-      ALLOW_ROW_LOCKS = ON,
-      ALLOW_PAGE_LOCKS = ON)
-    ON [default]
+  CONSTRAINT [SYS_FILE_PK] PRIMARY KEY CLUSTERED ([FILE_ID])
 GO
+
+
 
 -- ----------------------------
 --  Indexes structure for table sys_file
 -- ----------------------------
 CREATE NONCLUSTERED INDEX [SYS_FILE_N1]
 ON [dbo].[sys_file] ([ATTACHMENT_ID] ASC)
-  WITH (PAD_INDEX = OFF,
-    IGNORE_DUP_KEY = OFF,
-    STATISTICS_NORECOMPUTE = OFF,
-    SORT_IN_TEMPDB = OFF,
-    ONLINE = OFF,
-    ALLOW_ROW_LOCKS = ON,
-    ALLOW_PAGE_LOCKS = ON)
-  ON [PRIMARY]
 GO
 
--- ----------------------------
---  Options for table sys_file
--- ----------------------------
-ALTER TABLE [dbo].[sys_file]
-  SET ( LOCK_ESCALATION = TABLE )
-GO
 
