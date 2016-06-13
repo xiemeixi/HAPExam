@@ -3,7 +3,7 @@ CREATE TABLE SYS_USER
   USER_ID               NUMBER               NOT NULL,
   USER_TYPE             VARCHAR2(30),
   USER_NAME             VARCHAR2(40),
-  PASSWORD_ENCRYPTED    VARCHAR2(40)         NOT NULL,
+  PASSWORD_ENCRYPTED    VARCHAR2(80)         NOT NULL,
   EMAIL                 VARCHAR2(150),
   PHONE                 VARCHAR2(40),
   START_ACTIVE_DATE     DATE,
