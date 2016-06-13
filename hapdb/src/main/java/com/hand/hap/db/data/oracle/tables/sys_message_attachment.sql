@@ -1,5 +1,5 @@
 -- Create table
-create table sys_message_attachment
+CREATE TABLE SYS_MESSAGE_ATTACHMENT
 (
   attachment_id         NUMBER(20),
   message_id            NUMBER(20),
@@ -28,16 +28,20 @@ create table sys_message_attachment
   attribute15           VARCHAR2(255 CHAR)
 );
 
-ALTER TABLE sys_message_attachment ADD CONSTRAINT
-sys_message_attachment_PK PRIMARY KEY (attachment_id);
+ALTER TABLE SYS_MESSAGE_ATTACHMENT
+  ADD CONSTRAINT
+  SYS_MESSAGE_ATTACHMENT_PK PRIMARY KEY (attachment_id);
+
+CREATE INDEX SYS_MESSAGE_ATTACHMENT_N1 ON SYS_MESSAGE_ATTACHMENT (message_id);
+CREATE INDEX SYS_MESSAGE_ATTACHMENT_N2 ON SYS_MESSAGE_ATTACHMENT (file_id);
 
 -- Add comments to the columns
-comment on column sys_message_attachment.attachment_id
-is '主键';
-comment on column sys_message_attachment.message_id
-is '消息id';
-comment on column sys_message_attachment.file_id
-is '附件id';
+COMMENT ON COLUMN sys_message_attachment.attachment_id
+IS '主键';
+COMMENT ON COLUMN sys_message_attachment.message_id
+IS '消息id';
+COMMENT ON COLUMN sys_message_attachment.file_id
+IS '附件id';
 
-CREATE SEQUENCE sys_message_attachment_s START WITH 10001;
+CREATE SEQUENCE SYS_MESSAGE_ATTACHMENT_S START WITH 10001;
 

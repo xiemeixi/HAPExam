@@ -57,5 +57,5 @@ ALTER TABLE sys_attachment
   ADD PRIMARY KEY (ATTACHMENT_ID);
 
 
-create SEQUENCE  sys_attachment_s START WITH 10001;
+CREATE SEQUENCE sys_attachment_s START WITH 10001;
 

@@ -1,5 +1,5 @@
 -- Create table
-create table sys_message_template
+CREATE TABLE SYS_MESSAGE_TEMPLATE
 (
   template_id           NUMBER(20),
   subject               CLOB,
@@ -35,18 +35,21 @@ create table sys_message_template
   attribute15           VARCHAR2(240 CHAR)
 );
 
-alter TABLE sys_message_template add CONSTRAINT
-  sys_message_template_pk PRIMARY KEY (template_id);
+ALTER TABLE SYS_MESSAGE_TEMPLATE
+  ADD CONSTRAINT
+  SYS_MESSAGE_TEMPLATE_PK PRIMARY KEY (template_id);
+
+CREATE UNIQUE INDEX SYS_MESSAGE_TEMPLATE_U1 ON SYS_MESSAGE_TEMPLATE (template_code);
 
 -- Add comments to the columns
-comment on column sys_message_template.template_id
-is '主键';
-comment on column sys_message_template.subject
-is '模板标题';
-comment on column sys_message_template.content
-is '模板内容';
-comment on column sys_message_template.account_id
-is '账号id';
+COMMENT ON COLUMN sys_message_template.template_id
+IS '主键';
+COMMENT ON COLUMN sys_message_template.subject
+IS '模板标题';
+COMMENT ON COLUMN sys_message_template.content
+IS '模板内容';
+COMMENT ON COLUMN sys_message_template.account_id
+IS '账号id';
 
-create SEQUENCE sys_message_template_s START WITH 10001;
+CREATE SEQUENCE SYS_MESSAGE_TEMPLATE_S START WITH 10001;
 

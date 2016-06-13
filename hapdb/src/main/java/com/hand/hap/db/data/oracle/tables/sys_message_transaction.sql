@@ -1,5 +1,5 @@
 -- Create table
-create table sys_message_transaction
+CREATE TABLE SYS_MESSAGE_TRANSACTION
 (
   transaction_id        NUMBER(20),
   message_id            NUMBER(20),
@@ -30,17 +30,22 @@ create table sys_message_transaction
   attribute15           VARCHAR2(255 CHAR)
 );
 
-ALTER  TABLE sys_message_transaction ADD CONSTRAINT
-  sys_message_transaction_pk PRIMARY KEY (transaction_id);
+ALTER TABLE SYS_MESSAGE_TRANSACTION
+  ADD CONSTRAINT
+  SYS_MESSAGE_TRANSACTION_PK PRIMARY KEY (transaction_id);
+
+CREATE INDEX SYS_MESSAGE_TRANSACTION_N1 ON SYS_MESSAGE_TRANSACTION (transaction_status);
+
+CREATE INDEX SYS_MESSAGE_TRANSACTION_N2 ON SYS_MESSAGE_TRANSACTION (message_id);
 
 -- Add comments to the columns
-comment on column sys_message_transaction.transaction_id
-is '主键';
-comment on column sys_message_transaction.message_id
-is '消息id';
-comment on column sys_message_transaction.transaction_message
-is '返回信息';
+COMMENT ON COLUMN sys_message_transaction.transaction_id
+IS '主键';
+COMMENT ON COLUMN sys_message_transaction.message_id
+IS '消息id';
+COMMENT ON COLUMN sys_message_transaction.transaction_message
+IS '返回信息';
 
-create SEQUENCE  sys_message_transaction_s START WITH 10001;
+CREATE SEQUENCE sys_message_transaction_s START WITH 10001;
 
 

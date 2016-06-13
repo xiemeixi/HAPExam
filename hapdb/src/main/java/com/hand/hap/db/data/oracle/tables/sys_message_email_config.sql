@@ -1,5 +1,5 @@
 -- Create table
-create table sys_message_email_config
+CREATE TABLE SYS_MESSAGE_EMAIL_CONFIG
 (
   config_id             NUMBER(20),
   config_code           NVARCHAR2(50),
@@ -37,20 +37,23 @@ create table sys_message_email_config
   attribute15           VARCHAR2(240 CHAR)
 );
 
-ALTER  TABLE sys_message_email_config add CONSTRAINT
-sys_message_email_config_pk PRIMARY KEY (config_id);
+ALTER TABLE SYS_MESSAGE_EMAIL_CONFIG
+  ADD CONSTRAINT
+  SYS_MESSAGE_EMAIL_CONFIG_PK PRIMARY KEY (config_id);
+
+CREATE UNIQUE INDEX SYS_MESSAGE_EMAIL_CONFIG_U1 ON SYS_MESSAGE_EMAIL_CONFIG_CODE (CONFIG_CODE);
 
 -- Add comments to the columns
-comment on column sys_message_email_config.config_id
-is '主键';
-comment on column sys_message_email_config.try_times
-is '重试次数';
-comment on column sys_message_email_config.object_version_number
-is 'Record的版本号，每发生update则自增';
-comment on column sys_message_email_config.request_id
-is '对Record最后一次操作的系统内部请求id';
-comment on column sys_message_email_config.program_id
-is '对Record最后一次操作的系统内部程序id';
+COMMENT ON COLUMN sys_message_email_config.config_id
+IS '主键';
+COMMENT ON COLUMN sys_message_email_config.try_times
+IS '重试次数';
+COMMENT ON COLUMN sys_message_email_config.object_version_number
+IS 'Record的版本号，每发生update则自增';
+COMMENT ON COLUMN sys_message_email_config.request_id
+IS '对Record最后一次操作的系统内部请求id';
+COMMENT ON COLUMN sys_message_email_config.program_id
+IS '对Record最后一次操作的系统内部程序id';
 
-create SEQUENCE sys_message_email_config_s START WITH 10001;
+CREATE SEQUENCE SYS_MESSAGE_EMAIL_CONFIG_S START WITH 10001;
 

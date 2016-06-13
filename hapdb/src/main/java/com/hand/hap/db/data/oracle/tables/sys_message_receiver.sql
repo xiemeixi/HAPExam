@@ -1,5 +1,5 @@
 -- Create table
-create table sys_message_receiver
+CREATE TABLE SYS_MESSAGE_RECEIVER
 (
   receiver_id           NUMBER(20),
   message_id            NUMBER(20),
@@ -29,15 +29,18 @@ create table sys_message_receiver
   attribute15           VARCHAR2(255 CHAR)
 );
 
-alter TABLE sys_message_receiver add CONSTRAINT
-sys_message_receiver_pk PRIMARY KEY (receiver_id);
+ALTER TABLE SYS_MESSAGE_RECEIVER
+  ADD CONSTRAINT
+  SYS_MESSAGE_RECEIVER_PK PRIMARY KEY (receiver_id);
+
+CREATE INDEX SYS_MESSAGE_RECEIVER_N1 ON SYS_MESSAGE_RECEIVER (message_id);
 
 -- Add comments to the columns
-comment on column sys_message_receiver.receiver_id
-is '主键';
-comment on column sys_message_receiver.message_id
-is '消息id';
+COMMENT ON COLUMN sys_message_receiver.receiver_id
+IS '主键';
+COMMENT ON COLUMN sys_message_receiver.message_id
+IS '消息id';
 
-create SEQUENCE sys_message_receiver_s START WITH 10001;
+CREATE SEQUENCE sys_message_receiver_s START WITH 10001;
 
 

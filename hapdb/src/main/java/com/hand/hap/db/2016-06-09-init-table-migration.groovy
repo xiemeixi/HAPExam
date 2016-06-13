@@ -117,7 +117,7 @@ databaseChangeLog(logicalFilePath:"2016-06-09-init-table-migration.groovy"){
     }
 
     changeSet(author: "jessen", id: "20160613-sys-message-email-white-lt-1") {
-        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/tables/sys_message_email_white-lt.sql"), encoding: "UTF-8")
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/tables/sys_message_email_white_lt.sql"), encoding: "UTF-8")
     }
 
     changeSet(author: "jessen", id: "20160613-sys-message-receiver-1") {

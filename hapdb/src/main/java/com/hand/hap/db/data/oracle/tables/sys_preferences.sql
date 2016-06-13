@@ -1,5 +1,5 @@
 -- Create table
-create table sys_preferences
+CREATE TABLE sys_preferences
 (
   preferences_id        NUMBER(20),
   preferences           NVARCHAR2(30),
@@ -33,18 +33,19 @@ create table sys_preferences
 );
 
 
-ALTER TABLE sys_preferences add CONSTRAINT
+ALTER TABLE sys_preferences
+  ADD CONSTRAINT
   sys_preferences_pk PRIMARY KEY (preferences_id);
 
 -- Add comments to the columns
-comment on column sys_preferences.preferences_id
-is '表ID，主键，供其他表做外键';
-comment on column sys_preferences.preferences_level
-is '逻辑分类：10 DSIS首选项, 20 MWS首选项';
-comment on column sys_preferences.user_id
-is '账号ID';
+COMMENT ON COLUMN sys_preferences.preferences_id
+IS '表ID，主键，供其他表做外键';
+COMMENT ON COLUMN sys_preferences.preferences_level
+IS '逻辑分类：10 DSIS首选项, 20 MWS首选项';
+COMMENT ON COLUMN sys_preferences.user_id
+IS '账号ID';
 
-create SEQUENCE sys_preferences_s START WITH 10001;
+CREATE SEQUENCE sys_preferences_s START WITH 10001;
 
 
 

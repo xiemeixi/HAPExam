@@ -1,5 +1,5 @@
 -- Create table
-create table sys_message_email_account
+CREATE TABLE SYS_MESSAGE_EMAIL_ACCOUNT
 (
   account_id            NUMBER(20),
   account_code          NVARCHAR2(50),
@@ -33,9 +33,12 @@ create table sys_message_email_account
   attribute15           VARCHAR2(240 CHAR)
 );
 
-alter table sys_message_email_account add CONSTRAINT
-  sys_message_email_account_pk PRIMARY KEY (account_id);
+ALTER TABLE SYS_MESSAGE_EMAIL_ACCOUNT
+  ADD CONSTRAINT
+  SYS_MESSAGE_EMAIL_ACCOUNT_PK PRIMARY KEY (account_id);
+
+CREATE UNIQUE INDEX SYS_MESSAGE_EMAIL_ACCOUNT_U1 ON SYS_MESSAGE_EMAIL_ACCOUNT (account_code);
 
 
-create SEQUENCE sys_message_email_account_s START WITH 10001;
+CREATE SEQUENCE sys_message_email_account_s START WITH 10001;
 

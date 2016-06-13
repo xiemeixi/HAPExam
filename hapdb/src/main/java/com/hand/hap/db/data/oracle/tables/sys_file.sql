@@ -1,5 +1,5 @@
 -- Create table
-create table sys_file
+CREATE TABLE sys_file
 (
   file_id               NUMBER(20),
   attachment_id         NUMBER(20),
@@ -38,21 +38,21 @@ ALTER TABLE sys_file
   ADD CONSTRAINT sys_file_PK PRIMARY KEY (FILE_ID);
 
 -- Add comments to the columns
-comment on column sys_file.file_id
-is '表ID，主键，供其他表做外键';
-comment on column sys_file.attachment_id
-is '附件ID';
-comment on column sys_file.file_size
-is '文件大小';
-comment on column sys_file.upload_date
-is '上传时间';
-comment on column sys_file.object_version_number
-is '行版本号，用来处理锁';
-comment on column sys_file.request_id
-is '对Record最后一次操作的系统内部请求id';
-comment on column sys_file.program_id
-is '对Record最后一次操作的系统内部程序id';
+COMMENT ON COLUMN sys_file.file_id
+IS '表ID，主键，供其他表做外键';
+COMMENT ON COLUMN sys_file.attachment_id
+IS '附件ID';
+COMMENT ON COLUMN sys_file.file_size
+IS '文件大小';
+COMMENT ON COLUMN sys_file.upload_date
+IS '上传时间';
+COMMENT ON COLUMN sys_file.object_version_number
+IS '行版本号，用来处理锁';
+COMMENT ON COLUMN sys_file.request_id
+IS '对Record最后一次操作的系统内部请求id';
+COMMENT ON COLUMN sys_file.program_id
+IS '对Record最后一次操作的系统内部程序id';
 
 
-create SEQUENCE sys_file_s START WITH 10001;
+CREATE SEQUENCE sys_file_s START WITH 10001;
 

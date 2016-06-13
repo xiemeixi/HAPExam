@@ -1,5 +1,5 @@
 -- Create table
-create table sys_message_email_white_lt
+CREATE TABLE sys_message_email_white_lt
 (
   id                    NUMBER(20),
   address               VARCHAR2(240 CHAR),
@@ -31,18 +31,19 @@ create table sys_message_email_white_lt
   attribute15           VARCHAR2(240 CHAR)
 );
 
-ALTER  TABLE sys_message_email_white_lt add CONSTRAINT
+ALTER TABLE sys_message_email_white_lt
+  ADD CONSTRAINT
   sys_message_email_white_lt_pk PRIMARY KEY (id);
 
 -- Add comments to the columns
-comment on column sys_message_email_white_lt.id
-is '主键';
-comment on column sys_message_email_white_lt.address
-is '白名单地址';
-comment on column sys_message_email_white_lt.config_id
-is '邮箱配置id';
-comment on column sys_message_email_white_lt.description
-is '描述';
+COMMENT ON COLUMN sys_message_email_white_lt.id
+IS '主键';
+COMMENT ON COLUMN sys_message_email_white_lt.address
+IS '白名单地址';
+COMMENT ON COLUMN sys_message_email_white_lt.config_id
+IS '邮箱配置id';
+COMMENT ON COLUMN sys_message_email_white_lt.description
+IS '描述';
 
-create SEQUENCE  sys_message_email_white_lt_s START WITH 10001;
+CREATE SEQUENCE sys_message_email_white_lt_s START WITH 10001;
 

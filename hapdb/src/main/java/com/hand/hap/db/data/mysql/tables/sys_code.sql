@@ -1,67 +1,74 @@
 DROP TABLE IF EXISTS SYS_CODE_B;
-CREATE TABLE `SYS_CODE_B`(
-    `CODE_ID` bigint AUTO_INCREMENT COMMENT '表ID，主键，供其他表做外键',
-    `CODE` varchar(30) COMMENT '快码类型',
-    `DESCRIPTION` varchar(240) COMMENT '快码类型描述',
-    `OBJECT_VERSION_NUMBER` decimal(20,0) DEFAULT 1     ,
-    `REQUEST_ID` bigint DEFAULT -1,
-    `PROGRAM_ID` bigint DEFAULT -1,
-    `CREATION_DATE` datetime DEFAULT now() ,
-    `CREATED_BY` decimal(20,0) DEFAULT -1    ,
-    `LAST_UPDATED_BY` decimal(20,0) DEFAULT -1    ,
-    `LAST_UPDATE_DATE` datetime DEFAULT now() ,
-    `LAST_UPDATE_LOGIN` decimal(20,0),
-    `ATTRIBUTE_CATEGORY` varchar(30),
-    `ATTRIBUTE1` varchar(240),
-    `ATTRIBUTE2` varchar(240),
-    `ATTRIBUTE3` varchar(240),
-    `ATTRIBUTE4` varchar(240),
-    `ATTRIBUTE5` varchar(240),
-    `ATTRIBUTE6` varchar(240),
-    `ATTRIBUTE7` varchar(240),
-    `ATTRIBUTE8` varchar(240),
-    `ATTRIBUTE9` varchar(240),
-    `ATTRIBUTE10` varchar(240),
-    `ATTRIBUTE11` varchar(240),
-    `ATTRIBUTE12` varchar(240),
-    `ATTRIBUTE13` varchar(240),
-    `ATTRIBUTE14` varchar(240),
-    `ATTRIBUTE15` varchar(240),
-    PRIMARY KEY(`CODE_ID`),
-    UNIQUE KEY `SYS_CODE_B_U1`(`CODE`)
-) COMMENT = '快码类型表';
-alter table `SYS_CODE_B` change `DESCRIPTION` `DESCRIPTION` varchar(240) binary;
-alter table `SYS_CODE_B` change `CODE` `CODE` varchar(30) binary;
+CREATE TABLE `SYS_CODE_B` (
+  `CODE_ID`               BIGINT         AUTO_INCREMENT
+  COMMENT '表ID，主键，供其他表做外键',
+  `CODE`                  VARCHAR(30) COMMENT '快码类型',
+  `DESCRIPTION`           VARCHAR(240) COMMENT '快码类型描述',
+  `OBJECT_VERSION_NUMBER` DECIMAL(20, 0) DEFAULT 1,
+  `REQUEST_ID`            BIGINT         DEFAULT -1,
+  `PROGRAM_ID`            BIGINT         DEFAULT -1,
+  `CREATION_DATE`         DATETIME       DEFAULT now(),
+  `CREATED_BY`            DECIMAL(20, 0) DEFAULT -1,
+  `LAST_UPDATED_BY`       DECIMAL(20, 0) DEFAULT -1,
+  `LAST_UPDATE_DATE`      DATETIME       DEFAULT now(),
+  `LAST_UPDATE_LOGIN`     DECIMAL(20, 0),
+  `ATTRIBUTE_CATEGORY`    VARCHAR(30),
+  `ATTRIBUTE1`            VARCHAR(240),
+  `ATTRIBUTE2`            VARCHAR(240),
+  `ATTRIBUTE3`            VARCHAR(240),
+  `ATTRIBUTE4`            VARCHAR(240),
+  `ATTRIBUTE5`            VARCHAR(240),
+  `ATTRIBUTE6`            VARCHAR(240),
+  `ATTRIBUTE7`            VARCHAR(240),
+  `ATTRIBUTE8`            VARCHAR(240),
+  `ATTRIBUTE9`            VARCHAR(240),
+  `ATTRIBUTE10`           VARCHAR(240),
+  `ATTRIBUTE11`           VARCHAR(240),
+  `ATTRIBUTE12`           VARCHAR(240),
+  `ATTRIBUTE13`           VARCHAR(240),
+  `ATTRIBUTE14`           VARCHAR(240),
+  `ATTRIBUTE15`           VARCHAR(240),
+  PRIMARY KEY (`CODE_ID`),
+  UNIQUE KEY `SYS_CODE_B_U1`(`CODE`)
+)
+  COMMENT = '快码类型表';
+ALTER TABLE `SYS_CODE_B`
+  CHANGE `DESCRIPTION` `DESCRIPTION` VARCHAR(240) BINARY;
+ALTER TABLE `SYS_CODE_B`
+  CHANGE `CODE` `CODE` VARCHAR(30) BINARY;
 DROP TABLE IF EXISTS SYS_CODE_TL;
-CREATE TABLE `SYS_CODE_TL`(
-    `CODE_ID` bigint COMMENT '表ID，主键，供其他表做外键',
-    `LANG` varchar(10) COMMENT '语言',
-    `DESCRIPTION` varchar(240) COMMENT '快码描述',
-    `OBJECT_VERSION_NUMBER` decimal(20,0) DEFAULT 1     ,
-    `REQUEST_ID` bigint DEFAULT -1,
-    `PROGRAM_ID` bigint DEFAULT -1,
-    `CREATION_DATE` datetime DEFAULT now() ,
-    `CREATED_BY` decimal(20,0) DEFAULT -1    ,
-    `LAST_UPDATED_BY` decimal(20,0) DEFAULT -1    ,
-    `LAST_UPDATE_DATE` datetime DEFAULT now() ,
-    `LAST_UPDATE_LOGIN` decimal(20,0),
-    `ATTRIBUTE_CATEGORY` varchar(30),
-    `ATTRIBUTE1` varchar(240),
-    `ATTRIBUTE2` varchar(240),
-    `ATTRIBUTE3` varchar(240),
-    `ATTRIBUTE4` varchar(240),
-    `ATTRIBUTE5` varchar(240),
-    `ATTRIBUTE6` varchar(240),
-    `ATTRIBUTE7` varchar(240),
-    `ATTRIBUTE8` varchar(240),
-    `ATTRIBUTE9` varchar(240),
-    `ATTRIBUTE10` varchar(240),
-    `ATTRIBUTE11` varchar(240),
-    `ATTRIBUTE12` varchar(240),
-    `ATTRIBUTE13` varchar(240),
-    `ATTRIBUTE14` varchar(240),
-    `ATTRIBUTE15` varchar(240),
-    PRIMARY KEY(`CODE_ID`,`LANG`)
-) COMMENT = '快码类型表(多语言)';
-alter table `SYS_CODE_TL` change `LANG` `LANG` varchar(10) binary;
-alter table `SYS_CODE_TL` change `DESCRIPTION` `DESCRIPTION` varchar(240) binary;
+CREATE TABLE `SYS_CODE_TL` (
+  `CODE_ID`               BIGINT COMMENT '表ID，主键，供其他表做外键',
+  `LANG`                  VARCHAR(10) COMMENT '语言',
+  `DESCRIPTION`           VARCHAR(240) COMMENT '快码描述',
+  `OBJECT_VERSION_NUMBER` DECIMAL(20, 0) DEFAULT 1,
+  `REQUEST_ID`            BIGINT         DEFAULT -1,
+  `PROGRAM_ID`            BIGINT         DEFAULT -1,
+  `CREATION_DATE`         DATETIME       DEFAULT now(),
+  `CREATED_BY`            DECIMAL(20, 0) DEFAULT -1,
+  `LAST_UPDATED_BY`       DECIMAL(20, 0) DEFAULT -1,
+  `LAST_UPDATE_DATE`      DATETIME       DEFAULT now(),
+  `LAST_UPDATE_LOGIN`     DECIMAL(20, 0),
+  `ATTRIBUTE_CATEGORY`    VARCHAR(30),
+  `ATTRIBUTE1`            VARCHAR(240),
+  `ATTRIBUTE2`            VARCHAR(240),
+  `ATTRIBUTE3`            VARCHAR(240),
+  `ATTRIBUTE4`            VARCHAR(240),
+  `ATTRIBUTE5`            VARCHAR(240),
+  `ATTRIBUTE6`            VARCHAR(240),
+  `ATTRIBUTE7`            VARCHAR(240),
+  `ATTRIBUTE8`            VARCHAR(240),
+  `ATTRIBUTE9`            VARCHAR(240),
+  `ATTRIBUTE10`           VARCHAR(240),
+  `ATTRIBUTE11`           VARCHAR(240),
+  `ATTRIBUTE12`           VARCHAR(240),
+  `ATTRIBUTE13`           VARCHAR(240),
+  `ATTRIBUTE14`           VARCHAR(240),
+  `ATTRIBUTE15`           VARCHAR(240),
+  PRIMARY KEY (`CODE_ID`, `LANG`)
+)
+  COMMENT = '快码类型表(多语言)';
+ALTER TABLE `SYS_CODE_TL`
+  CHANGE `LANG` `LANG` VARCHAR(10) BINARY;
+ALTER TABLE `SYS_CODE_TL`
+  CHANGE `DESCRIPTION` `DESCRIPTION` VARCHAR(240) BINARY;
