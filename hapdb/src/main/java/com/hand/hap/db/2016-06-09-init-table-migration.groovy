@@ -115,4 +115,25 @@ databaseChangeLog(logicalFilePath:"2016-06-09-init-table-migration.groovy"){
     changeSet(author: "jessen", id: "20160611-sys-message-email-config-1") {
         sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/tables/sys_message_email_config.sql"), encoding: "UTF-8")
     }
+
+    changeSet(author: "jessen", id: "20160613-sys-message-email-white-lt-1") {
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/tables/sys_message_email_white-lt.sql"), encoding: "UTF-8")
+    }
+
+    changeSet(author: "jessen", id: "20160613-sys-message-receiver-1") {
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/tables/sys_message_receiver.sql"), encoding: "UTF-8")
+    }
+
+    changeSet(author: "jessen", id: "20160613-sys-message-template-1") {
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/tables/sys_message_template.sql"), encoding: "UTF-8")
+    }
+
+    changeSet(author: "jessen", id: "20160613-sys-preferences-1") {
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/tables/sys_preferences.sql"), encoding: "UTF-8")
+    }
+
+    changeSet(author: "jessen", id: "20160613-sys-account-retrieve-1") {
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/tables/sys_account_retrieve.sql"), encoding: "UTF-8")
+    }
+
 }

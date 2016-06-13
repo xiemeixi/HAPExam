@@ -17,9 +17,6 @@ databaseChangeLog(logicalFilePath:"2016-06-09-init-data-migration.groovy"){
     changeSet(author: "hailor", id: "20160609-hailor-data-4") {
         sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_function_resource.sql"), encoding: "UTF-8")
     }
-    changeSet(author: "hailor", id: "20160609-hailor-data-5") {
-        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_job_running_info.sql"), encoding: "UTF-8")
-    }
     changeSet(author: "hailor", id: "20160609-hailor-data-6") {
         sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_lang.sql"), encoding: "UTF-8")
     }
@@ -66,4 +63,29 @@ databaseChangeLog(logicalFilePath:"2016-06-09-init-data-migration.groovy"){
     changeSet(author: "hailor", id: "20160609-hailor-data-18") {
         sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_user_role.sql"), encoding: "UTF-8")
     }
+
+    changeSet(author: "jessen", id: "20160613-sys-attach-category-1") {
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_attach_category.sql"), encoding: "UTF-8")
+    }
+
+    changeSet(author: "jessen", id: "20160613-sys-message-email-config-1") {
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_message_email_config.sql"), encoding: "UTF-8")
+    }
+
+    changeSet(author: "jessen", id: "20160613-sys-message-email-account-1") {
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_message_email_account.sql"), encoding: "UTF-8")
+    }
+
+    changeSet(author: "jessen", id: "20160613-sys-message-email-white-lt-1") {
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_message_email_white_lt.sql"), encoding: "UTF-8")
+    }
+
+    changeSet(author: "jessen", id: "20160613-sys-message-template-1") {
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_message_template.sql"), encoding: "UTF-8")
+    }
+
+    changeSet(author: "jessen", id: "20160613-sys-preferences-1") {
+        sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_preferences.sql"), encoding: "UTF-8")
+    }
+
 }
