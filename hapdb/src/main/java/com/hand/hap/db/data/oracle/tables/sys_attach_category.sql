@@ -12,6 +12,7 @@ CREATE TABLE sys_attach_category_b
   allowed_file_type     NVARCHAR2(30),
   allowed_file_size     NUMBER,
   category_path         NVARCHAR2(255),
+  is_unique             NVARCHAR2(1),
   object_version_number NUMBER,
   request_id            NUMBER(20),
   program_id            NUMBER(20),
@@ -35,8 +36,7 @@ CREATE TABLE sys_attach_category_b
   attribute12           VARCHAR2(240 CHAR),
   attribute13           VARCHAR2(240 CHAR),
   attribute14           VARCHAR2(240 CHAR),
-  attribute15           VARCHAR2(240 CHAR),
-  is_unique             NVARCHAR2(1)
+  attribute15           VARCHAR2(240 CHAR)
 );
 -- Add comments to the columns
 COMMENT ON COLUMN sys_attach_category_b.path
@@ -46,7 +46,7 @@ ALTER TABLE sys_attach_category_b
   ADD PRIMARY KEY (CATEGORY_ID);
 
 
-CREATE SEQUENCE SYS_ATTACH_CATEGORY_S START WITH 10001;
+CREATE SEQUENCE SYS_ATTACH_CATEGORY_B_S START WITH 10001;
 
 -- Create table
 CREATE TABLE sys_attach_category_tl
