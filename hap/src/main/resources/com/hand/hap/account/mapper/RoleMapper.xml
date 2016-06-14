@@ -36,6 +36,7 @@
                 AND tl.ROLE_DESCRIPTION like concat('%',concat(#{roleDescription,jdbcType=VARCHAR},'%'))
             </if>
         </where>
+        order by b.role_id
     </select>
     <select id="selectUserRoles" parameterType="com.hand.hap.account.dto.Role" resultMap="BaseResultMap">
         select b.role_id, b.role_code, tl.role_name, tl.role_description
@@ -43,6 +44,7 @@
         where b.role_id in (select role_id from sys_user_role where user_id = #{request.userId,jdbcType=DECIMAL})
         and tl.role_id = b.role_id
         and tl.lang = #{request.locale,jdbcType=VARCHAR}
+        order by b.role_id
     </select>
 
     <select id="selectUserRoleCount" resultType="int">
@@ -57,6 +59,8 @@
             on sur.role_id = sr_tl.role_id
          WHERE sr_tl.lang = #{request.locale,jdbcType=VARCHAR}
            AND sur.user_id = #{userId, jdbcType = DECIMAL}
+
+           order by sur.role_id
     </select>
 
     <select id="selectRolesByUserWithoutLang" resultMap="BaseResultMap" parameterType="com.hand.hap.account.dto.User" >
