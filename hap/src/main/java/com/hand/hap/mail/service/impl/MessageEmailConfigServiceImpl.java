@@ -72,7 +72,7 @@ public class MessageEmailConfigServiceImpl implements IMessageEmailConfigService
         // aes加密
 //        AESEncryptors encryptor = (AESEncryptors) beanFactory.getBean("aesEncryptor");
         obj.setPassword(aceClientService.encrypt(obj.getPassword()));
-        mapper.insert(obj);
+        mapper.insertSelective(obj);
         return obj;
     }
 
@@ -144,7 +144,7 @@ public class MessageEmailConfigServiceImpl implements IMessageEmailConfigService
         if (obj == null) {
             return null;
         }
-        accountMapper.insert(obj);
+        accountMapper.insertSelective(obj);
         return obj;
     }
     
@@ -153,7 +153,7 @@ public class MessageEmailConfigServiceImpl implements IMessageEmailConfigService
         if (obj == null) {
             return null;
         }
-        addressMapper.insert(obj);
+        addressMapper.insertSelective(obj);
         return obj;
     }
     

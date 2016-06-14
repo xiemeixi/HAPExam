@@ -32,6 +32,7 @@
               and DESCRIPTION like concat('%',concat(#{description,jdbcType=VARCHAR},'%'))
           </if>
        </where>
+      order by account_id
   </select>
   <select id="selectMessageAccountPassword" resultMap="BaseResultMap" parameterType="com.hand.hap.mail.dto.MessageAccount">
        select
@@ -42,6 +43,7 @@
               ACCOUNT_ID = #{accountId,jdbcType=DECIMAL}
           </if>
        </where>
+      order by account_id
   </select>
 
   <select id="selectByUniqueCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -49,6 +51,7 @@
     *
     from SYS_MESSAGE_ACCOUNT
     where ACCOUNT_CODE = #{accountCode,jdbcType=VARCHAR}
+    order by account_id
   </select>
 
   <select id="getMsgAccountByCodeAndMarketId" resultMap="BaseResultMap">
@@ -69,5 +72,7 @@
 				AND acc.ACCOUNT_ID != #{accountId, jdbcType=DECIMAL}
 			</if>
 		</where>
+
+      order by account_id
 	</select>
 </mapper>

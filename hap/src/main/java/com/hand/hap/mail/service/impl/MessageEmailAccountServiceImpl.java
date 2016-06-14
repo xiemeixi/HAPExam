@@ -54,7 +54,7 @@ public class MessageEmailAccountServiceImpl implements IMessageEmailAccountServi
         // aes加密
 //        AESEncryptors encryptor = (AESEncryptors) beanFactory.getBean("aesEncryptor");
         obj.setPassword(aceClientService.encrypt(obj.getPassword()));
-        mapper.insert(obj);
+        mapper.insertSelective(obj);
         return obj;
     }
 
