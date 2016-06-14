@@ -11,6 +11,7 @@
     <result column="LEVEL_ID" jdbcType="DECIMAL" property="levelId" />
     <result column="LEVEL_VALUE" jdbcType="VARCHAR" property="levelValue" />
     <result column="LEVEL_NAME" jdbcType="VARCHAR" property="levelName" />
+    <result column="PROFILE_VALUE" jdbcType="VARCHAR" property="profileValue" />
   </resultMap>
 
 
@@ -101,7 +102,7 @@ select sr.role_code level_Name,sr.role_id level_Value, '20' level_Id from sys_ro
                 AND t.profile_value = #{profileValue,jdbcType=VARCHAR}
             </if>
         </where>
-      order by t.profile_level_id
+      order by t.profile_value_id
     </select>
 
 
