@@ -38,6 +38,10 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     public List<User> batchUpdate(IRequest request, List<User> users) {
         for (User user : users) {
             if (user.getUserId() == null) {
+                if (user.getPassword() == null) {
+                    user.setPassword(passwordManager.getDefaultPassword());
+                    user.setPasswordEncrypted(passwordManager.encode(user.getPassword()));
+                }
                 self().insertSelective(request, user);
             } else {
                 self().updateByPrimaryKeySelective(request, user);
@@ -72,7 +76,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
             throw new UserException(UserException.MSG_LOGIN_ACCOUNT_INVALID, UserException.MSG_LOGIN_ACCOUNT_INVALID,
                     null);
         }
-        if (!passwordManager.matches(user.getPassword(),user1.getPasswordEncrypted())) {
+        if (!passwordManager.matches(user.getPassword(), user1.getPasswordEncrypted())) {
             throw new UserException(UserException.MSG_LOGIN_NAME_PASSWORD, UserException.MSG_LOGIN_NAME_PASSWORD, null);
         }
         return user1;
