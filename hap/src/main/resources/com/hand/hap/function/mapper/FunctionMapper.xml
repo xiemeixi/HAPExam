@@ -114,6 +114,7 @@
                 AND t.DESCRIPTION like concat('%',concat(#{resource.description,jdbcType=VARCHAR},'%'))
             </if>
         </where>
+      order by b.RESOURCE_ID
   </select>
   <select id="selectNotExistsResourcesByFunction" resultMap="ResourceResultMap" parameterType="map">
         select
@@ -136,6 +137,7 @@
                 AND t.NAME like concat('%',concat(#{resource.name,jdbcType=VARCHAR},'%'))
             </if>
         </where>
+        order by b.RESOURCE_ID
   </select>
 
     <select id="selectForCache" resultMap="BaseResultMap">

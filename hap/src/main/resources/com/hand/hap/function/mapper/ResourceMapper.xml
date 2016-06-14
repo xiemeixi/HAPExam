@@ -31,5 +31,6 @@
            and t.lang = #{request.locale,jdbcType=VARCHAR}
            and b.RESOURCE_ID = sfr.RESOURCE_ID
            and sfr.FUNCTION_ID = #{functionId,jdbcType=DECIMAL}
+          order b.RESOURCE_ID
   </select>
 </mapper>
