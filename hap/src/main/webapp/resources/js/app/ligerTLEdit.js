@@ -97,7 +97,7 @@
                 $.ligerDialog.open({
                     height : 300,
                     width : 500,
-                    title : p.title||$l('msg.info.multilanguage_editor')||'输入多语言信息',
+                    title : p.title||$l('hap.multilanguage_editor')||'输入多语言信息',
                     url : _basePath+'/sys/sys_multilanguage_editor.html?id='+(row[p.idField]||'')+'&dto='+p.dto + '&field='+name,
                     data : data,
                     buttons : [ {
