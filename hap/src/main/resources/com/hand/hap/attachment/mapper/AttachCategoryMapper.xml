@@ -44,7 +44,18 @@
     
     <!-- 查找目录父节点 -->
     <select id="selectAllParentCategory" resultMap="BaseResultMap" >
-         select *
+         select
+        b.category_id,
+        t.category_name,
+        b.leaf_flag,
+        t.description,
+        b.status,
+        b.parent_category_id,
+        b.source_type,
+        b.allowed_file_type,
+        b.allowed_file_size,
+        b.category_path,
+        b.is_unique
          from SYS_ATTACH_CATEGORY_B B
             LEFT JOIN SYS_ATTACH_CATEGORY_TL T
             ON (B.category_id = T.category_id AND t.lang = #{request.locale,jdbcType=VARCHAR})
@@ -57,9 +68,20 @@
 
 
     <select id="selectAllLeafCategory" resultMap="BaseResultMap" parameterType="com.hand.hap.attachment.dto.AttachCategory">
-        select *
+        select
+        b.category_id,
+        t.category_name,
+        b.leaf_flag,
+        t.description,
+        b.status,
+        b.parent_category_id,
+        b.source_type,
+        b.allowed_file_type,
+        b.allowed_file_size,
+        b.category_path,
+        b.is_unique
         from SYS_ATTACH_CATEGORY_B B
-        LEFT JOIN SYS_ATTACH_CATEGORY_TL T
+        LEFT OUTER JOIN SYS_ATTACH_CATEGORY_TL T
         ON (B.category_id = T.category_id AND t.lang = #{request.locale,jdbcType=VARCHAR})
         where b.leaf_flag = 1
         <if test="categoryName!=null">
