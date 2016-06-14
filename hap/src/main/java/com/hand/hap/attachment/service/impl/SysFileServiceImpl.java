@@ -67,7 +67,7 @@ public class SysFileServiceImpl implements ISysFileService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public SysFile insert(IRequest requestContext, @StdWho SysFile file) {
-        sysFileMapper.insert(file);
+        sysFileMapper.insertSelective(file);
         return file;
     }
 
@@ -101,7 +101,7 @@ public class SysFileServiceImpl implements ISysFileService {
         if (params == null) {
             attach.setStartActiveDate(new Date());
             attach.setEndActiveDate(new Date());
-            attachmentMapper.insert(attach);
+            attachmentMapper.insertSelective(attach);
             params = attach;
         }
         file.setAttachmentId(params.getAttachmentId());

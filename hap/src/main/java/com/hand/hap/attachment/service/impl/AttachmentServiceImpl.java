@@ -41,7 +41,7 @@ public class AttachmentServiceImpl implements IAttachmentService {
 
     @Override
     public Attachment insert(IRequest requestContext, @StdWho Attachment attach) {
-        attachmentMapper.insert(attach);
+        attachmentMapper.insertSelective(attach);
         return attach;
     }
 
