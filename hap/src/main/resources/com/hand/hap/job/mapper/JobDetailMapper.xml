@@ -90,11 +90,12 @@
         from qrtz_job_details j
         left outer join sys_job_running_info i
         on (j.job_name = i.job_name and j.job_group = i.job_group)
-        where i.scheduled_fire_time =
+        where (i.scheduled_fire_time =
         (select max(ii.scheduled_fire_time)
         from sys_job_running_info ii
         where ii.job_name = j.job_name
         and ii.job_group = j.job_group)
+        or i.scheduled_fire_time is null)
         <if test="schedName != null">
             AND j.sched_name = #{schedName,jdbcType=VARCHAR}
         </if>
