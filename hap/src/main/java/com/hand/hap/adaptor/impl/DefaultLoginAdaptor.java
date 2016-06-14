@@ -12,22 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.hand.hap.account.dto.Role;
-import com.hand.hap.account.service.IRoleService;
-import com.hand.hap.adaptor.ILoginAdaptor;
-import com.hand.hap.core.BaseConstants;
-import com.hand.hap.core.ILanguageProvider;
-import com.hand.hap.core.IRequest;
-import com.hand.hap.core.impl.RequestHelper;
-import com.hand.hap.system.dto.ResponseData;
-import com.hand.hap.account.dto.User;
-import com.hand.hap.system.dto.Language;
-import com.hand.hap.account.exception.UserException;
-import com.hand.hap.account.exception.RoleException;
-import com.hand.hap.security.TokenUtils;
-import com.hand.hap.account.service.IUserService;
-import com.hand.hap.system.service.ISysPreferencesService;
-import com.hand.hap.core.util.TimeZoneUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -37,7 +21,23 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.util.WebUtils;
 
+import com.hand.hap.account.dto.Role;
+import com.hand.hap.account.dto.User;
+import com.hand.hap.account.exception.RoleException;
+import com.hand.hap.account.exception.UserException;
+import com.hand.hap.account.service.IRoleService;
+import com.hand.hap.account.service.IUserService;
+import com.hand.hap.adaptor.ILoginAdaptor;
+import com.hand.hap.core.BaseConstants;
+import com.hand.hap.core.ILanguageProvider;
+import com.hand.hap.core.IRequest;
+import com.hand.hap.core.impl.RequestHelper;
+import com.hand.hap.core.util.TimeZoneUtil;
+import com.hand.hap.security.TokenUtils;
 import com.hand.hap.security.captcha.ICaptchaManager;
+import com.hand.hap.system.dto.Language;
+import com.hand.hap.system.dto.ResponseData;
+import com.hand.hap.system.service.ISysPreferencesService;
 
 /**
  * 默认登陆代理类.
@@ -112,12 +112,14 @@ public class DefaultLoginAdaptor implements ILoginAdaptor {
     }
 
     private void setTimeZoneFromPreference(HttpSession session, Long accountId) {
-//        SysPreferences para = new SysPreferences();
-//        para.setUserId(accountId);
-//        para.setPreferencesLevel(10L);
-//        para.setPreferences(BaseConstants.TIME_ZONE);
-//        SysPreferences pref = preferencesService.querySysPreferencesLine(RequestHelper.newEmptyRequest(), para);
-//        String tz = pref == null ? null : pref.getPreferencesValue();
+        // SysPreferences para = new SysPreferences();
+        // para.setUserId(accountId);
+        // para.setPreferencesLevel(10L);
+        // para.setPreferences(BaseConstants.TIME_ZONE);
+        // SysPreferences pref =
+        // preferencesService.querySysPreferencesLine(RequestHelper.newEmptyRequest(),
+        // para);
+        // String tz = pref == null ? null : pref.getPreferencesValue();
         String tz = "GMT+0800";
         if (StringUtils.isBlank(tz)) {
             tz = TimeZoneUtil.toGMTFormat(TimeZone.getDefault());
@@ -317,6 +319,18 @@ public class DefaultLoginAdaptor implements ILoginAdaptor {
     @Override
     public ModelAndView loginView(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView view = new ModelAndView(getLoginView(request));
+        String error = request.getParameter("error");
+        String v = request.getParameter("v");
+        if ("true".equals(error)) {
+            String msg = null;
+            Locale locale = RequestContextUtils.getLocale(request);
+            if ("1".equalsIgnoreCase(v)) {
+                msg = messageSource.getMessage(UserException.LOGIN_VERIFICATION_CODE_ERROR, null, locale);
+            } else {
+                msg = messageSource.getMessage(UserException.MSG_LOGIN_NAME_PASSWORD, null, locale);
+            }
+            view.addObject("msg", msg);
+        }
         fillContextLanguagesData(view);
         return view;
     }

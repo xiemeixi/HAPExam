@@ -1,21 +1,21 @@
 package com.hand.hap.security;
 
-import com.hand.hap.account.exception.UserException;
-import com.hand.hap.security.captcha.ICaptchaManager;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.RequestMatcher;
-import org.springframework.web.filter.OncePerRequestFilter;
-import org.springframework.web.util.WebUtils;
+import java.io.IOException;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.util.WebUtils;
+
+import com.hand.hap.security.captcha.ICaptchaManager;
 
 /**
  * Created by hailor on 16/6/12.
@@ -35,15 +35,16 @@ public class CaptchaVerifierFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
+            FilterChain filterChain) throws ServletException, IOException {
         if (requiresValidateCaptcha(httpServletRequest, httpServletResponse)) {
 
             Cookie cookie = WebUtils.getCookie(httpServletRequest, captchaManager.getCaptchaKeyName());
             String captchaCode = httpServletRequest.getParameter(getCaptchaField());
             if (cookie == null || StringUtils.isEmpty(captchaCode)
                     || !captchaManager.checkCaptcha(cookie.getValue(), captchaCode)) {
-                throw new RuntimeException(new UserException(UserException.MSG_LOGIN_INVALID_CODE, UserException.MSG_LOGIN_INVALID_CODE,
-                        null));
+                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + loginUrl + "?error=true&v=1");
+                return;
             }
         }
         filterChain.doFilter(httpServletRequest, httpServletResponse);
@@ -61,9 +62,7 @@ public class CaptchaVerifierFilter extends OncePerRequestFilter {
         this.loginRequestMatcher = new AntPathRequestMatcher(filterProcessesUrl);
     }
 
-
-    protected boolean requiresValidateCaptcha(HttpServletRequest request,
-                                              HttpServletResponse response) {
-        return loginRequestMatcher.matches(request)&&"POST".equalsIgnoreCase(request.getMethod());
+    protected boolean requiresValidateCaptcha(HttpServletRequest request, HttpServletResponse response) {
+        return loginRequestMatcher.matches(request) && "POST".equalsIgnoreCase(request.getMethod());
     }
 }
