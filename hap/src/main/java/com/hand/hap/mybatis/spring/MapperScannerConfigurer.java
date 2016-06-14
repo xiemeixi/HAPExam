@@ -24,18 +24,40 @@
 
 package com.hand.hap.mybatis.spring;
 
+import java.util.Map;
+import java.util.Properties;
+
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
+
 import com.hand.hap.mybatis.common.Marker;
 import com.hand.hap.mybatis.mapperhelper.MapperHelper;
 import com.hand.hap.mybatis.util.StringUtil;
 
-import java.util.Properties;
-
 
 public class MapperScannerConfigurer extends org.mybatis.spring.mapper.MapperScannerConfigurer {
     private MapperHelper mapperHelper = new MapperHelper();
+
+    private String mybatisOrder;
+
+    private String mybatisIdentity;
+
+    public String getMybatisOrder() {
+        return mybatisOrder;
+    }
+
+    public void setMybatisOrder(String mybatisOrder) {
+        this.mybatisOrder = mybatisOrder;
+    }
+
+    public String getMybatisIdentity() {
+        return mybatisIdentity;
+    }
+
+    public void setMybatisIdentity(String mybatisIdentity) {
+        this.mybatisIdentity = mybatisIdentity;
+    }
 
     public void setMarkerInterface(Class<?> superClass) {
         super.setMarkerInterface(superClass);
@@ -59,6 +81,18 @@ public class MapperScannerConfigurer extends org.mybatis.spring.mapper.MapperSca
      */
     public void setProperties(Properties properties) {
         mapperHelper.setProperties(properties);
+    }
+
+    public void setPropertiesMap(Map<String,String> propertiesMap) {
+        Properties properties = new Properties();
+        propertiesMap.forEach((k,v)->{
+            properties.put(k,v);
+        });
+        setProperties(properties);
+    }
+
+    public Map<String,String> getPropertiesMap(){
+        return null;
     }
 
     /**

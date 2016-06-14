@@ -53,7 +53,7 @@
             $.ligerDialog.error("<@spring.message 'error.user.username_is_empty'/>", $l("hap.tip.info"));
             return;
         }
-        if (phoneReg.test(data.phoneNo) == false) {
+        if (phoneReg.test(data.phone) == false) {
             $.ligerDialog.error("<@spring.message 'error.user.phone_format_not_correct'/>", $l("hap.tip.info"));
             return;
         }
@@ -81,7 +81,7 @@
                 if (data.success) {
                     if (condition == 2) {
                         var userId = data.rows[0].userId;
-                        $.ligerDialog.success("<@spring.message 'msg.infor.dm.save_success'/>", $l("hap.tip.info"), function () {
+                        $.ligerDialog.success("<@spring.message 'hap.tip.save_success'/>", $l("hap.tip.info"), function () {
                             parent.f_addTab("sys_user_" + userId, "<@spring.message 'user.userdetail'/>", "${base.contextPath}/sys/um/sys_user_info.html?userId=" + userId);
                             window.top.f_removeTab("sys_user_create");
                         });

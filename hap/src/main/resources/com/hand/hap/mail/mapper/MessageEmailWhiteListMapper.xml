@@ -17,6 +17,7 @@
                 and CONFIG_Id = #{value,jdbcType=DECIMAL}
             </if>
         </where>
+        order by id
     </select>
 
     <delete id="deleteByConfigId" parameterType="java.lang.Long">

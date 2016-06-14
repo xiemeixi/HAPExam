@@ -21,6 +21,21 @@
 	<bean id="messageSource" class="com.hand.hap.core.i18n.CacheMessageSource"/>
 
 
+
+    <!-- mapper definition -->
+    <bean id="mapperScannerConfigurer" class="com.hand.hap.mybatis.spring.MapperScannerConfigurer">
+        <property name="basePackage" value="com.**.mapper"/>
+        <property name="propertiesMap">
+            <map>
+                <entry key="mappers" value="com.hand.hap.mybatis.common.Mapper"/>
+                <entry key="ORDER" value="AFTER"/>
+                <entry key="IDENTITY" value="JDBC"/>
+                <entry key="seqFormat" value="{3}_s.nextVal"/>
+            </map>
+        </property>
+    </bean>
+
+
     <context:component-scan base-package="**.*.service"/>
 
     <bean id="requestAD" class="com.hand.hap.core.impl.ServiceExecutionAdvice"/>
@@ -58,18 +73,6 @@
         <constructor-arg index="0" name="sqlSessionFactory" ref="sqlSessionFactory"/>
     </bean>
 
-    <!-- mapper definition -->
-    <bean class="com.hand.hap.mybatis.spring.MapperScannerConfigurer">
-        <property name="basePackage" value="com.**.mapper"/>
-        <property name="properties">
-            <value>
-                mappers=com.hand.hap.mybatis.common.Mapper
-                ORDER=${ORDER}
-                IDENTITY=${IDENTITY}
-                seqFormat={3}_s.nextVal
-            </value>
-        </property>
-    </bean>
 
     <!-- 密码加密 PasswordEncoder-->
     <bean id="passwordManager" class="com.hand.hap.security.PasswordManager">
