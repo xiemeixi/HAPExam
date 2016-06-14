@@ -27,8 +27,6 @@ public interface ProfileValueMapper {
 
     List<ProfileValue> selectLevelValuesForRole();
 
-    List<ProfileValue> selectLevelValuesForGlobal();
-
     int updateByPrimaryKeySelective(ProfileValue record);
 
     int updateByPrimaryKey(ProfileValue record);

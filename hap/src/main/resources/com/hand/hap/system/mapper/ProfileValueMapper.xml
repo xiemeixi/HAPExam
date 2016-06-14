@@ -92,11 +92,7 @@ FROM sys_user su
 select sr.role_code level_Name,sr.role_id level_Value, '20' level_Id from sys_role_b sr
    
    </select>
-   
-   <select id="selectLevelValuesForGlobal" resultMap="ExtResultMap">
-select 'GLOBAL' level_Name,'GLOBAL' level_Value, '10' level_Id from DUAL
-   
-   </select>
+
   
   <select id="selectProfileValues" resultMap="BaseResultMap" parameterType="com.hand.hap.system.dto.ProfileValue">
         select t.PROFILE_VALUE_ID, t.PROFILE_ID, t.LEVEL_ID, t.LEVEL_VALUE, t.PROFILE_VALUE, t.OBJECT_VERSION_NUMBER, t.

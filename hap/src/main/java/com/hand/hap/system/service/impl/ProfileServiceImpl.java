@@ -4,6 +4,7 @@
 
 package com.hand.hap.system.service.impl;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -14,14 +15,14 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
-import com.hand.hap.core.annotation.StdWho;
 import com.hand.hap.core.IRequest;
+import com.hand.hap.core.annotation.StdWho;
+import com.hand.hap.message.IMessagePublisher;
 import com.hand.hap.system.dto.GlobalProfile;
 import com.hand.hap.system.dto.Profile;
 import com.hand.hap.system.dto.ProfileValue;
 import com.hand.hap.system.mapper.ProfileMapper;
 import com.hand.hap.system.mapper.ProfileValueMapper;
-import com.hand.hap.message.IMessagePublisher;
 import com.hand.hap.system.service.IProfileService;
 
 /**
@@ -37,6 +38,13 @@ public class ProfileServiceImpl implements IProfileService {
 
     @Autowired
     private ProfileValueMapper profileValueMapper;
+
+    private static ProfileValue GLOBAL = new ProfileValue();
+    static {
+        GLOBAL.setLevelId(10L);
+        GLOBAL.setLevelName("GLOBAL");
+        GLOBAL.setLevelValue("GLOBAL");
+    }
 
     private Logger logger = LoggerFactory.getLogger(ProfileServiceImpl.class);
 
@@ -182,7 +190,7 @@ public class ProfileServiceImpl implements IProfileService {
         } else if (levelId == LEVEL_ROLE) {
             return profileValueMapper.selectLevelValuesForRole();
         } else if (levelId == LEVEL_GLOBAL) {
-            return profileValueMapper.selectLevelValuesForGlobal();
+            return Arrays.asList(GLOBAL);
         }
         return null;
 
