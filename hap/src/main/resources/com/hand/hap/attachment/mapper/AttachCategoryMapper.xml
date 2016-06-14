@@ -34,7 +34,7 @@
             <if test="status != null" >
                	and STATUS = #{status,jdbcType=VARCHAR}
             </if>
-					</trim> 
+         </trim>
     </select>
     
     <!-- 查找所有的SourceTypes -->
@@ -52,6 +52,7 @@
            <foreach collection="collection" open="(" close=")" separator="," item="id">
                #{id}
            </foreach>
+            order by b.category_id
     </select>
 
 
@@ -67,6 +68,8 @@
         <if test="sourceType!=null">
             AND b.source_type=#{sourceType}
         </if>
+
+        order by b.category_id
     </select>
     
 </mapper>
