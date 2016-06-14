@@ -28,7 +28,6 @@
         <property name="propertiesMap">
             <map>
                 <entry key="mappers" value="com.hand.hap.mybatis.common.Mapper"/>
-                <entry key="ORDER" value="AFTER"/>
                 <entry key="IDENTITY" value="JDBC"/>
                 <entry key="seqFormat" value="{3}_s.nextVal"/>
             </map>

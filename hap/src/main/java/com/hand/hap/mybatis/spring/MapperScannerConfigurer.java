@@ -35,7 +35,6 @@ import com.hand.hap.mybatis.common.Marker;
 import com.hand.hap.mybatis.mapperhelper.MapperHelper;
 import com.hand.hap.mybatis.util.StringUtil;
 
-
 public class MapperScannerConfigurer extends org.mybatis.spring.mapper.MapperScannerConfigurer {
     private MapperHelper mapperHelper = new MapperHelper();
 
@@ -83,10 +82,17 @@ public class MapperScannerConfigurer extends org.mybatis.spring.mapper.MapperSca
         mapperHelper.setProperties(properties);
     }
 
-    public void setPropertiesMap(Map<String,String> propertiesMap) {
+    public void setPropertiesMap(Map<String, String> propertiesMap) {
+        if (propertiesMap.get("ORDER") == null) {
+            if ("JDBC".equalsIgnoreCase(propertiesMap.get("IDENTITY"))) {
+                propertiesMap.put("ORDER", "AFTER");
+            } else {
+                propertiesMap.put("ORDER", "BEFORE");
+            }
+        }
         Properties properties = new Properties();
-        propertiesMap.forEach((k,v)->{
-            properties.put(k,v);
+        propertiesMap.forEach((k, v) -> {
+            properties.put(k, v);
         });
         setProperties(properties);
     }
