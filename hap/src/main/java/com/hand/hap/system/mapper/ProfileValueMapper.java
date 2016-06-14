@@ -8,28 +8,19 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.hand.hap.mybatis.common.Mapper;
 import com.hand.hap.system.dto.ProfileValue;
 
-public interface ProfileValueMapper {
-    int deleteByPrimaryKey(ProfileValue key);
+public interface ProfileValueMapper extends Mapper<ProfileValue> {
 
     int deleteByProfileId(ProfileValue key);
-
-    int insert(ProfileValue record);
-
-    int insertSelective(ProfileValue record);
-
-    ProfileValue selectByPrimaryKey(Long profileValueId);
-
-    List<ProfileValue> selectProfileValues(ProfileValue example);
 
     List<ProfileValue> selectLevelValuesForUser();
 
     List<ProfileValue> selectLevelValuesForRole();
 
-    int updateByPrimaryKeySelective(ProfileValue record);
+    List<ProfileValue> selectProfileValues(ProfileValue example);
 
-    int updateByPrimaryKey(ProfileValue record);
 
     /**
      * 根据 profile id 和 user id 查询 该user id 在该配置文件下的所有值， 并按照 LEVEL_ID降序排列

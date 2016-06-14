@@ -3,13 +3,12 @@
  */
 package com.hand.hap.system.dto;
 
-import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotEmpty;
-
-import com.hand.hap.system.dto.BaseDTO;
 
 /**
  * 
@@ -26,38 +25,33 @@ public class ProfileValue extends BaseDTO {
      * 表ID，主键，供其他表做外键.
      */
     @Id
-    @Column(name = "profile_value_id", nullable = false)
+    @GeneratedValue(generator = GENERATOR_TYPE)
     private Long profileValueId;
 
     /**
      * 配置文件ID.
      */
-    @Id
-    @Column(name = "profile_id")
     @NotEmpty
     private Long profileId;
 
     /**
      * 层次ID值.
      */
-    @Column(name = "level_id")
     @NotEmpty
     private Long levelId;
 
     /**
      * 层次值.
      */
-    @Column(name = "level_value")
     @NotEmpty
     private String levelValue;
 
-    @Column(name = "level_Name")
+    @Transient
     private String levelName;
 
     /**
      * 配置文件值.
      */
-    @Column(name = "profile_value")
     private String profileValue;
 
     public Long getProfileValueId() {

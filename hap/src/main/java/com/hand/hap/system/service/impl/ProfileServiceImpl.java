@@ -62,13 +62,13 @@ public class ProfileServiceImpl implements IProfileService {
     @Transactional(propagation = Propagation.SUPPORTS)
     public List<Profile> selectProfiles(Profile profile, int page, int pagesize) {
         PageHelper.startPage(page, pagesize);
-        return profileMapper.selectProfiles(profile);
+        return profileMapper.select(profile);
     }
 
     @Override
     public Profile createProfile(IRequest request, @StdWho Profile profile) {
         // 插入头行
-        profileMapper.insert(profile);
+        profileMapper.insertSelective(profile);
         // 判断如果行不为空，则迭代循环插入
 
         if (profile.getProfileValues() != null) {
@@ -117,7 +117,7 @@ public class ProfileServiceImpl implements IProfileService {
         for (ProfileValue profileValue : profile.getProfileValues()) {
             if (profileValue.getProfileValueId() == null) {
                 profileValue.setProfileId(profile.getProfileId()); // 设置头ID跟行ID一致
-                profileValueMapper.insert((profileValue));
+                profileValueMapper.insertSelective((profileValue));
             } else if (profileValue.getProfileValueId() != null) {
                 profileValueMapper.updateByPrimaryKeySelective(profileValue);
             }

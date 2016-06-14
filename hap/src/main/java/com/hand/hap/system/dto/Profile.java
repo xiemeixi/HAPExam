@@ -5,9 +5,10 @@ package com.hand.hap.system.dto;
 
 import java.util.List;
 
-import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -26,7 +27,6 @@ public class Profile extends BaseDTO {
     /**
      * 配置文件描述.
      */
-    @Column(name = "description")
     @com.hand.hap.core.annotation.MultiLanguageField
     @NotEmpty
     private String description;
@@ -35,17 +35,17 @@ public class Profile extends BaseDTO {
      * 表ID，主键，供其他表做外键.
      */
     @Id
-    @Column(name = "profile_id", nullable = false)
+    @GeneratedValue(generator = GENERATOR_TYPE)
     private Long profileId;
 
     /**
      * 配置文件.
      */
-    @Column(name = "profile_name")
     @NotEmpty
     private String profileName;
 
     @Children
+    @Transient
     private List<ProfileValue> profileValues;
 
     public String getDescription() {
