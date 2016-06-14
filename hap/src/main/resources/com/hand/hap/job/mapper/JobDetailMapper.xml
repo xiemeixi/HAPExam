@@ -74,28 +74,36 @@
     </select>
     <select id="selectJobInfoDetails" resultMap="InfoResultMap"
         parameterType="com.hand.hap.job.dto.JobDetailDto">
-        select
-        i.scheduled_fire_time,i.FIRE_TIME,i.NEXT_FIRE_TIME,i.PREVIOUS_FIRE_TIME,i.TRIGGER_NAME,i.TRIGGER_Group,i.JOB_STATUS,i.JOB_STATUS_MESSAGE,i.JOB_RESULT,
-        j.JOB_NAME,j.JOB_GROUP,j.DESCRIPTION,JOB_CLASS_NAME  
+        select i.scheduled_fire_time,
+        i.FIRE_TIME,
+        i.NEXT_FIRE_TIME,
+        i.PREVIOUS_FIRE_TIME,
+        i.TRIGGER_NAME,
+        i.TRIGGER_Group,
+        i.JOB_STATUS,
+        i.JOB_STATUS_MESSAGE,
+        i.JOB_RESULT,
+        j.JOB_NAME,
+        j.JOB_GROUP,
+        j.DESCRIPTION,
+        j.JOB_CLASS_NAME
         from qrtz_job_details j
         left outer join sys_job_running_info i
-        on (j.job_name = i.job_name and j.job_group = i.job_group and
-        i.scheduled_fire_time =
+        on (j.job_name = i.job_name and j.job_group = i.job_group)
+        where i.scheduled_fire_time =
         (select max(ii.scheduled_fire_time)
         from sys_job_running_info ii
-        where ii.job_name = i.job_name
-        and ii.job_group = i.job_group))
-        <where>
-            <if test="schedName != null">
-                j.sched_name = #{schedName,jdbcType=VARCHAR}
-            </if>
-            <if test="jobName != null">
-                AND j.job_name = #{jobName,jdbcType=VARCHAR}
-            </if>
-            <if test="jobGroup != null">
-                AND j.job_group = #{jobGroup,jdbcType=VARCHAR}
-            </if>
-        </where>
+        where ii.job_name = j.job_name
+        and ii.job_group = j.job_group)
+        <if test="schedName != null">
+            AND j.sched_name = #{schedName,jdbcType=VARCHAR}
+        </if>
+        <if test="jobName != null">
+            AND j.job_name = #{jobName,jdbcType=VARCHAR}
+        </if>
+        <if test="jobGroup != null">
+            AND j.job_group = #{jobGroup,jdbcType=VARCHAR}
+        </if>
         order by j.JOB_NAME
     </select>
 </mapper>
