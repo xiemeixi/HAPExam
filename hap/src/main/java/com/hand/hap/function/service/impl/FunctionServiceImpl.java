@@ -11,8 +11,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.hand.hap.function.service.IFunctionService;
-import com.hand.hap.system.service.impl.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -22,16 +20,18 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.pagehelper.PageHelper;
 import com.hand.hap.cache.impl.HashStringRedisCacheGroup;
 import com.hand.hap.core.IRequest;
-import com.hand.hap.function.dto.MenuItem;
 import com.hand.hap.function.dto.Function;
 import com.hand.hap.function.dto.FunctionDisplay;
 import com.hand.hap.function.dto.FunctionResource;
+import com.hand.hap.function.dto.MenuItem;
 import com.hand.hap.function.dto.Resource;
 import com.hand.hap.function.mapper.FunctionMapper;
 import com.hand.hap.function.mapper.FunctionResourceMapper;
 import com.hand.hap.function.mapper.RoleFunctionMapper;
+import com.hand.hap.function.service.IFunctionService;
 import com.hand.hap.function.service.IResourceService;
 import com.hand.hap.function.service.IRoleFunctionService;
+import com.hand.hap.system.service.impl.BaseServiceImpl;
 
 /**
  * 功能服务接口实现.
@@ -305,7 +305,7 @@ public class FunctionServiceImpl extends BaseServiceImpl<Function> implements IF
                     functionResource.setCreationDate(new Date());
                     functionResource.setLastUpdateDate(new Date());
                     functionResource.setLastUpdatedBy(request.getUserId());
-                    functionResourceMapper.insert(functionResource);
+                    functionResourceMapper.insertSelective(functionResource);
                 }
             }
         }
