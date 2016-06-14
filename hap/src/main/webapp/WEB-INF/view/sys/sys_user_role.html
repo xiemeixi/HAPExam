@@ -118,12 +118,13 @@
         var data = user_role_grid.getData();
         var requestData = [];
         if (data.length == 0) {
-            requestData.push({userId: ${RequestParameters.userId}});
+            //requestData.push({userId: ${RequestParameters.userId}});
         } else {
             for (var i = 0; i < data.length; i++) {
                 requestData.push({
                     roleId: data[i].roleId,
-                    userId: ${RequestParameters.userId}
+                    userId: ${RequestParameters.userId},
+	                __status:data[i].__status
                 });
             }
         }
