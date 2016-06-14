@@ -77,7 +77,6 @@
             AND DS.PK5_VALUE = #{pk5Value,jdbcType=VARCHAR}
         </if>
 
-        FOR UPDATE
     </select>
     <insert id="insert" parameterType="com.hand.hap.system.dto.DocSequence">
         insert into SYS_DOC_SEQUENCES

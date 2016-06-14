@@ -25,6 +25,7 @@
     where msg.MESSAGE_TYPE = 'EMAIL'
     and (msg.PRIORITY_LEVEL is null or msg.PRIORITY_LEVEL = 'NORMAL')
     and msg.SEND_FLAG not in ('Y','F')
+    order by msg.message_id
   </select>
   <!-- 发送邮件,VIP队列 -->
   <select id="selectVipEmailToSend" resultMap="BaseResultMap">
@@ -34,6 +35,7 @@
     where msg.MESSAGE_TYPE = 'EMAIL'
     and msg.PRIORITY_LEVEL = 'VIP'
     and msg.SEND_FLAG not in ('Y','F')
+    order by msg.message_id
   </select>
   <!-- 发送站内信 -->
   <select id="selectSiteToSend" resultMap="BaseResultMap">
@@ -43,6 +45,7 @@
     where msg.MESSAGE_TYPE = 'SITE'
     and (msg.PRIORITY_LEVEL is null or msg.PRIORITY_LEVEL = 'NORMAL')
     and msg.SEND_FLAG not in ('Y','F')
+    order by msg.message_id
   </select>
   <!-- 发送邮件,VIP队列 -->
   <select id="selectVipSiteToSend" resultMap="BaseResultMap">
@@ -52,6 +55,7 @@
     where msg.MESSAGE_TYPE = 'SITE'
     and msg.PRIORITY_LEVEL = 'VIP'
     and msg.SEND_FLAG not in ('Y','F')
+    order by msg.message_id
   </select>
 
   <select id="selectMessagesBySubject" resultMap="BaseResultMap" parameterType="com.hand.hap.mail.dto.Message" >
@@ -68,5 +72,6 @@
            sm.SUBJECT like concat('%',concat(#{subject,jdbcType=VARCHAR},'%'))
        </if>
     </where>
+      order by sm.message_id
   </select>
 </mapper>

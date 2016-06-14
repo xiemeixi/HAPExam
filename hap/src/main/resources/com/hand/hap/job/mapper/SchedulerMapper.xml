@@ -20,6 +20,7 @@
         from qrtz_scheduler_state
         where SCHED_NAME = #{schedName,jdbcType=VARCHAR}
         and INSTANCE_NAME = #{instanceName,jdbcType=VARCHAR}
+        order by INSTANCE_NAME
     </select>
     <select id="selectSchedulers" resultMap="BaseResultMap" parameterType="com.hand.hap.job.dto.SchedulerDto">
         select
@@ -33,5 +34,6 @@
                 and INSTANCE_NAME like #{instanceName,jdbcType=VARCHAR}
             </if>
         </where>
+        order by INSTANCE_NAME
     </select>
 </mapper>

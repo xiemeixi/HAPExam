@@ -24,15 +24,16 @@
 
 package com.hand.hap.mybatis.provider.base;
 
+import java.util.Set;
+
+import org.apache.ibatis.mapping.MappedStatement;
+
 import com.hand.hap.mybatis.entity.EntityColumn;
 import com.hand.hap.mybatis.mapperhelper.EntityHelper;
 import com.hand.hap.mybatis.mapperhelper.MapperHelper;
 import com.hand.hap.mybatis.mapperhelper.MapperTemplate;
 import com.hand.hap.mybatis.mapperhelper.SqlHelper;
 import com.hand.hap.mybatis.util.StringUtil;
-import org.apache.ibatis.mapping.MappedStatement;
-
-import java.util.Set;
 
 /**
  * BaseInsertProvider实现类，基础方法实现类
@@ -195,6 +196,9 @@ public class BaseInsertProvider extends MapperTemplate {
             if (!column.isInsertable()) {
                 continue;
             }
+            if(column.isIdentity()&&getIDENTITY().equals("JDBC")) {
+                continue;
+            }
             if (StringUtil.isNotEmpty(column.getSequenceName()) || column.isIdentity() || column.isUuid()) {
                 sql.append(column.getColumn() + ",");
             } else {
@@ -205,6 +209,9 @@ public class BaseInsertProvider extends MapperTemplate {
         sql.append("<trim prefix=\"VALUES(\" suffix=\")\" suffixOverrides=\",\">");
         for (EntityColumn column : columnList) {
             if (!column.isInsertable()) {
+                continue;
+            }
+            if(column.isIdentity()&&getIDENTITY().equals("JDBC")) {
                 continue;
             }
             //优先使用传入的属性值,当原属性property!=null时，用原属性
