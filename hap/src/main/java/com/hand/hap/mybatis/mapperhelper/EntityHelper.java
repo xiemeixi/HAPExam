@@ -24,13 +24,29 @@
 
 package com.hand.hap.mybatis.mapperhelper;
 
-import com.hand.hap.core.annotation.MultiLanguage;
-import com.hand.hap.core.annotation.MultiLanguageField;
-import com.hand.hap.mybatis.annotation.NameStyle;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OrderBy;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.UnknownTypeHandler;
+
+import com.hand.hap.core.annotation.MultiLanguage;
+import com.hand.hap.core.annotation.MultiLanguageField;
 import com.hand.hap.mybatis.annotation.ColumnType;
 import com.hand.hap.mybatis.annotation.Condition;
+import com.hand.hap.mybatis.annotation.NameStyle;
 import com.hand.hap.mybatis.code.IdentityDialect;
 import com.hand.hap.mybatis.code.Style;
 import com.hand.hap.mybatis.entity.Config;
@@ -38,9 +54,6 @@ import com.hand.hap.mybatis.entity.EntityColumn;
 import com.hand.hap.mybatis.entity.EntityField;
 import com.hand.hap.mybatis.entity.EntityTable;
 import com.hand.hap.mybatis.util.StringUtil;
-
-import javax.persistence.*;
-import java.util.*;
 
 /**
  * 实体类工具类 - 处理实体和数据库表以及字段关键的一个类
@@ -296,20 +309,21 @@ public class EntityHelper {
             entityColumn.setSequenceName(sequenceGenerator.sequenceName());
         } else if (field.isAnnotationPresent(GeneratedValue.class)) {
             GeneratedValue generatedValue = field.getAnnotation(GeneratedValue.class);
-            if (generatedValue.generator().equals("UUID")) {
+            String generator = generatedValue.generator();
+            if ("UUID".equals(generator)) {
                 entityColumn.setUuid(true);
-            } else if (generatedValue.generator().equals("JDBC")) {
+            } else if ("JDBC".equals(generator)) {
                 entityColumn.setIdentity(true);
-                entityColumn.setGenerator("JDBC");
+                entityColumn.setGenerator(generator);
                 entityTable.setKeyProperties(entityColumn.getProperty());
                 entityTable.setKeyColumns(entityColumn.getColumn());
-            } else if (generatedValue.generator().equals("SEQUENCE")) {
+            } else if ("SEQUENCE".equals(generator)) {
                 // add by jessen, oracle sequence
                 entityColumn.setIdentity(true);
-                entityColumn.setGenerator("SEQUENCE");
+                entityColumn.setGenerator(generator);
                 entityTable.setKeyProperties(entityColumn.getProperty());
                 entityTable.setKeyColumns(entityColumn.getColumn());
-            } else if (generatedValue.generator().equals("IDENTITY")) {
+            } else if ("IDENTITY".equals(generator) || "".equals(generator)) {
                 // add by jessen, use config IDENTITY
                 entityColumn.setIdentity(true);
                 entityColumn.setGenerator("IDENTITY");
@@ -321,13 +335,10 @@ public class EntityHelper {
                 if (generatedValue.strategy() == GenerationType.IDENTITY) {
                     //mysql的自动增长
                     entityColumn.setIdentity(true);
-                    if (!generatedValue.generator().equals("")) {
-                        String generator = null;
-                        IdentityDialect identityDialect = IdentityDialect.getDatabaseDialect(generatedValue.generator());
+                    if (!"".equals(generator)) {
+                        IdentityDialect identityDialect = IdentityDialect.getDatabaseDialect(generator);
                         if (identityDialect != null) {
                             generator = identityDialect.getIdentityRetrievalStatement();
-                        } else {
-                            generator = generatedValue.generator();
                         }
                         entityColumn.setGenerator(generator);
                     }

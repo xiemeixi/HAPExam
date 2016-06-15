@@ -3,7 +3,6 @@
  */
 package com.hand.hap.system.dto;
 
-import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -26,8 +25,7 @@ public class Prompt extends BaseDTO {
      * 表ID，主键，供其他表做外键.
      */
     @Id
-    @Column
-    @GeneratedValue(generator = GENERATOR_TYPE)
+    @GeneratedValue
     private Long promptId;
 
     /**
@@ -35,20 +33,17 @@ public class Prompt extends BaseDTO {
      */
 
     @NotEmpty
-    @Column
     @Condition(operator = LIKE)
     private String promptCode;
 
     /**
      * 语言.
      */
-    @Column
     private String lang;
 
     /**
      * 描述.
      */
-    @Column
     @Condition(operator = LIKE)
     private String description;
 
