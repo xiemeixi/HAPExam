@@ -55,7 +55,9 @@
                 align : 'left',
                 width : 150,
                 editor : {
-                    type : 'text'
+                    type : 'tl',
+                    idField:'roleId',
+                    dto:'com.hand.hap.account.dto.Role'
                 }
             }, {
                 display : '<@spring.message "role.roledescription"/>',
@@ -63,7 +65,9 @@
                 align : 'left',
                 width : 180,
                 editor : {
-                    type : 'text'
+                    type : 'tl',
+                    idField:'roleId',
+                    dto:'com.hand.hap.account.dto.Role'
                 }
             }],
             url : '${base.contextPath}/sys/role/query',
