@@ -16,11 +16,11 @@
 
 <body style="padding: 10px">
 <div id="job_cron_tabs" class="liger-tab">
-    <div tabid="job_cron_addtab" title="<@spring.message 'type.com.lkkhpg.dsis.platform.job.addjobtitle'/>" lselected="true">
+    <div tabid="job_cron_addtab" title="<@spring.message 'job.addjobtitle'/>" lselected="true">
         <form id="job_form" name="job_form"></form>
         <div id="job_grid" name="job_grid"></div>
     </div>
-    <div tabid="job_cron_notification" title="<@spring.message 'type.com.lkkhpg.dsis.platform.job.notificationtitle'/>" lselected="true">
+    <div tabid="job_cron_notification" title="<@spring.message 'job.notificationtitle'/>" lselected="true">
         <form id="notification_form" name="notification_form"></form>
     </div>
 </div>
@@ -31,7 +31,7 @@
         fields: [
             {
                 type      : 'checkbox',
-                label     : '<@spring.message "type.com.lkkhpg.dsis.platform.job.sendnotification"/>',
+                label     : '<@spring.message "job.sendnotification"/>',
                 name      : 'job_internal_notification',
                 labelWidth: 230,
                 style     : 'height: 34px',
@@ -39,7 +39,7 @@
             },
             {
                 type      : 'text',
-                label     : '<@spring.message "type.com.lkkhpg.dsis.platform.job.emailaddress"/>',
+                label     : '<@spring.message "job.emailaddress"/>',
                 name      : 'job_internal_emailAddress',
                 labelWidth: 230,
                 style     : 'height: 34px',
@@ -112,11 +112,11 @@
                             var startDate = new Date(liger.get("start").getValue());
                             var endDate = new Date(liger.get("end").getValue());
                             if (startDate.getTime() > endDate.getTime()) {
-                                alert('<@spring.message "type.com.lkkhpg.dsis.platform.dateerror1"/>');
+                                alert('<@spring.message "dateerror1"/>');
                                 g.clear();
                             } else if (startDate.getTime() < endDate.getTime()) {
                             } else {
-                                alert('<@spring.message "type.com.lkkhpg.dsis.platform.dateerror2"/>');
+                                alert('<@spring.message "dateerror2"/>');
                                 g.clear();
                             }
                         }
@@ -140,11 +140,11 @@
                             var startDate = new Date(liger.get("start").getValue());
                             var endDate = new Date(liger.get("end").getValue());
                             if (startDate.getTime() > endDate.getTime()) {
-                                alert('<@spring.message "type.com.lkkhpg.dsis.platform.dateerror1"/>');
+                                alert('<@spring.message "dateerror1"/>');
                                 g.clear();
                             } else if (startDate.getTime() < endDate.getTime()) {
                             } else {
-                                alert('<@spring.message "type.com.lkkhpg.dsis.platform.dateerror2"/>');
+                                alert('<@spring.message "dateerror2"/>');
                                 g.clear();
                             }
                         }
@@ -162,7 +162,7 @@
                 options   : {
                     required: true,
                     value   : '0 * * * * ?',
-                    nullText: '<@spring.message "crontriggerdto.cronexpression.prompt"/>'
+                    nullText: '<@spring.message "crontriggerdto.cronexpression"/>'
                 }
             },
             {
@@ -179,14 +179,14 @@
         unSetValidateAttr: false,
         columns          : [
             {
-                display: '<@spring.message "type.com.lkkhpg.dsis.platform.job.attributename"/>',
+                display: '<@spring.message "job.attributename"/>',
                 name   : 'name',
                 align  : 'left',
                 width  : 300,
                 editor : {type: 'text'}
             },
             {
-                display: '<@spring.message "type.com.lkkhpg.dsis.platform.job.attributevalue"/>',
+                display: '<@spring.message "job.attributevalue"/>',
                 name   : 'value',
                 align  : 'left',
                 width  : 300,

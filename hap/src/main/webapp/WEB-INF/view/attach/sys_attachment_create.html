@@ -89,7 +89,7 @@
             onUploadSuccess : function(file, response) {
                 if(response.message=='UPLOAD_SUCCESS'){
                     var sf = this;
-                    $.ligerDialog.success('<@spring.message "sysfile.upload_success"/>', $l('sys.hand.tip.info'), function(){
+                    $.ligerDialog.success('<@spring.message "hap.success"/>', $l('hap.tip.info'), function(){
                         closeUploadDialog();
                     });
                 }else{ 
