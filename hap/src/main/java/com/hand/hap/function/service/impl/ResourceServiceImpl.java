@@ -5,10 +5,6 @@ package com.hand.hap.function.service.impl;
 
 import java.util.List;
 
-import com.hand.hap.cache.CacheManager;
-import com.hand.hap.function.mapper.FunctionResourceMapper;
-import com.hand.hap.function.mapper.ResourceMapper;
-import com.hand.hap.system.service.impl.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -16,10 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.hand.hap.cache.Cache;
+import com.hand.hap.cache.CacheManager;
 import com.hand.hap.core.BaseConstants;
 import com.hand.hap.core.IRequest;
+import com.hand.hap.core.annotation.StdWho;
 import com.hand.hap.function.dto.Resource;
+import com.hand.hap.function.mapper.FunctionResourceMapper;
+import com.hand.hap.function.mapper.ResourceMapper;
 import com.hand.hap.function.service.IResourceService;
+import com.hand.hap.system.service.impl.BaseServiceImpl;
 
 /**
  * @author wuyichu
@@ -128,6 +129,13 @@ public class ResourceServiceImpl extends BaseServiceImpl<Resource> implements IR
             }
         }
         return resources;
+    }
+
+    @Override
+    public Resource updateByPrimaryKeySelective(IRequest request, @StdWho Resource record) {
+        record = super.updateByPrimaryKeySelective(request, record);
+        flushCache(record);
+        return record;
     }
 
     @Override
