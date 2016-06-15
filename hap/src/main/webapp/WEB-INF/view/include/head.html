@@ -52,6 +52,12 @@ $l('hap.validate.min','<@spring.message "hap.validate.min"/>');
 $l('hap.multilanguage_editor','<@spring.message "hap.multilanguage_editor"/>');
 var _basePath = '${base.contextPath}',_locale='${base.locale}'; 
 Hap.timeZone.set('${Session.timeZone}');
+
+$(document).ajaxError(function myErrorHandler(event, xhr, ajaxOptions, thrownError) {
+	if(xhr.status=='403')
+    Hap.showError("403<br/>Access Denied.")
+});
+
 </script>
 <script src="${base.contextPath}/lib/jquery-validation/messages.js" type="text/javascript"></script>
 </head> 
