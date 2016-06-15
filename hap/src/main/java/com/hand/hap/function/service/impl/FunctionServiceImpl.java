@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.hand.hap.cache.impl.HashStringRedisCacheGroup;
+import com.hand.hap.cache.impl.RoleResourceCache;
 import com.hand.hap.core.IRequest;
 import com.hand.hap.function.dto.Function;
 import com.hand.hap.function.dto.FunctionDisplay;
@@ -60,6 +61,9 @@ public class FunctionServiceImpl extends BaseServiceImpl<Function> implements IF
     @Autowired
     @Qualifier("functionCache")
     private HashStringRedisCacheGroup<Function> functionCache;
+
+    @Autowired
+    private RoleResourceCache roleResourceCache;
 
     /**
      * 新增功能.
@@ -308,6 +312,7 @@ public class FunctionServiceImpl extends BaseServiceImpl<Function> implements IF
                     functionResourceMapper.insertSelective(functionResource);
                 }
             }
+            roleResourceCache.reload();
         }
         return null;
     }
