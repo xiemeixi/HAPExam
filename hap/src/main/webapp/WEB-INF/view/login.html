@@ -220,7 +220,7 @@ input[type="text"].m-wrap, input[type="password"].m-wrap {
                 <label class="control-label "><@spring.message "user.verifiCode"/></label>
                 <div class="controls">
                     <div class="input-icon left">
-                        <i class="icon-lock"></i> <input class="m-wrap" type="text" style="width: 120px" placeholder="verifiCode" name="verifiCode" /> <i class="icon-refresh" title="刷新验证码" style="cursor: pointer; color: #999; float: right; position: static !important; border: 1px solid #ccc; height: 32px; line-height: 32px; padding: 0px 6px; margin: 0px; margin-left: 5px;" onclick="changeImg()"></i> <img id="imgObj" src="verifiCode" style="border: none; float: right" onclick="changeImg()" />
+                        <i class="icon-lock"></i> <input class="m-wrap" type="text" style="width: 120px" placeholder="verifiCode" name="verifiCode" /> <i class="icon-refresh" title="刷新验证码" style="cursor: pointer; color: #999; float: right; position: static !important; border: 1px solid #ccc; height: 32px; line-height: 32px; padding: 0px 6px; margin: 0px; margin-left: 5px;" onclick="changeImg()"></i> <img id="imgObj" src="${base.contextPath}/verifiCode" style="border: none; float: right" onclick="changeImg()" />
                     </div>
                 </div>
             </div>

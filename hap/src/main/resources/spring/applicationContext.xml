@@ -24,7 +24,7 @@
 
     <!-- mapper definition -->
     <bean id="mapperScannerConfigurer" class="com.hand.hap.mybatis.spring.MapperScannerConfigurer">
-        <property name="basePackage" value="com.**.mapper"/>
+        <property name="basePackage" value="*.**.mapper"/>
         <property name="propertiesMap">
             <map>
                 <entry key="mappers" value="com.hand.hap.mybatis.common.Mapper"/>
