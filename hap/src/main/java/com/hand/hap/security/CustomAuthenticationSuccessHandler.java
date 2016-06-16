@@ -1,27 +1,29 @@
 package com.hand.hap.security;
 
-import com.hand.hap.account.dto.User;
-import com.hand.hap.account.exception.UserException;
-import com.hand.hap.account.service.IUserService;
-import com.hand.hap.core.BaseConstants;
-import com.hand.hap.core.IRequest;
-import com.hand.hap.core.util.TimeZoneUtil;
+import java.io.IOException;
+import java.util.Locale;
+import java.util.TimeZone;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.Locale;
-import java.util.TimeZone;
+import com.hand.hap.account.dto.User;
+import com.hand.hap.account.service.IUserService;
+import com.hand.hap.core.BaseConstants;
+import com.hand.hap.core.IRequest;
+import com.hand.hap.core.impl.RequestHelper;
+import com.hand.hap.core.util.TimeZoneUtil;
+import com.hand.hap.system.dto.SysPreferences;
+import com.hand.hap.system.service.ISysPreferencesService;
 
 /**
  * Created by hailor on 16/6/12.
@@ -29,6 +31,9 @@ import java.util.TimeZone;
 public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     @Autowired
     IUserService userService;
+
+    @Autowired
+    ISysPreferencesService preferencesService;
     // 跳转
     protected static final String REDIRECT = "redirect:";
 
@@ -50,13 +55,13 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
 
     private void setTimeZoneFromPreference(HttpSession session, Long accountId) {
-//        SysPreferences para = new SysPreferences();
-//        para.setUserId(accountId);
-//        para.setPreferencesLevel(10L);
-//        para.setPreferences(BaseConstants.TIME_ZONE);
-//        SysPreferences pref = preferencesService.querySysPreferencesLine(RequestHelper.newEmptyRequest(), para);
-//        String tz = pref == null ? null : pref.getPreferencesValue();
-        String tz = "GMT+0800";
+        SysPreferences para = new SysPreferences();
+        para.setUserId(accountId);
+        para.setPreferencesLevel(10L);
+        para.setPreferences(BaseConstants.TIME_ZONE);
+        SysPreferences pref = preferencesService.querySysPreferencesLine(RequestHelper.newEmptyRequest(), para);
+        String tz = pref == null ? null : pref.getPreferencesValue();
+        // String tz = "GMT+0800";
         if (StringUtils.isBlank(tz)) {
             tz = TimeZoneUtil.toGMTFormat(TimeZone.getDefault());
         }
