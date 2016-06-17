@@ -27,7 +27,7 @@
       LEFT OUTER JOIN SYS_RESOURCE_ITEM_TL T
         ON (B.RESOURCE_ITEM_ID = T.RESOURCE_ITEM_ID AND T.LANG = #{request.locale,jdbcType=VARCHAR})
      WHERE B.OWNER_RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
-        order by b.item_id
+        order by b.RESOURCE_ITEM_ID
   </select>
   <select id="selectResourceItemsByFunctionId" resultMap="BaseResultMap" parameterType="com.hand.hap.function.dto.Function">
     SELECT SRI.RESOURCE_ITEM_ID,
@@ -47,7 +47,7 @@
        AND RTL.LANG = #{request.locale,jdbcType=VARCHAR}
        AND SRIT.LANG = #{request.locale,jdbcType=VARCHAR}
        AND SRF.FUNCTION_ID = #{functionId,jdbcType=DECIMAL}
-       order by b.item_id
+       order by SRI.RESOURCE_ITEM_ID
   </select>
   
   <select id="selectResourceItemByResourceIdAndItemId" resultMap="BaseResultMap" parameterType="com.hand.hap.function.dto.ResourceItem">
