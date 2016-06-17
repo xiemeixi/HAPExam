@@ -24,6 +24,7 @@
 
 package com.hand.hap.mybatis.spring;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.Properties;
 
@@ -38,25 +39,9 @@ import com.hand.hap.mybatis.util.StringUtil;
 public class MapperScannerConfigurer extends org.mybatis.spring.mapper.MapperScannerConfigurer {
     private MapperHelper mapperHelper = new MapperHelper();
 
-    private String mybatisOrder;
 
-    private String mybatisIdentity;
+    private Map<String,String> propertiesMap;
 
-    public String getMybatisOrder() {
-        return mybatisOrder;
-    }
-
-    public void setMybatisOrder(String mybatisOrder) {
-        this.mybatisOrder = mybatisOrder;
-    }
-
-    public String getMybatisIdentity() {
-        return mybatisIdentity;
-    }
-
-    public void setMybatisIdentity(String mybatisIdentity) {
-        this.mybatisIdentity = mybatisIdentity;
-    }
 
     public void setMarkerInterface(Class<?> superClass) {
         super.setMarkerInterface(superClass);
@@ -90,15 +75,12 @@ public class MapperScannerConfigurer extends org.mybatis.spring.mapper.MapperSca
                 propertiesMap.put("ORDER", "BEFORE");
             }
         }
-        Properties properties = new Properties();
-        propertiesMap.forEach((k, v) -> {
-            properties.put(k, v);
-        });
-        setProperties(properties);
-    }
-
-    public Map<String,String> getPropertiesMap(){
-        return null;
+        this.propertiesMap = propertiesMap;
+        //Properties properties = new Properties();
+        //propertiesMap.forEach((k, v) -> {
+        //    properties.put(k, v);
+        //});
+        //setProperties(properties);
     }
 
     /**
@@ -108,6 +90,30 @@ public class MapperScannerConfigurer extends org.mybatis.spring.mapper.MapperSca
      */
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) {
+
+        Properties config = new Properties();
+        Properties p = new Properties();
+        try {
+            config.load(getClass().getResourceAsStream("/config.properties"));
+            if (propertiesMap.get("ORDER") == null) {
+                if ("JDBC".equalsIgnoreCase(propertiesMap.get("IDENTITY"))) {
+                    p.put("ORDER", "AFTER");
+                } else {
+                    p.put("ORDER", "BEFORE");
+                }
+            }
+            propertiesMap.forEach((k,v)->{
+                if (v.startsWith("${") && v.endsWith("}")) {
+                    p.put(k, config.getProperty(v.substring(2, v.length() - 1), v));
+                } else {
+                    p.put(k, v);
+                }
+            });
+            setProperties(p);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         super.postProcessBeanDefinitionRegistry(registry);
         //如果没有注册过接口，就注册默认的Mapper接口
         this.mapperHelper.ifEmptyRegisterDefaultInterface();
