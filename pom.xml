@@ -12,6 +12,19 @@
     <name>hap parent</name>
     <url>http://maven.apache.org</url>
 
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <url>http://nexus.saas.hand-china.com/content/repositories/rdc</url>
+        </repository>
+
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Internal Snapshots</name>
+            <url>http://nexus.saas.hand-china.com/content/repositories/rdcsnapshot</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <!-- 私有仓库 -->
     <repositories>
         <repository>
