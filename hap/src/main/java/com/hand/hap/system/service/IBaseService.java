@@ -31,5 +31,5 @@ public interface IBaseService<T> {
 
     List<T> batchUpdate(IRequest request, List<T> list);
 
-    void batchDelete(List<T> list);
+    int batchDelete(List<T> list);
 }

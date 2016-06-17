@@ -74,7 +74,7 @@ public class UserRoleController extends BaseController {
             return rd;
         }
         IRequest requestContext = createRequestContext(request);
-        return new ResponseData(userRoleService.processBatchUserRole(requestContext, userRoles));
+        return new ResponseData(userRoleService.batchUpdate(requestContext, userRoles));
     }
 
 }

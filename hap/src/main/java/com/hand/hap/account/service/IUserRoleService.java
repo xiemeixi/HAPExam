@@ -25,15 +25,5 @@ public interface IUserRoleService extends IBaseService<UserRole>, ProxySelf<IUse
      * @return list
      */
     List<Role> selectUserRoles(IRequest requestContext, UserRole role);
-    
-    /**
-     * 保存为用户关联的所有角色.
-     * 
-     * @param requestContext requestContext
-     * @param userRoles userRoles
-     * @return list
-     */
-    List<UserRole> processBatchUserRole(IRequest requestContext, List<UserRole> userRoles);
-
 
 }

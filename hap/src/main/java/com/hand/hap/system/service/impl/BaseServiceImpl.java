@@ -110,10 +110,12 @@ public abstract class BaseServiceImpl<T> implements IBaseService<T> {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void batchDelete(List<T> list) {
+    public int batchDelete(List<T> list) {
         IBaseService<T> self = ((IBaseService<T>) AopContext.currentProxy());
+        int c = 0;
         for (T t : list) {
-            self.deleteByPrimaryKey(t);
+            c += self.deleteByPrimaryKey(t);
         }
+        return c;
     }
 }

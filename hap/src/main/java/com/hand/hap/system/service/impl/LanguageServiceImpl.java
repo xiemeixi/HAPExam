@@ -5,19 +5,17 @@ package com.hand.hap.system.service.impl;
 
 import java.util.List;
 
-import com.hand.hap.cache.CacheDelete;
-import com.hand.hap.system.dto.Language;
-import com.hand.hap.system.mapper.LanguageMapper;
-import com.hand.hap.system.service.ILanguageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.github.pagehelper.PageHelper;
+import com.hand.hap.cache.CacheDelete;
 import com.hand.hap.cache.CacheSet;
 import com.hand.hap.cache.impl.HashStringRedisCache;
 import com.hand.hap.core.IRequest;
-import com.hand.hap.system.dto.DTOStatus;
+import com.hand.hap.system.dto.Language;
+import com.hand.hap.system.mapper.LanguageMapper;
+import com.hand.hap.system.service.ILanguageService;
 
 /**
  * @author shengyang.zhou@hand-china.com
@@ -54,31 +52,6 @@ public class LanguageServiceImpl extends BaseServiceImpl<Language> implements IL
     @Override
     public List<Language> selectAll() {
         return languageCache.getAll();
-    }
-
-    @Override
-    public List<Language> select(IRequest request, Language example, int page, int pagesize) {
-        PageHelper.startPage(page, pagesize);
-        return languageMapper.select(example);
-    }
-
-    @Override
-    public List<Language> batchUpdate(IRequest request, List<Language> languageList) {
-        for (Language language : languageList) {
-            if (DTOStatus.ADD.equals(language.get__status())) {
-                self().insertSelective(request, language);
-            } else if (DTOStatus.UPDATE.equals(language.get__status())) {
-                self().updateByPrimaryKeySelective(request, language);
-            } else if (DTOStatus.DELETE.equals(language.get__status())) {
-                self().deleteByPrimaryKey(language);
-            }
-        }
-        return languageList;
-    }
-
-    @Override
-    public void batchDelete(List<Language> languageList) {
-        languageList.forEach(self()::deleteByPrimaryKey);
     }
 
 }
