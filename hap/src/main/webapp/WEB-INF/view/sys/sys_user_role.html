@@ -115,7 +115,7 @@
 
     /* 点击grid保存按钮，保存已勾选的数据到数据库 */
     function save_click() {
-        var data = user_role_grid.getData();
+        var data = user_role_grid.getChanges();
         var requestData = [];
         if (data.length == 0) {
             //requestData.push({userId: ${RequestParameters.userId}});
