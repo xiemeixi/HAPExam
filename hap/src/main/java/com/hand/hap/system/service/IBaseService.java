@@ -1,10 +1,11 @@
 package com.hand.hap.system.service;
 
-import com.hand.hap.core.annotation.StdWho;
-import com.hand.hap.core.IRequest;
+import java.util.List;
+
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import com.hand.hap.core.IRequest;
+import com.hand.hap.core.annotation.StdWho;
 
 /**
  * @author shengyang.zhou@hand-china.com
@@ -27,4 +28,8 @@ public interface IBaseService<T> {
     int deleteByPrimaryKey(T record);
 
     List<T> selectAll();
+
+    List<T> batchUpdate(IRequest request, List<T> list);
+
+    void batchDelete(List<T> list);
 }

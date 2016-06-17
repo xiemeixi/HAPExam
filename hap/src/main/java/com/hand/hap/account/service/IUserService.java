@@ -4,13 +4,10 @@
 package com.hand.hap.account.service;
 
 import java.util.Date;
-import java.util.List;
 
-import com.hand.hap.core.annotation.StdWho;
-import com.hand.hap.core.IRequest;
-import com.hand.hap.core.ProxySelf;
 import com.hand.hap.account.dto.User;
 import com.hand.hap.account.exception.UserException;
+import com.hand.hap.core.ProxySelf;
 import com.hand.hap.system.service.IBaseService;
 
 /**
@@ -21,25 +18,6 @@ import com.hand.hap.system.service.IBaseService;
  *         2016年1月28日
  */
 public interface IUserService extends IBaseService<User>, ProxySelf<IUserService> {
-
-    /**
-     * 批量更新.
-     * 
-     * @param request
-     *            session信息
-     * @param users
-     *            用户列表
-     * @return 用户列表
-     */
-    List<User> batchUpdate(IRequest request, @StdWho List<User> users);
-
-    /**
-     * 批量删除.
-     * 
-     * @param users
-     *            用户列表
-     */
-    void batchDelete(List<User> users);
 
     /**
      * do login ,return the user in db.

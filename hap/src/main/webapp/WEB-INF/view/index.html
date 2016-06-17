@@ -631,7 +631,7 @@
     function initChangeRoleForm() {//请求角色信息
         $.ajax({
             type   : "POST",
-            url    : "${base.contextPath}/sys/userrole/queryUserRoles",
+            url    : "${base.contextPath}/sys/userrole/queryUserRoles?userId=${Session.userId!0}",
             success: function (data) {
                 if (data.success) {//设置form初始值
                     $.each(data.rows, function (index, value) {

@@ -8,9 +8,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.hand.hap.system.dto.ResponseData;
-import com.hand.hap.account.dto.Role;
-import com.hand.hap.core.exception.BaseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -20,9 +17,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hand.hap.system.controllers.BaseController;
-import com.hand.hap.core.IRequest;
+import com.hand.hap.account.dto.Role;
+import com.hand.hap.account.dto.User;
 import com.hand.hap.account.service.IRoleService;
+import com.hand.hap.core.IRequest;
+import com.hand.hap.core.exception.BaseException;
+import com.hand.hap.system.controllers.BaseController;
+import com.hand.hap.system.dto.ResponseData;
 
 /**
  * 角色控制器.
@@ -40,8 +41,8 @@ public class RoleController extends BaseController {
      * 
      * @param request
      *            HttpServletRequest
-     * @param example
-     *            Role
+     * @param user
+     *            user with id
      * @param page
      *            page
      * @param pagesize
@@ -50,11 +51,11 @@ public class RoleController extends BaseController {
      */
     @RequestMapping(value = "/sys/role/queryRoleNotUserRole")
     @ResponseBody
-    public ResponseData getRoleNotUserRoles(HttpServletRequest request, Role example,
+    public ResponseData getRoleNotUserRoles(HttpServletRequest request, User user,
                                             @RequestParam(defaultValue = DEFAULT_PAGE) int page,
                                             @RequestParam(defaultValue = DEFAULT_PAGE_SIZE) int pagesize) {
         IRequest requestContext = createRequestContext(request);
-        return new ResponseData(roleService.selectRoleNotUserRoles(requestContext, example, page, pagesize));
+        return new ResponseData(roleService.selectRoleNotUserRoles(requestContext, user, page, pagesize));
     }
 
     /**

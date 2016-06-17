@@ -1,14 +1,13 @@
 package com.hand.hap.account.service;
 
+import java.util.List;
+
 import com.hand.hap.account.dto.Role;
 import com.hand.hap.account.dto.User;
-import com.hand.hap.core.annotation.StdWho;
+import com.hand.hap.account.exception.RoleException;
 import com.hand.hap.core.IRequest;
 import com.hand.hap.core.ProxySelf;
-import com.hand.hap.account.exception.RoleException;
 import com.hand.hap.system.service.IBaseService;
-
-import java.util.List;
 
 /**
  * @author shengyang.zhou@hand-china.com
@@ -20,7 +19,7 @@ public interface IRoleService extends IBaseService<Role>, ProxySelf<IRoleService
      *
      * @param requestContext
      *            请求上下文
-     * @param role
+     * @param user
      *            条件,至少包含 userId
      * @param page
      *            起始页
@@ -28,26 +27,7 @@ public interface IRoleService extends IBaseService<Role>, ProxySelf<IRoleService
      *            页大小
      * @return 查询结果
      */
-    List<Role> selectRoleNotUserRoles(IRequest requestContext, Role role, int page, int pagesize);
-
-    /**
-     * 批量增删改.
-     *
-     * @param requestContext
-     *            请求上下文
-     * @param roles
-     *            数据
-     * @return 原样返回
-     */
-    List<Role> batchUpdate(IRequest requestContext, @StdWho List<Role> roles);
-
-    /**
-     * 批量删除.
-     *
-     * @param roles
-     *            待删数据
-     */
-    void batchDelete(List<Role> roles);
+    List<Role> selectRoleNotUserRoles(IRequest requestContext, User user, int page, int pagesize);
 
     /**
      * 查询用户的所有角色.

@@ -4,7 +4,6 @@
 package com.hand.hap.account.service.impl;
 
 import java.util.Date;
-import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,24 +34,12 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     private UserMapper userMapper;
 
     @Override
-    public List<User> batchUpdate(IRequest request, List<User> users) {
-        for (User user : users) {
-            if (user.getUserId() == null) {
-                if (user.getPassword() == null) {
-                    user.setPassword(passwordManager.getDefaultPassword());
-                    user.setPasswordEncrypted(passwordManager.encode(user.getPassword()));
-                }
-                self().insertSelective(request, user);
-            } else {
-                self().updateByPrimaryKeySelective(request, user);
-            }
+    public User insertSelective(IRequest request, User record) {
+        if (record.getPassword() == null) {
+            record.setPassword(passwordManager.getDefaultPassword());
+            record.setPasswordEncrypted(passwordManager.encode(record.getPassword()));
         }
-        return users;
-    }
-
-    @Override
-    public void batchDelete(List<User> users) {
-        users.forEach(self()::deleteByPrimaryKey);
+        return super.insertSelective(request, record);
     }
 
     @Override
