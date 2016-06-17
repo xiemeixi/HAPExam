@@ -26,12 +26,6 @@ class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private IUserService userService;
 
-    @Autowired
-    private ICaptchaManager captchaManager;
-
-    @Autowired
-    private PasswordEncoder passwordManager;
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userService.selectByUserName(username);
@@ -39,13 +33,10 @@ class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found:" + username);
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        authorities.add(new SimpleGrantedAuthority("ADMIN"));
-        authorities.add(new SimpleGrantedAuthority("ROLE_UNITY"));
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
         UserDetails userDetails = new CustomUserDetails(user.getUserId(), user.getUserName(),
                 user.getPasswordEncrypted(), true, true, true, true, authorities);
-        logger.error(passwordManager.encode(username));
         return userDetails;
     }
 
