@@ -17,8 +17,6 @@
         <intercept-url pattern="/resources/**" access="permitAll" />
         <intercept-url pattern="/lib/**" access="permitAll" />
         <intercept-url pattern="/common/**" access="permitAll" />
-        <intercept-url pattern="/common/**" access="permitAll" />
-        <intercept-url pattern="/" access="permitAll" />
         <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
 
         <custom-filter ref="requestSingleLogoutFilter" before="LOGOUT_FILTER"/>

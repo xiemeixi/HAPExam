@@ -55,9 +55,9 @@ public class PermissionVoter implements AccessDecisionVoter<FilterInvocation> {
         if (uri.startsWith("/")) {
             uri = uri.substring(1);
         }
-        if ("".equalsIgnoreCase(uri)) {
-            return ACCESS_ABSTAIN;
-        }
+//        if ("".equals(uri)) {
+//            return ACCESS_DENIED;
+//        }
         Cache<Resource> cache = cacheManager.getCache(BaseConstants.CACHE_RESOURCE_URL);
         Resource resource = cache.getValue(uri);
         if (resource == null) {
