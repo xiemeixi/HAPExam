@@ -1,25 +1,6 @@
 package com.hand.hap.liquibase
 
-import org.codehaus.groovy.control.CompilerConfiguration
-import org.springframework.core.io.support.ResourcePatternResolver
-import org.springframework.core.type.classreading.CachingMetadataReaderFactory
-import org.springframework.core.type.classreading.MetadataReader
-import org.springframework.core.type.classreading.MetadataReaderFactory
-
-import javax.persistence.Entity
-
-import static groovy.io.FileType.FILES
-
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver
-
-import liquibase.database.Database;
-import liquibase.exception.*;
-import liquibase.resource.ResourceAccessor;
-import liquibase.change.custom.CustomTaskChange;
-import liquibase.database.jvm.JdbcConnection;
-import groovy.sql.Sql
-import groovy.util.XmlSlurper
-import groovy.xml.StreamingMarkupBuilder
 
 /**
  * Created by hailor on 16/4/11.
