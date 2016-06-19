@@ -44,7 +44,6 @@
                     <include>**/*.xml</include>
                     <include>**/*.sql</include>
                 </includes>
-                <targetPath>${project.build.directory}/classes/</targetPath>
             </resource>
         </resources>
 

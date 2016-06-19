@@ -73,7 +73,6 @@
                     <include>**/*.groovy</include>
                     <include>**/*.xml</include>
                 </includes>
-                <targetPath>${project.build.directory}/classes/</targetPath>
             </resource>
         </resources>
         <plugins>
