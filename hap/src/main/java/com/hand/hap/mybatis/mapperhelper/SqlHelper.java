@@ -476,6 +476,8 @@ public class SqlHelper {
                 } else {
                     sql.append(column.getColumnEqualsHolder(entityName) + ",");
                 }
+            } else if ("object_version_number".equalsIgnoreCase(column.getColumn())) {
+                sql.append(column.getColumn()).append("=").append(column.getColumn()).append("+1,");
             }
         }
         sql.append("</set>");
