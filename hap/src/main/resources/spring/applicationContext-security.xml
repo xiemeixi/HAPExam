@@ -6,5 +6,5 @@
     <beans:import resource="oauth2Security.xml"/>
     <!-- 根据项目需求选择使用CAS或标准登录方式  -->
     <!-- <beans:import resource="casSecurity.xml"/> -->
-     <beans:import resource="casSecurity.xml"/>
+     <beans:import resource="standardSecurity.xml"/>
  </beans:beans>
