@@ -54,7 +54,18 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-    <!--<filter>-->
+	<!--
+    Included to support Single Logout. Note that the SingleSignOutFilter is included in the
+    springSecurityFilterChain. However, it could also be placed as the first filter-mapping
+    in the web.xml
+    启用CAS SSO时添加下面的配置
+    -->
+	<!--
+        <listener>
+            <listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
+        </listener>
+     -->
+        <!--<filter>-->
         <!--<filter-name>springSecurityFilterChain</filter-name>-->
         <!--<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>-->
     <!--</filter>-->

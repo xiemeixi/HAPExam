@@ -10,13 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.hand.hap.core.BaseConstants;
-import com.hand.hap.security.DefaultConfiguration;
-import com.hand.hap.core.util.RequestUtil;
-import com.hand.hap.core.util.TimeZoneUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import com.hand.hap.core.BaseConstants;
+import com.hand.hap.core.util.RequestUtil;
+import com.hand.hap.core.util.TimeZoneUtil;
+import com.hand.hap.security.DefaultConfiguration;
 
 /**
  * @author njq.niu@hand-china.com
@@ -44,12 +45,12 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
                     writer.write(DEFAULT_AJAX_RESPONSE);
                 }
             } else {
-                String referer = request.getHeader("Referer");
-                if (StringUtils.isEmpty(referer)) {
-                    request.getRequestDispatcher("/login").forward(request, response);
-                } else {
-                    response.sendRedirect(contextPath + defaultPageManager.getPageLogin());
-                }
+//                String referer = request.getHeader("Referer");
+//                if (StringUtils.isEmpty(referer)) {
+//                    request.getRequestDispatcher("/login").forward(request, response);
+//                } else {
+//                    response.sendRedirect(contextPath + defaultPageManager.getPageLogin());
+//                }
                 // response.sendRedirect(contextPath + "/timeout.html");
             }
             return false;

@@ -122,9 +122,8 @@
 		<bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor">
 			<property name="paramName" value="theme" />
 		</bean>
-        <mvc:interceptor>
+        <!--<mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <!-- 不拦截的url -->
             <mvc:exclude-mapping path="/resources/**" />
             <mvc:exclude-mapping path="/lib/**" />
             <mvc:exclude-mapping path="/login" />
@@ -144,7 +143,7 @@
             <mvc:exclude-mapping path="/restful/**" />
 
             <bean class="com.hand.hap.security.interceptor.SessionInterceptor"/>
-        </mvc:interceptor>
+        </mvc:interceptor>-->
         <bean class="com.hand.hap.security.interceptor.MonitorInterceptor"/>
         <!--
         <bean class="com.hand.hap.security.interceptor.SecurityInterceptor">
