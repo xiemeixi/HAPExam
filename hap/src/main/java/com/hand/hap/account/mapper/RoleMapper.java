@@ -1,19 +1,19 @@
 package com.hand.hap.account.mapper;
 
+import java.util.List;
+
 import com.hand.hap.account.dto.Role;
 import com.hand.hap.account.dto.User;
 import com.hand.hap.mybatis.common.Mapper;
-
-import java.util.List;
 
 /**
  * @author shengyang.zhou@hand-china.com
  */
 public interface RoleMapper extends Mapper<Role> {
 
-    List<Role> selectUserRoles(Role role);
+    List<Role> selectUserRoles(Long userId);
 
-    List<Role> selectRoleNotUserRoles(Role example);
+    List<Role> selectRoleNotUserRoles(Long userId);
 
     List<Role> selectByUser(User user);
 

@@ -16,4 +16,6 @@ public interface UserRoleMapper extends Mapper<UserRole> {
 
     int deleteByUserId(Long userId);
 
+    int deleteByRecord(UserRole record);
+
 }

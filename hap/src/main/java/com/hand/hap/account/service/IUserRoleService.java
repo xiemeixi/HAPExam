@@ -6,10 +6,10 @@ package com.hand.hap.account.service;
 
 import java.util.List;
 
-import com.hand.hap.core.IRequest;
-import com.hand.hap.core.ProxySelf;
 import com.hand.hap.account.dto.Role;
 import com.hand.hap.account.dto.UserRole;
+import com.hand.hap.core.IRequest;
+import com.hand.hap.core.ProxySelf;
 import com.hand.hap.system.service.IBaseService;
 
 /**
@@ -24,16 +24,6 @@ public interface IUserRoleService extends IBaseService<UserRole>, ProxySelf<IUse
      * @param role role
      * @return list
      */
-    List<Role> selectUserRoles(IRequest requestContext, Role role);
-    
-    /**
-     * 保存为用户关联的所有角色.
-     * 
-     * @param requestContext requestContext
-     * @param userRoles userRoles
-     * @return list
-     */
-    List<UserRole> processBatchUserRole(IRequest requestContext, List<UserRole> userRoles);
-
+    List<Role> selectUserRoles(IRequest requestContext, UserRole role);
 
 }

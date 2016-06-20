@@ -21,14 +21,14 @@
 	<bean id="messageSource" class="com.hand.hap.core.i18n.CacheMessageSource"/>
 
 
-
     <!-- mapper definition -->
     <bean id="mapperScannerConfigurer" class="com.hand.hap.mybatis.spring.MapperScannerConfigurer">
-        <property name="basePackage" value="com.**.mapper"/>
+        <property name="basePackage" value="*.**.mapper"/>
+        <property name="processPropertyPlaceHolders" value="true"/>
         <property name="propertiesMap">
             <map>
                 <entry key="mappers" value="com.hand.hap.mybatis.common.Mapper"/>
-                <entry key="IDENTITY" value="JDBC"/>
+                <entry key="IDENTITY" value="${mybatis.identity}"/>
                 <entry key="seqFormat" value="{3}_s.nextVal"/>
             </map>
         </property>

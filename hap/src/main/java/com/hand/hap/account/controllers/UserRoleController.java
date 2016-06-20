@@ -8,11 +8,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.hand.hap.system.dto.ResponseData;
-import com.hand.hap.account.dto.Role;
-import com.hand.hap.account.dto.UserRole;
-import com.hand.hap.core.exception.BaseException;
-import com.hand.hap.account.service.IUserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -21,8 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hand.hap.system.controllers.BaseController;
+import com.hand.hap.account.dto.UserRole;
+import com.hand.hap.account.service.IUserRoleService;
 import com.hand.hap.core.IRequest;
+import com.hand.hap.core.exception.BaseException;
+import com.hand.hap.system.controllers.BaseController;
+import com.hand.hap.system.dto.ResponseData;
 
 /**
  * 查询并保存角色的功能.
@@ -46,7 +45,7 @@ public class UserRoleController extends BaseController {
      */
     @RequestMapping(value = "/sys/userrole/queryUserRoles")
     @ResponseBody
-    public ResponseData getUserRoleIds(HttpServletRequest request, Role example) {
+    public ResponseData getUserRoleIds(HttpServletRequest request, UserRole example) {
         IRequest requestContext = createRequestContext(request);
         return new ResponseData(userRoleService.selectUserRoles(requestContext, example));
     }
@@ -75,7 +74,7 @@ public class UserRoleController extends BaseController {
             return rd;
         }
         IRequest requestContext = createRequestContext(request);
-        return new ResponseData(userRoleService.processBatchUserRole(requestContext, userRoles));
+        return new ResponseData(userRoleService.batchUpdate(requestContext, userRoles));
     }
 
 }

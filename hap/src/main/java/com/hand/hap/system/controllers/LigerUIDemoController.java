@@ -10,9 +10,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.hand.hap.system.dto.DemoUser;
-import com.hand.hap.system.dto.ResponseData;
-import com.hand.hap.system.mapper.DemoUserMapper;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,13 +22,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageHelper;
+import com.hand.hap.core.exception.BaseException;
+import com.hand.hap.system.dto.DTOStatus;
+import com.hand.hap.system.dto.DemoUser;
+import com.hand.hap.system.dto.ResponseData;
+import com.hand.hap.system.mapper.DemoUserMapper;
+
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
-
-import com.github.pagehelper.PageHelper;
-import com.hand.hap.system.dto.DTOStatus;
-import com.hand.hap.core.exception.BaseException;
 
 /**
  * @author njq.niu@hand-china.com 仅用于演示ligerUI部分测试
@@ -39,7 +39,7 @@ import com.hand.hap.core.exception.BaseException;
  *         2016年1月21日
  */
 @Controller
-public class DemoController extends BaseController {
+public class LigerUIDemoController extends BaseController {
 
     @Autowired
     private DemoUserMapper demoUserMapper;
