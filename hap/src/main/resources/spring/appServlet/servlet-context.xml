@@ -142,8 +142,8 @@
             <mvc:exclude-mapping path="/common/{resource}" />
             <mvc:exclude-mapping path="/restful/**" />
 
-            <bean class="com.hand.hap.security.interceptor.SessionInterceptor"/>
         </mvc:interceptor>-->
+        <bean class="com.hand.hap.security.interceptor.SessionInterceptor"/>
         <bean class="com.hand.hap.security.interceptor.MonitorInterceptor"/>
         <!--
         <bean class="com.hand.hap.security.interceptor.SecurityInterceptor">
