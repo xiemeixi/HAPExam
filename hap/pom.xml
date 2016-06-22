@@ -154,8 +154,7 @@
                         <id>clearCheckSums</id>
                         <phase>process-resources</phase>
                         <configuration>
-                            <changeLogFile>com/hand/hap/db/liquibase.groovy</changeLogFile>
-                            <driver>${db.dirver}</driver>
+                            <driver>${db.driver}</driver>
                             <url>${db.url}</url>
                             <username>${db.user}</username>
                             <password>${db.password}</password>
@@ -170,7 +169,7 @@
                         <phase>process-resources</phase>
                         <configuration>
                             <changeLogFile>com/hand/hap/db/liquibase.groovy</changeLogFile>
-                            <driver>${db.dirver}</driver>
+                            <driver>${db.driver}</driver>
                             <url>${db.url}</url>
                             <username>${db.user}</username>
                             <password>${db.password}</password>
