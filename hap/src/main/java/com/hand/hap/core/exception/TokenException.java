@@ -19,8 +19,8 @@ public class TokenException extends BaseException {
     private static final long serialVersionUID = -4610975985890969248L;
 
     public static final String CODE = "TOKEN_FAILURE";
-    public static final String MSG_NOT_EXISTS = "msg.error.token.not.exists";
-    public static final String MSG_CHECK_FAILED = "msg.error.token.check.failed";
+    public static final String MSG_NOT_EXISTS = "error.token_not_exists";
+    public static final String MSG_CHECK_FAILED = "error.token_check_failed";
 
     private BaseDTO dto;
 
