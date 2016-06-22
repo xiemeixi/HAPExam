@@ -64,27 +64,27 @@ databaseChangeLog(logicalFilePath:"2016-06-09-init-data-migration.groovy"){
         sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_user_role.sql"), encoding: "UTF-8")
     }
 
-    changeSet(author: "jessen", id: "20160613-sys-attach-category-1") {
+    changeSet(author: "jessen", id: "20160613-data-sys-attach-category-1") {
         sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_attach_category.sql"), encoding: "UTF-8")
     }
 
-    changeSet(author: "jessen", id: "20160613-sys-message-email-config-1") {
+    changeSet(author: "jessen", id: "20160613-data-sys-message-email-config-1") {
         sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_message_email_config.sql"), encoding: "UTF-8")
     }
 
-    changeSet(author: "jessen", id: "20160613-sys-message-email-account-1") {
+    changeSet(author: "jessen", id: "20160613-data-sys-message-email-account-1") {
         sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_message_email_account.sql"), encoding: "UTF-8")
     }
 
-    changeSet(author: "jessen", id: "20160613-sys-message-email-white-lt-1") {
+    changeSet(author: "jessen", id: "20160613-data-sys-message-email-white-lt-1") {
         sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_message_email_white_lt.sql"), encoding: "UTF-8")
     }
 
-    changeSet(author: "jessen", id: "20160613-sys-message-template-1") {
+    changeSet(author: "jessen", id: "20160613-data-sys-message-template-1") {
         sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_message_template.sql"), encoding: "UTF-8")
     }
 
-    changeSet(author: "jessen", id: "20160613-sys-preferences-1") {
+    changeSet(author: "jessen", id: "20160613-data-sys-preferences-1") {
         sqlFile(path: MigrationHelper.getInstance().dataPath("com/hand/hap/db/data/"+dbType+"/init/sys_preferences.sql"), encoding: "UTF-8")
     }
 
