@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.hand.hap.system.dto.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -18,11 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hand.hap.system.controllers.BaseController;
-import com.hand.hap.core.IRequest;
 import com.hand.hap.account.dto.User;
-import com.hand.hap.core.exception.BaseException;
 import com.hand.hap.account.service.IUserService;
+import com.hand.hap.core.IRequest;
+import com.hand.hap.core.exception.BaseException;
+import com.hand.hap.system.controllers.BaseController;
+import com.hand.hap.system.dto.ResponseData;
 
 /**
  * UserController.
@@ -72,6 +72,7 @@ public class UserController extends BaseController {
     @ResponseBody
     public ResponseData submitUsers(@RequestBody List<User> users, BindingResult result, HttpServletRequest request)
             throws BaseException {
+        getValidator().validate(users, result);
         if (result.hasErrors()) {
             ResponseData rd = new ResponseData(false);
             rd.setMessage(getErrorMessage(result, request));
