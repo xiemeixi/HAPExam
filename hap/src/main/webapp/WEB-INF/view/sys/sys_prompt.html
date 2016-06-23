@@ -103,7 +103,16 @@
                     text : '<@spring.message "hap.new"/>',
                     disable : false,
                     click : function() {
-                        d_pmt_002_grid.addRow({})
+	                    // smart set lang for new record
+                        var arr = d_pmt_002_grid.getData();
+                        var i=0;
+                        for(;i<arr.length;i++){
+                            if(arr[i].__status=='add') {
+                                break;
+                            }
+                        }
+	                    var idx = (arr.length-i)%languageData.length;
+                        d_pmt_002_grid.addRow({lang:languageData[idx].langCode})
                     },
                     icon : 'add'
                 }, {
@@ -134,9 +143,31 @@
             enabledEdit : true,
             width : '100%',
             height : '99%',
-            checkbox : true
+            checkbox : true,
+	        onAfterEdit : f_onAfterEdit
         });
     });
+
+    // smart fill promptCode
+    function f_onAfterEdit(rowData){
+        var gridData = d_pmt_002_grid.getData();
+        if (rowData.record.__status=='add'&&rowData.column.columnname=='promptCode') {
+            if(rowData.record.lang) {
+	            for(var i=0;i<languageData.length;i++){
+		            if(rowData.record.lang==languageData[i].langCode){
+			            for(var j=0;j<languageData.length;j++){
+				            if(i==j) continue;
+				            var r = gridData[rowData.rowindex+j-i];
+				            if(r&&r.__status=='add'&&!r.promptCode&&r.lang==languageData[j].langCode){
+                                d_pmt_002_grid.updateCell("promptCode",rowData.record.promptCode,r.__id)
+				            }
+			            }
+			            break;
+		            }
+	            }
+            }
+        }
+    }
     </script>
 </body>
 </html> 
