@@ -46,6 +46,7 @@ import com.hand.hap.core.annotation.MultiLanguage;
 import com.hand.hap.core.annotation.MultiLanguageField;
 import com.hand.hap.mybatis.annotation.ColumnType;
 import com.hand.hap.mybatis.annotation.Condition;
+import com.hand.hap.mybatis.annotation.ExtensionAttribute;
 import com.hand.hap.mybatis.annotation.NameStyle;
 import com.hand.hap.mybatis.code.IdentityDialect;
 import com.hand.hap.mybatis.code.Style;
@@ -235,7 +236,12 @@ public class EntityHelper {
         } else {
             fields = FieldHelper.getFields(entityClass);
         }
+        ExtensionAttribute extensionAttribute = entityClass.getAnnotation(ExtensionAttribute.class);
+        boolean useExt = extensionAttribute == null || !extensionAttribute.disable();
         for (EntityField field : fields) {
+            if(!useExt && field.getName().matches("attribute(\\d+|Category)")){
+                continue;
+            }
             processField(entityTable, style, field);
         }
         //当pk.size=0的时候使用所有列作为主键
