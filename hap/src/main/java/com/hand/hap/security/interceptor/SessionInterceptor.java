@@ -44,6 +44,7 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
                 try (Writer writer = response.getWriter()) {
                     writer.write(DEFAULT_AJAX_RESPONSE);
                 }
+                return false;
             } else {
 //                String referer = request.getHeader("Referer");
 //                if (StringUtils.isEmpty(referer)) {
@@ -53,7 +54,6 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 //                }
                 // response.sendRedirect(contextPath + "/timeout.html");
             }
-            return false;
         } else {
             String tz = (String) session.getAttribute(BaseConstants.TIME_ZONE);
             if (StringUtils.isNotEmpty(tz)) {
