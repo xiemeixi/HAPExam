@@ -13,7 +13,7 @@ import com.hand.hap.mybatis.common.Mapper;
  *
  */
 public interface SendRetrieveMapper extends Mapper<SendRetrieve> {
-    int insert(SendRetrieve record);
+    int insertRecord(SendRetrieve record);
 
     int query(SendRetrieve sendRetrieve);
 }

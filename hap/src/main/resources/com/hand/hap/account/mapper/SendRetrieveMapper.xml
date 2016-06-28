@@ -17,7 +17,7 @@
     <result column="EMAIL" jdbcType="VARCHAR" property="email" />
     <result column="PHONE_NO" jdbcType="VARCHAR" property="phoneNo" />
   </resultMap>
-  <insert id="insert" parameterType="com.hand.hap.account.dto.SendRetrieve">
+  <insert id="insertRecord" parameterType="com.hand.hap.account.dto.SendRetrieve">
     insert into SYS_ACCOUNT_RETRIEVE (USER_ID, RETRIEVE_TYPE, RETRIEVE_DATE, 
       OBJECT_VERSION_NUMBER, REQUEST_ID, PROGRAM_ID, 
       CREATION_DATE, CREATED_BY, LAST_UPDATED_BY, 
