@@ -13,9 +13,6 @@ import java.util.Map;
 import javax.persistence.Table;
 import javax.servlet.http.HttpServletRequest;
 
-import com.hand.hap.cache.impl.SysCodeCache;
-import com.hand.hap.system.dto.ResponseData;
-import com.hand.hap.system.dto.Language;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,11 +32,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hand.hap.cache.Cache;
 import com.hand.hap.cache.CacheManager;
 import com.hand.hap.cache.impl.HashStringRedisCache;
+import com.hand.hap.cache.impl.SysCodeCache;
 import com.hand.hap.core.ILanguageProvider;
 import com.hand.hap.core.IRequest;
 import com.hand.hap.core.impl.DefaultTlTableNameProvider;
-import com.hand.hap.system.dto.DTOClassInfo;
 import com.hand.hap.system.dto.Code;
+import com.hand.hap.system.dto.DTOClassInfo;
+import com.hand.hap.system.dto.Language;
+import com.hand.hap.system.dto.ResponseData;
 import com.hand.hap.system.mapper.MultiLanguageMapper;
 import com.hand.hap.system.service.ILovService;
 import com.hand.hap.system.service.IProfileService;
@@ -187,7 +187,7 @@ public class CommonController extends BaseController {
     public ModelAndView renderFolder3View(@PathVariable String folder1, @PathVariable String folder2,
             @PathVariable String folder3, @PathVariable String name, Model model) {
         return new ModelAndView(new StringBuilder(getViewPath()).append("/").append(folder1).append("/").append(folder2)
-                .append("/").append(folder3).append(name).toString());
+                .append("/").append(folder3).append("/").append(name).toString());
     }
 
     @RequestMapping(value = "/{folder1}/{folder2}/{folder3}/{folder4}/{name}.html")
