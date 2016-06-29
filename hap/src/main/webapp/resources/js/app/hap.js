@@ -708,6 +708,20 @@
                 }
             }
         };
+
+        Hap.gridDateTimeRenderer = function (rowdata, index, value,obj) {
+            if(value){
+                return new Date(value).format('yyyy-MM-dd HH:mm:ss')
+            }
+            return '';
+        };
+
+        Hap.gridDateRenderer = function (rowdata, index, value,obj) {
+            if(value){
+                return new Date(value).format('yyyy-MM-dd')
+            }
+            return '';
+        };
         
         
         /**
