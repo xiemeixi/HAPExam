@@ -1,6 +1,7 @@
 <#include "./include/head.html">
 <body style="padding:0px;background:#EAEEF5; overflow: hidden;">
 <link href="${base.contextPath}/resources/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="${base.contextPath}/resources/css/font-awesome.css" rel="stylesheet" type="text/css"/>
 <style>
     .l-topmenu {
         margin: 0;
@@ -301,6 +302,16 @@
 
             li [class^="icon-"], li [class*=" icon-"] {
                 display: inline-block;
+                width: 1.25em;
+                text-align: center;
+            }
+            li [class^="fa-"], li [class*=" fa-"] {
+                display: inline-block;
+                font: normal normal normal 14px/1 FontAwesome;
+                font-size: inherit;
+                text-rendering: auto;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
                 width: 1.25em;
                 text-align: center;
             }
