@@ -21,9 +21,9 @@ import com.hand.hap.function.mapper.RoleFunctionMapper;
  */
 public class RoleResourceCache extends HashStringRedisCache<Long[]> {
 
-    private String roleResouceQuerySqlId = RoleFunctionMapper.class.getName() + ".selectAllRoleResources";
+    private String roleResourceQuerySqlId = RoleFunctionMapper.class.getName() + ".selectAllRoleResources";
 
-    private String roleResoucesSqlId = RoleFunctionMapper.class.getName() + ".selectRoleResouces";
+    private String roleResourcesSqlId = RoleFunctionMapper.class.getName() + ".selectRoleResources";
 
     private final Logger logger = LoggerFactory.getLogger(RoleResourceCache.class);
 
@@ -64,7 +64,7 @@ public class RoleResourceCache extends HashStringRedisCache<Long[]> {
     protected void initLoad() {
         Map<String, Set<Long>> roleResources = new HashMap<>();
         try (SqlSession sqlSession = getSqlSessionFactory().openSession()) {
-            sqlSession.select(roleResouceQuerySqlId, (resultContext) -> {
+            sqlSession.select(roleResourceQuerySqlId, (resultContext) -> {
                 Map<String, Object> value = (Map<String, Object>) resultContext.getResultObject();
                 String roleId = "" + value.get("ROLE_ID");
                 Set<Long> sets = roleResources.get(roleId);
@@ -94,7 +94,7 @@ public class RoleResourceCache extends HashStringRedisCache<Long[]> {
     public void loadRoleResource(Long roleId) {
         Map<Long, Set<Long>> roleResources = new HashMap<>();
         try (SqlSession sqlSession = getSqlSessionFactory().openSession()) {
-            sqlSession.select(roleResoucesSqlId, roleId, (resultContext) -> {
+            sqlSession.select(roleResourcesSqlId, roleId, (resultContext) -> {
                 Map<String, Object> value = (Map<String, Object>) resultContext.getResultObject();
                 Set<Long> sets = roleResources.get(roleId);
                 if (sets == null) {
