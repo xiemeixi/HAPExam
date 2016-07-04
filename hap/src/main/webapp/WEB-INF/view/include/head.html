@@ -51,7 +51,7 @@ $l('hap.validate.max','<@spring.message "hap.validate.max"/>');
 $l('hap.validate.min','<@spring.message "hap.validate.min"/>');
 $l('hap.multilanguage_editor','<@spring.message "hap.multilanguage_editor"/>');
 var _basePath = '${base.contextPath}',_locale='${base.locale}'; 
-Hap.timeZone.set('${Session.timeZone!'GMT+0800'}');
+Hap.timeZone.set('${Session.timeZone!''}');
 
 $(document).ajaxError(function myErrorHandler(event, xhr, ajaxOptions, thrownError) {
 	if(xhr.status=='403')
