@@ -129,6 +129,11 @@
         padding: 2px;
     }
 
+    #drawdownNav a {
+        line-height : 30px;
+	    display: block;
+    }
+
     .lang_chooser {
         height: 32px;
         display: block;
@@ -146,7 +151,7 @@
     }
 </style>
 <script type="text/javascript">
-    r_label();
+    // r_label();
     // setInterval("r_label()", 5000*30);
     function r_label() {
         Hap.ajax({
@@ -211,18 +216,18 @@
     <div class="l-topmenu-btn">
         <ul id="nav" style="display: block;height:100%;list-style:none;">
             <li class="l-topmenu-item">
-                <a id="changeRole" onclick="switchRole();" herf="#" title="<@spring.message "role.changeRole"/>">
-                    <i class="icon-link"></i>
+                <a id="changeRole" onclick="switchRole();" href="#" title="<@spring.message "role.changeRole"/>">
+                    <i class="icon-group"></i>
                 </a>
             </li>
             <li class="l-topmenu-item">
-                <a id="messages" onclick="messageEdit()" herf="#" title="<@spring.message "hap.unread_message"/>">
+                <a id="messages" onclick="messageEdit()" href="#" title="<@spring.message "hap.unread_message"/>">
                     <i class="icon-envelope"></i>
                     <span class="badge">!</span>
                 </a>
             </li>
             <li class="l-topmenu-profile">
-                <a class="drawdownBtn" herf="#">
+                <a class="drawdownBtn" href="#">
 				${Session.userName!''}
                     <i class="icon-caret-down drawdown_icon"></i>
                 </a>
@@ -231,7 +236,7 @@
                             class="icon-info-sign drawdown_icon"></i><@spring.message "user.info"/></a></li>
                     <li><a href="javascript:void(0)" style="text-decoration: none;" onclick="sysPreferences();"><i
                             class="icon-cogs drawdown_icon"></i><@spring.message "hap.preferences"/></a></li>
-                    <li><a href="javascript:void(0)" sysPreferencesstyle="text-decoration: none;" onclick="logout();"><i
+                    <li><a href="javascript:void(0)" style="text-decoration: none;" onclick="logout();"><i
                             class="icon-off drawdown_icon"></i><@spring.message "hap.logout"/></a></li>
                 </ul>
             </li>
