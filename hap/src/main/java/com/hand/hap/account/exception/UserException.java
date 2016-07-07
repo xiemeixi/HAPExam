@@ -19,7 +19,7 @@ public class UserException extends BaseException {
     public static final String ERROR_INVALID_CAPTCHA = "error.login.verification_code_error";
 
     // 用户名密码不匹配
-    public static final String ERROR_USER_PASSWORD = "error.user.name_password_not_match";
+    public static final String ERROR_USER_PASSWORD = "error.login.name_password_not_match";
 
     // 账户状态未激活
     public static final String ERROR_USER_NOT_ACTIVE = "error.user.account_not_active";
