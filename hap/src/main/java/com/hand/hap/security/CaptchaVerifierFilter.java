@@ -15,6 +15,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.WebUtils;
 
+import com.hand.hap.account.exception.UserException;
 import com.hand.hap.security.captcha.ICaptchaManager;
 
 /**
@@ -43,7 +44,10 @@ public class CaptchaVerifierFilter extends OncePerRequestFilter {
             String captchaCode = httpServletRequest.getParameter(getCaptchaField());
             if (cookie == null || StringUtils.isEmpty(captchaCode)
                     || !captchaManager.checkCaptcha(cookie.getValue(), captchaCode)) {
-                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + loginUrl + "?error=true&v=1");
+                httpServletRequest.setAttribute("error", true);
+                httpServletRequest.setAttribute("exception",
+                        new UserException(UserException.LOGIN_VERIFICATION_CODE_ERROR, null));
+                httpServletRequest.getRequestDispatcher(loginUrl).forward(httpServletRequest, httpServletResponse);
                 return;
             }
         }

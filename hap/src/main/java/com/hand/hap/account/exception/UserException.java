@@ -16,27 +16,23 @@ public class UserException extends BaseException {
     private static final long serialVersionUID = -3250576758107608016L;
 
     // 验证码不正确
-    public static final String MSG_LOGIN_INVALID_CODE = "error.login.verification_code_error";
+    public static final String ERROR_INVALID_CAPTCHA = "error.login.verification_code_error";
 
     // 用户名密码不匹配
-    public static final String MSG_LOGIN_NAME_PASSWORD = "error.login.name_password_not_match";
+    public static final String ERROR_USER_PASSWORD = "error.user.name_password_not_match";
 
     // 账户状态未激活
-    public static final String MSG_LOGIN_ACCOUNT_NOT_INACTIVE = "error.login.account_not_active";
+    public static final String ERROR_USER_NOT_ACTIVE = "error.user.account_not_active";
 
     // 账户失效
-    public static final String MSG_LOGIN_ACCOUNT_INVALID = "error.login.account_invalid";
+    public static final String ERROR_USER_EXPIRED = "error.user.account_expired";
 
-    // 账户失效
-    public static final String MSG_LOGIN_PWD_INVALID = "error.login.account_pwd_invalid";
+    // 账户锁定
+    public static final String ERROR_USER_LOCKED = "error.user.account_locked";
+
 
     // 用户密码错误超过一定次数锁定一段时间
     public static final String MSG_LOGIN_ACCOUNT_LOCK_MAX_RETRY_TIMES = "error.mws.login.account_lock_max_retry_times";
-
-    /**
-     * mws-账号类型错误.
-     */
-    public static final String ACCOUNT_TYPE_ERROR = "mws.error.account_type_error";
 
     private static final String EXCEPTION_CODE = "sys.user";
 
@@ -44,14 +40,7 @@ public class UserException extends BaseException {
      * 用户管理 - 登录名被占用.
      */
     public static final String USER_EXIST = "error.user.um_exist_already";
-    /**
-     * 用户管理 - 登录名不能为空.
-     */
-    public static final String USER_NOT_ISEMPTY = "error.user.user_not_isempty";
-    /**
-     * 用户管理 - IPONT邮箱不能为空.
-     */
-    public static final String IPONT_EMAIL_NOT_EMPTY = "error.um.ipoint_member_email_not_null";
+
     /**
      * 用户管理 - 登录名格式错误.
      */

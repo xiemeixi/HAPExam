@@ -31,6 +31,7 @@ import com.hand.hap.adaptor.ILoginAdaptor;
 import com.hand.hap.core.BaseConstants;
 import com.hand.hap.core.ILanguageProvider;
 import com.hand.hap.core.IRequest;
+import com.hand.hap.core.exception.BaseException;
 import com.hand.hap.core.impl.RequestHelper;
 import com.hand.hap.core.util.TimeZoneUtil;
 import com.hand.hap.security.TokenUtils;
@@ -186,7 +187,7 @@ public class DefaultLoginAdaptor implements ILoginAdaptor {
             if (cookie == null || StringUtils.isEmpty(captchaCode)
                     || !captchaManager.checkCaptcha(cookie.getValue(), captchaCode)) {
                 // view.addObject("_password", user.getPassword());
-                throw new UserException(UserException.MSG_LOGIN_INVALID_CODE, UserException.MSG_LOGIN_INVALID_CODE,
+                throw new UserException(UserException.ERROR_INVALID_CAPTCHA, UserException.ERROR_INVALID_CAPTCHA,
                         null);
             }
         }
@@ -319,16 +320,21 @@ public class DefaultLoginAdaptor implements ILoginAdaptor {
     @Override
     public ModelAndView loginView(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView view = new ModelAndView(getLoginView(request));
-        String error = request.getParameter("error");
-        String v = request.getParameter("v");
-        if ("true".equals(error)) {
+        Boolean error = (Boolean) request.getAttribute("error");
+        Throwable exception = (Exception) request.getAttribute("exception");
+
+        while (exception != null && exception.getCause() != null) {
+            exception = exception.getCause();
+        }
+        String code = UserException.ERROR_USER_PASSWORD;
+        if (exception instanceof BaseException) {
+            code = ((BaseException) exception).getDescriptionKey();
+        }
+
+        if (error != null && error) {
             String msg = null;
             Locale locale = RequestContextUtils.getLocale(request);
-            if ("1".equalsIgnoreCase(v)) {
-                msg = messageSource.getMessage(UserException.LOGIN_VERIFICATION_CODE_ERROR, null, locale);
-            } else {
-                msg = messageSource.getMessage(UserException.MSG_LOGIN_NAME_PASSWORD, null, locale);
-            }
+            msg = messageSource.getMessage(code, null, locale);
             view.addObject("msg", msg);
         }
         fillContextLanguagesData(view);

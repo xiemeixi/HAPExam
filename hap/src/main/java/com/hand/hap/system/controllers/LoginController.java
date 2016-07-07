@@ -6,18 +6,18 @@ package com.hand.hap.system.controllers;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hand.hap.account.dto.Role;
-import com.hand.hap.system.dto.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.hand.hap.adaptor.ILoginAdaptor;
+import com.hand.hap.account.dto.Role;
 import com.hand.hap.account.dto.User;
-import com.hand.hap.core.exception.BaseException;
 import com.hand.hap.account.exception.RoleException;
+import com.hand.hap.adaptor.ILoginAdaptor;
+import com.hand.hap.core.exception.BaseException;
+import com.hand.hap.system.dto.ResponseData;
 
 /**
  * 用户控制层.
@@ -31,22 +31,22 @@ public class LoginController extends BaseController {
     @Autowired
     private ILoginAdaptor loginAdaptor;
 
-    /**
-     * 登陆逻辑.
-     * 
-     * @param account
-     *            登陆账号
-     * @param request
-     *            HttpServletRequest
-     * @param response
-     *            HttpServletResponse
-     * @return view
-     */
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(final User account, final HttpServletRequest request,
-                              final HttpServletResponse response) {
-        return getLoginAdaptor().doLogin(account, request, response);
-    }
+//    /**
+//     * 登陆逻辑.
+//     *
+//     * @param account
+//     *            登陆账号
+//     * @param request
+//     *            HttpServletRequest
+//     * @param response
+//     *            HttpServletResponse
+//     * @return view
+//     */
+//    @RequestMapping(value = "/login", method = RequestMethod.POST)
+//    public ModelAndView login(final User account, final HttpServletRequest request,
+//                              final HttpServletResponse response) {
+//        return getLoginAdaptor().doLogin(account, request, response);
+//    }
 
     /**
      * 登出逻辑.
@@ -69,7 +69,7 @@ public class LoginController extends BaseController {
      * @param response HttpServletResponse
      * @return view
      */
-    @RequestMapping(value = { "/login.html", "/login" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/login.html", "/login" })
     public ModelAndView loginView(final HttpServletRequest request, final HttpServletResponse response) {
         return getLoginAdaptor().loginView(request, response);
     }

@@ -45,26 +45,26 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     @Override
     public User login(User user) throws UserException {
         if (user == null || org.apache.commons.lang3.StringUtils.isAnyBlank(user.getUserName(), user.getPassword())) {
-            throw new UserException(UserException.MSG_LOGIN_NAME_PASSWORD, UserException.MSG_LOGIN_NAME_PASSWORD, null);
+            throw new UserException(UserException.ERROR_USER_PASSWORD, UserException.ERROR_USER_PASSWORD, null);
         }
         User user1 = userMapper.selectByUserName(StringUtils.upperCase(user.getUserName()));
         if (user1 == null) {
-            throw new UserException(UserException.MSG_LOGIN_NAME_PASSWORD, UserException.MSG_LOGIN_NAME_PASSWORD, null);
+            throw new UserException(UserException.ERROR_USER_PASSWORD, UserException.ERROR_USER_PASSWORD, null);
         }
         if (User.STATUS_LOCK.equals(user1.getStatus())) {
-            throw new UserException(UserException.MSG_LOGIN_ACCOUNT_INVALID, UserException.MSG_LOGIN_ACCOUNT_INVALID,
+            throw new UserException(UserException.ERROR_USER_EXPIRED, UserException.ERROR_USER_EXPIRED,
                     null);
         }
         if (user1.getStartActiveDate() != null && user1.getStartActiveDate().getTime() > System.currentTimeMillis()) {
-            throw new UserException(UserException.MSG_LOGIN_ACCOUNT_INVALID, UserException.MSG_LOGIN_ACCOUNT_INVALID,
+            throw new UserException(UserException.ERROR_USER_EXPIRED, UserException.ERROR_USER_EXPIRED,
                     null);
         }
         if (user1.getEndActiveDate() != null && user1.getEndActiveDate().getTime() < System.currentTimeMillis()) {
-            throw new UserException(UserException.MSG_LOGIN_ACCOUNT_INVALID, UserException.MSG_LOGIN_ACCOUNT_INVALID,
+            throw new UserException(UserException.ERROR_USER_EXPIRED, UserException.ERROR_USER_EXPIRED,
                     null);
         }
         if (!passwordManager.matches(user.getPassword(), user1.getPasswordEncrypted())) {
-            throw new UserException(UserException.MSG_LOGIN_NAME_PASSWORD, UserException.MSG_LOGIN_NAME_PASSWORD, null);
+            throw new UserException(UserException.ERROR_USER_PASSWORD, UserException.ERROR_USER_PASSWORD, null);
         }
         return user1;
     }

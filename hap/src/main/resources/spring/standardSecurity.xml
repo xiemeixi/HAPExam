@@ -18,7 +18,8 @@
 
 
         <form-login login-page='/login' authentication-success-handler-ref="successHandler"
-                    authentication-failure-url="/login?error=true"/>
+                    authentication-failure-handler-ref="loginFailureHandler"/>
+                    <!--authentication-failure-url="/login?error=true"/>-->
         <!-- 验证码拦截器 -->
         <custom-filter ref="captchaVerifierFilter" before="FORM_LOGIN_FILTER"/>
 
@@ -28,6 +29,8 @@
             <cache-control/>
         </headers>
     </http>
+
+    <beans:bean id="loginFailureHandler" class="com.hand.hap.security.LoginFailureHandler"/>
 
 
     <!-- 认证管理器,确定用户,角色及相应的权限 -->
