@@ -89,6 +89,27 @@
             }
             $.ligerDialog.error(message, $l('hap.tip.info'), callback);
         };
+
+        // 显示自动关闭的提示窗口,add by shengyang.zhou@hand-china.com
+        Hap.showAutoCloseMessage = function (message,callback) {
+            if (typeof (message) == "function" || arguments.length == 0) {
+                callback = message;
+                message = $l('hap.tip.success');
+            }
+            var manager = $.ligerDialog.open({
+                cls       : 'success',
+                type      : 'success',
+                content   : '<div style="padding:4px">' + message + '</div>',
+                allowClose: false
+            });
+            setTimeout(function () {
+                manager.close();
+                if(typeof callback == 'function'){
+                    callback();
+                }
+            }, 1000);
+        };
+
         // 覆盖页面grid的loading效果
         Hap.overrideGridLoading = function() {
             $.extend($.ligerDefaults.Grid, {
@@ -721,6 +742,40 @@
                 return new Date(value).format('yyyy-MM-dd')
             }
             return '';
+        };
+
+        Hap.toggleGridCheckBox = function (para) {
+            var grid = $.ligerui.get(para.gid);
+            if(!grid.options.enabledEdit)return;
+            var row = grid.getRow(para.rowid);
+            var newValue = para.checkValue;
+            if (row[para.columnname] == para.checkValue) {
+                newValue = para.uncheckValue;
+            }
+            row[para.columnname] = newValue;
+            if(row.__status=='nochanged')row.__status='update'
+            grid.reRender({rowdata: row});
+        };
+
+        Hap.createGridCheckBoxRender = function (config) {
+            config = config || {};
+            var cv = config.checkValue || 'Y';
+            var ucv = config.uncheckValue || 'N';
+            return function (data, idx, value, col) {
+                var cls = 'l-checkbox';
+                if (value == cv) cls += ' l-checkbox-checked';
+                var p = {
+                    gid         : this.id,
+                    checkValue  : cv,
+                    uncheckValue: ucv,
+                    rowid       : data.__id,
+                    columnname  : col.columnname
+                };
+
+                var p_json = JSON2.stringify(p).replace(/"/g, "\'");
+
+                return "<a href='javascript:void(0);' class='" + cls + "' onclick=\"Hap.toggleGridCheckBox(" + p_json + ")\"></a>"
+            }
         };
         
         
