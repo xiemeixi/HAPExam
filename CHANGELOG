@@ -1,0 +1,7 @@
+2016-07-10
+---
+1. 调整 Grid 行 line-height:28px ,这将会使 grid 行中的内容上下居中（之前是偏上）。
+2. 增强用户管理页面，增加 状态、有效日期、修改密码 等功能
+3. hap.js 增加一个 render 函数,用于渲染 grid 中的 checkbox 编辑器
+   Hap.createGridCheckBoxRender(),具体用法可以参考 sys_resource.html
+
