@@ -1,7 +1,60 @@
 2016-07-10
----
+----------
 1. 调整 Grid 行 line-height:28px ,这将会使 grid 行中的内容上下居中（之前是偏上）。
 2. 增强用户管理页面，增加 状态、有效日期、修改密码 等功能
 3. hap.js 增加一个 render 函数,用于渲染 grid 中的 checkbox 编辑器
    Hap.createGridCheckBoxRender(),具体用法可以参考 sys_resource.html
+   LigerUI 的 checkbox 编辑器在 grid 中问题很多,暂时没法用。
+   此次修改的 基于 render 的伪编辑器,已知存在一个问题:无法使用 tab 键获得焦点。
 
+2017-07-07
+----------
+1. 增加登录异常支持
+   使用 login-faliure-handler 取代 login-falure-url
+   用户被锁定(LOCKED):抛出异常 error.user.account_locked
+   用户尚未激活(未到有效时间):抛出异常 error.user.account_not_active
+   用户已过期(已经超出有效时间):抛出异常 error.user.account_expired
+   以上三个异常对应的消息 目前尚未包含在标准版本中,需手动注册。
+   
+2. 修复验证码 url 截断问题(有时验证码报404)
+
+2016-07-05
+----------
+1. 调整首页右上角菜单,用户菜单中的3个子菜单经常点不中的问题
+   调整菜单项 line-height:30px;display:line-block
+   
+2016-07-04
+----------
+1. 修改 head.html,使用浏览器时区作为默认时区(如果系统中没有设置)
+2. 修改 role.html,当只有一个角色时,自动选择并登录
+3. 添加 FontAwesome 标准图标支持, 除了 icon-xx,现在还可以使用 fa-xx
+4. 修复一个拼写错误,这个错误导致保存功能分配之后,缓存被清空,访问所有页面404
+
+2016-06-29
+----------
+1. 修复一个 html 路径自动映射问题:当 url 有4段时,无法正确取到 html 文件路径
+2. hap.js 添加 两个用于日期 和 日期+时间的 render
+   Hap.gridDateRender    : yyyy-MM-dd
+   Hap.gridDateTimeRender: yyyy-MM-dd HH:mm:ss
+
+2016-06-28
+----------
+1. 添加登录成功事件监听机制,接口:IAuthenticationSuccessListener
+   实现此接口,并在 spring context 中注册的 bean,将在标准登录成功以后被通知
+
+2016-06-27
+----------
+1. 修复退出后的登录页面为空白的问题
+
+2016-06-26
+----------
+1. 添加注解:ExtensionAttribute
+   将此注解加在 DTO 类上,表示此 DTO 对应的表不需要 标准的16(1+15)个扩展字段
+   
+2016-06-23
+----------
+1. 修复 grid 中 comboBox 点中后显示内容为空的问题
+   移除 grid 列中配置的 textField
+2. 增强 prompt 维护页面可用性
+   可以连续点击多次新增按钮,语言环境字段将自动填充
+   为新增的行填写 prompt_code 时,将自动复制到相关联的行。
