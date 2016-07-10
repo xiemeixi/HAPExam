@@ -33,15 +33,15 @@ public class CacheMessageSource extends AbstractMessageSource {
 
     @Override
     protected MessageFormat resolveCode(String code, Locale locale) {
-        code = StringUtils.lowerCase(code);
-        String pmt = promptCache.getValue(code + "." + locale);
+        String code2 = StringUtils.lowerCase(code);
+        String pmt = promptCache.getValue(code2 + "." + locale);
         return createMessageFormat(pmt == null ? StringUtils.substringAfterLast(code, ".") : pmt, locale);
     }
 
     @Override
     protected String resolveCodeWithoutArguments(String code, Locale locale) {
-        code = StringUtils.lowerCase(code);
-        String pmt = promptCache.getValue(code + "." + locale);
+        String code2 = StringUtils.lowerCase(code);
+        String pmt = promptCache.getValue(code2 + "." + locale);
         return pmt == null ? StringUtils.substringAfterLast(code, ".") : pmt;
     }
 }
