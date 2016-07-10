@@ -8,7 +8,7 @@ html {
 
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code,
 	form, fieldset, legend, input, textarea, p, blockquote, th, td {
-	margin: 0;R
+	margin: 0;
 	padding: 0;
 }
 
@@ -2958,7 +2958,7 @@ div.l-disabled a.l-radio-checked {
 	cursor: pointer;
 	overflow: hidden;
 	margin-left: 7px;
-	margin-top: 3px;
+	margin-top: 8px;
 }
 
 .l-checked .l-grid-row-cell-checkbox span, .l-checked  .l-grid-hd-cell-checkbox .l-grid-hd-cell-inner div
@@ -2973,6 +2973,7 @@ div.l-disabled a.l-radio-checked {
 
 .l-grid-hd-cell-inner {
 	overflow: hidden;
+    line-height:28px;
 }
 
 .l-grid-hd-cell-checkbox {

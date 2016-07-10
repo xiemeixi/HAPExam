@@ -679,7 +679,6 @@
 	border-right: 1px solid #DFDFDF;
 	border-bottom: 1px solid #DFDFDF;
 	text-align: center;
-	overflow: hidden;
 }
 
 
@@ -718,7 +717,7 @@
 
 .l-grid-row-cell-inner {
 	text-align: center;
-	line-height: 22px;
+	line-height: 28px;
 	min-height: 22px;
 	_height: 22px;
 	margin-left: 3px;
@@ -1960,8 +1959,8 @@ div.l-glass-icon, div.l-glass-icon:hover {
 	box-shadow: 0 1px 6px rgba(0, 0, 0, .3);
 	background:#FFF;
 	position:absolute;
-	left:-10000;
-	top:-10000;
+	left:-10000px;
+	top:-10000px;
 	z-index:10000;
 }
 /**modify by njq.niu@hand-china.com**/
