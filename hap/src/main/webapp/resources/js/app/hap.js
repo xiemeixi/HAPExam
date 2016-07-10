@@ -753,8 +753,14 @@
                 newValue = para.uncheckValue;
             }
             row[para.columnname] = newValue;
-            if(row.__status=='nochanged')row.__status='update'
+            if(row.__status=='nochanged')row.__status='update';
             grid.reRender({rowdata: row});
+            grid.trigger('afterEdit',{
+                column  : grid.getColumnByName(para.columnname),
+                record  : row,
+                value   : newValue,
+                rowindex: row.__index
+            });
         };
 
         Hap.createGridCheckBoxRender = function (config) {
