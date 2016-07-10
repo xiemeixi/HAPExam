@@ -18,20 +18,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.hand.hap.account.constants.UserConstants;
-import com.hand.hap.account.dto.SendRetrieve;
-import com.hand.hap.account.dto.User;
-import com.hand.hap.account.exception.UserException;
-import com.hand.hap.account.service.ISendRetrieveService;
-import com.hand.hap.account.service.IUserInfoService;
-import com.hand.hap.account.service.IUserService;
-import com.hand.hap.core.IRequest;
-import com.hand.hap.mail.ReceiverTypeEnum;
-import com.hand.hap.mail.dto.MessageReceiver;
-import com.hand.hap.mail.service.IMessageService;
-import com.hand.hap.security.captcha.ICaptchaManager;
-import com.hand.hap.system.controllers.BaseController;
-import com.hand.hap.system.dto.ResponseData;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +33,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
+
+import com.hand.hap.account.constants.UserConstants;
+import com.hand.hap.account.dto.SendRetrieve;
+import com.hand.hap.account.dto.User;
+import com.hand.hap.account.exception.UserException;
+import com.hand.hap.account.service.ISendRetrieveService;
+import com.hand.hap.account.service.IUserInfoService;
+import com.hand.hap.account.service.IUserService;
+import com.hand.hap.core.IRequest;
+import com.hand.hap.mail.ReceiverTypeEnum;
+import com.hand.hap.mail.dto.MessageReceiver;
+import com.hand.hap.mail.service.IMessageService;
+import com.hand.hap.security.captcha.ICaptchaManager;
+import com.hand.hap.system.controllers.BaseController;
+import com.hand.hap.system.dto.ResponseData;
 
 /**
  * 用户管理controller.
@@ -357,6 +358,21 @@ public class UserInfoController extends BaseController {
         if (userInfoService.validatePassword(iRequest, oldPwd, newPwd, newPwdAgain, accountId)) {
             userService.updatePassword(accountId, newPwd, null);
         }
+        return new ResponseData(true);
+    }
+
+    /**
+     * 管理员重置用户密码.
+     * @param request
+     * @param password
+     * @return
+     * @throws UserException
+     */
+    @RequestMapping(value = "/sys/um/resetPasswordAdmin", method = RequestMethod.POST)
+    public ResponseData updatePassword(HttpServletRequest request, String password,Long userId)
+            throws UserException {
+        IRequest iRequest = createRequestContext(request);
+        userService.updatePassword(userId, password, null);
         return new ResponseData(true);
     }
 

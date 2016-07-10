@@ -23,28 +23,22 @@
     user_role_grid = window['user_role_grid'] = $("#user_role_grid").ligerGrid({
         columns : [
             {
-                display: '<@spring.message "role.roleid"/>',
-                name   : "roleId",
-                align  : 'left',
-                width  : 120
-            },
-            {
                 display: '<@spring.message "role.rolecode"/>',
                 name   : "roleCode",
                 align  : 'left',
-                width  : 160
+                width  : 100
             },
             {
                 display: '<@spring.message "role.rolename"/>',
                 name   : "roleName",
                 align  : 'left',
-                width  : 180
+                width  : 120
             },
             {
                 display: '<@spring.message "role.roledescription"/>',
                 name   : "roleDescription",
                 align  : 'left',
-                width  : 290
+                width  : 200
             }
         ],
         checkbox: true,
@@ -118,13 +112,12 @@
         var data = user_role_grid.getChanges();
         var requestData = [];
         if (data.length == 0) {
-            //requestData.push({userId: ${RequestParameters.userId}});
         } else {
             for (var i = 0; i < data.length; i++) {
                 requestData.push({
-                    roleId: data[i].roleId,
-                    userId: ${RequestParameters.userId},
-	                __status:data[i].__status
+                    roleId  : data[i].roleId,
+                    userId  : ${RequestParameters.userId},
+                    __status: data[i].__status
                 });
             }
         }
@@ -135,7 +128,11 @@
             contentType: "application/json; charset=utf-8",
             success    : function (json) {
                 if (json.success) {
-                    Hap.tip($l('hap.tip.success'));
+                    Hap.showAutoCloseMessage(function () {
+                        if (frameElement && frameElement.dialog) {
+                            frameElement.dialog.close();
+                        }
+                    });
                 }
             }
         });
