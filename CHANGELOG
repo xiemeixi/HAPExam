@@ -10,7 +10,7 @@
 2017-07-07
 ----------
 1. 增加登录异常支持
-   使用 login-faliure-handler 取代 login-falure-url
+   使用 login-faliure-handler 取代 login-faliure-url
    用户被锁定(LOCKED):抛出异常 error.user.account_locked
    用户尚未激活(未到有效时间):抛出异常 error.user.account_not_active
    用户已过期(已经超出有效时间):抛出异常 error.user.account_expired
@@ -21,7 +21,7 @@
 2016-07-05
 ----------
 1. 调整首页右上角菜单,用户菜单中的3个子菜单经常点不中的问题
-   调整菜单项 line-height:30px;display:line-block
+   调整菜单项 line-height:30px;display:inline-block
    
 2016-07-04
 ----------
