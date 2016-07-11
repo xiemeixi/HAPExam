@@ -730,14 +730,14 @@
             }
         };
 
-        Hap.gridDateTimeRenderer = function (rowdata, index, value,obj) {
+        Hap.gridDateTimeRender = function (rowdata, index, value,obj) {
             if(value){
                 return new Date(value).format('yyyy-MM-dd HH:mm:ss')
             }
             return '';
         };
 
-        Hap.gridDateRenderer = function (rowdata, index, value,obj) {
+        Hap.gridDateRender = function (rowdata, index, value,obj) {
             if(value){
                 return new Date(value).format('yyyy-MM-dd')
             }
@@ -783,7 +783,19 @@
                 return "<a href='javascript:void(0);' class='" + cls + "' onclick=\"Hap.toggleGridCheckBox(" + p_json + ")\"></a>"
             }
         };
-        
+
+        Hap.createRenderA = function(text,func) {
+            if(typeof func=='function')
+                func=func.name;
+            var arr=[];
+            $.each(arguments,function(i,r){
+                if(i<2)return;
+                if(typeof r=='string') arr.push("'"+r+"'");
+                else arr.push(r);
+            });
+            var funcCall = func+'('+arr.join(',')+');return false';
+            return '<a href="javascript:void(0);" onclick="'+funcCall+'">'+text+'</a>';
+        };
         
         /**
          * 表格下拉框快速编码渲染函数.
