@@ -43,10 +43,9 @@
         SELECT sur.role_id, sr_tl.role_name
           FROM sys_user_role sur
           LEFT OUTER JOIN sys_role_tl sr_tl
-            on sur.role_id = sr_tl.role_id
-         WHERE sr_tl.lang = #{request.locale,jdbcType=VARCHAR}
-           AND sur.user_id = #{userId, jdbcType = DECIMAL}
-
+            on (sur.role_id = sr_tl.role_id AND
+                 sr_tl.lang = #{request.locale,jdbcType=VARCHAR})
+           WHERE sur.user_id = #{userId, jdbcType = DECIMAL}
            order by sur.role_id
     </select>
 
