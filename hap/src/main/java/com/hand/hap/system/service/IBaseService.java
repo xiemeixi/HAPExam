@@ -29,7 +29,7 @@ public interface IBaseService<T> {
 
     List<T> selectAll();
 
-    List<T> batchUpdate(IRequest request, List<T> list);
+    List<T> batchUpdate(IRequest request, @StdWho List<T> list);
 
     int batchDelete(List<T> list);
 }
