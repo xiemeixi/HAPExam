@@ -11,14 +11,13 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
-import com.hand.hap.system.dto.DTOClassInfo;
-import com.hand.hap.core.exception.TokenException;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.hand.hap.core.exception.TokenException;
 import com.hand.hap.system.dto.BaseDTO;
-import com.hand.hap.system.dto.DTOStatus;
+import com.hand.hap.system.dto.DTOClassInfo;
 
 /**
  * 提供用于生成和校验 _token (BaseDTO的防篡改属性)的方法.
@@ -185,13 +184,28 @@ public final class TokenUtils {
      *             没有_token,或者不匹配
      */
     public static void checkToken(String securityKey, Collection<? extends BaseDTO> baseDTOs) throws TokenException {
-        if (baseDTOs != null) {
+        if (baseDTOs != null && !baseDTOs.isEmpty()) {
+            Class<?> clazz = baseDTOs.iterator().next().getClass();
+            Field[] ids = DTOClassInfo.getIdFields(clazz);
             for (BaseDTO dto : baseDTOs) {
-                if (!DTOStatus.ADD.equals(dto.get__status())) {
+                if (!hasIDValue(dto, ids)) {
                     checkToken(securityKey, dto);
                 }
             }
         }
+    }
+
+    private static boolean hasIDValue(Object obj, Field[] ids) {
+        for (Field f : ids) {
+            try {
+                if (f.get(obj) == null) {
+                    return false;
+                }
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return true;
     }
 
     /**
