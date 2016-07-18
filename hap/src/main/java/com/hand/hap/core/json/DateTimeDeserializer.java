@@ -8,7 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.hand.hap.core.util.TimeZoneUtil;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
+import com.hand.hap.core.util.TimeZoneUtil;
 
 /**
  * 时间序反列化类.
@@ -50,18 +51,21 @@ public class DateTimeDeserializer extends JsonDeserializer<Date> implements Cont
 
     @Override
     public Date deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
-        Date date = null;
+        String str = jp.getText();
+        if(StringUtils.isEmpty(str)) {
+            return null;
+        }
         try {
             // TODO:优化!
             SimpleDateFormat sb = new SimpleDateFormat(getPattern());
             sb.setTimeZone(TimeZoneUtil.getTimeZone());
-            date = sb.parse(jp.getText());
+            return sb.parse(str);
         } catch (ParseException e) {
             if (log.isErrorEnabled()) {
                 log.error(e.getMessage(), e);
             }
         }
-        return date;
+        return null;
     }
 
     @Override
