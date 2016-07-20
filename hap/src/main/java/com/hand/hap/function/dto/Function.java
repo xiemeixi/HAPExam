@@ -13,11 +13,11 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.hand.hap.core.annotation.MultiLanguageField;
 import com.hand.hap.core.annotation.Children;
 import com.hand.hap.core.annotation.MultiLanguage;
-import com.hand.hap.system.dto.BaseDTO;
+import com.hand.hap.core.annotation.MultiLanguageField;
 import com.hand.hap.mybatis.annotation.Condition;
+import com.hand.hap.system.dto.BaseDTO;
 
 /**
  * 功能的DTO.
@@ -74,6 +74,7 @@ public class Function extends BaseDTO {
 
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Transient
     private String lang;
 
     /**

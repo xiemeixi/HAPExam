@@ -20,7 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.pagehelper.PageHelper;
 import com.hand.hap.cache.impl.HashStringRedisCacheGroup;
 import com.hand.hap.cache.impl.RoleResourceCache;
+import com.hand.hap.core.ILanguageProvider;
 import com.hand.hap.core.IRequest;
+import com.hand.hap.core.impl.RequestHelper;
 import com.hand.hap.function.dto.Function;
 import com.hand.hap.function.dto.FunctionDisplay;
 import com.hand.hap.function.dto.FunctionResource;
@@ -32,6 +34,7 @@ import com.hand.hap.function.mapper.RoleFunctionMapper;
 import com.hand.hap.function.service.IFunctionService;
 import com.hand.hap.function.service.IResourceService;
 import com.hand.hap.function.service.IRoleFunctionService;
+import com.hand.hap.system.dto.Language;
 import com.hand.hap.system.service.impl.BaseServiceImpl;
 
 /**
@@ -65,6 +68,9 @@ public class FunctionServiceImpl extends BaseServiceImpl<Function> implements IF
     @Autowired
     private RoleResourceCache roleResourceCache;
 
+    @Autowired
+    private ILanguageProvider languageProvider;
+
     /**
      * 新增功能.
      * 
@@ -81,8 +87,31 @@ public class FunctionServiceImpl extends BaseServiceImpl<Function> implements IF
             return null;
         }
         super.insertSelective(request, function);
-        functionCache.getGroup(request.getLocale()).setValue(function.getFunctionId().toString(), function);
+        reloadFunctionCache(function.getFunctionId());
         return function;
+    }
+
+    private void reloadFunctionCache(Long functionId) {
+        IRequest old = RequestHelper.getCurrentRequest();
+        try {
+            IRequest iRequest = RequestHelper.newEmptyRequest();
+            RequestHelper.setCurrentRequest(iRequest);
+            for (Language language : languageProvider.getSupportedLanguages()) {
+                iRequest.setLocale(language.getLangCode());
+                Function f = functionMapper.selectByPrimaryKey(functionId);
+                if (f != null) {
+                    functionCache.getGroup(language.getLangCode()).setValue(functionId.toString(), f);
+                }
+            }
+        } finally {
+            RequestHelper.setCurrentRequest(old);
+        }
+    }
+
+    private void deleteFunctionCache(Long functionId) {
+        for (Language language : languageProvider.getSupportedLanguages()) {
+            functionCache.getGroup(language.getLangCode()).remove(functionId.toString());
+        }
     }
 
     /**
@@ -101,7 +130,7 @@ public class FunctionServiceImpl extends BaseServiceImpl<Function> implements IF
             return null;
         }
         super.updateByPrimaryKeySelective(request, function);
-        functionCache.getGroup(request.getLocale()).setValue(function.getFunctionId().toString(), function);
+        reloadFunctionCache(function.getFunctionId());
         return function;
     }
 
@@ -145,7 +174,7 @@ public class FunctionServiceImpl extends BaseServiceImpl<Function> implements IF
         }
         functionResourceMapper.deleteByFunctionId(function.getFunctionId());
         roleFunctionMapper.deleteByFunctionId(function.getFunctionId());
-        functionCache.getGroup(request.getLocale()).remove(function.getFunctionId().toString());
+        deleteFunctionCache(function.getFunctionId());
         return functionMapper.deleteByPrimaryKey(function);
     }
 
