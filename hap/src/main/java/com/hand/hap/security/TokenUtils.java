@@ -188,7 +188,7 @@ public final class TokenUtils {
             Class<?> clazz = baseDTOs.iterator().next().getClass();
             Field[] ids = DTOClassInfo.getIdFields(clazz);
             for (BaseDTO dto : baseDTOs) {
-                if (!hasIDValue(dto, ids)) {
+                if (hasIDValue(dto, ids)) {
                     checkToken(securityKey, dto);
                 }
             }
