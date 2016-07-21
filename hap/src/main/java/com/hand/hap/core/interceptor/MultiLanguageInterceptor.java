@@ -17,14 +17,6 @@ import java.util.Properties;
 
 import javax.persistence.Table;
 
-import com.hand.hap.core.annotation.MultiLanguage;
-import com.hand.hap.core.ILanguageProvider;
-import com.hand.hap.core.IRequest;
-import com.hand.hap.core.ITlTableNameProvider;
-import com.hand.hap.core.impl.DefaultTlTableNameProvider;
-import com.hand.hap.core.impl.RequestHelper;
-import com.hand.hap.system.dto.DTOClassInfo;
-import com.hand.hap.system.dto.Language;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -38,7 +30,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.hand.hap.core.ILanguageProvider;
+import com.hand.hap.core.IRequest;
+import com.hand.hap.core.ITlTableNameProvider;
+import com.hand.hap.core.annotation.MultiLanguage;
+import com.hand.hap.core.impl.DefaultTlTableNameProvider;
+import com.hand.hap.core.impl.RequestHelper;
 import com.hand.hap.system.dto.BaseDTO;
+import com.hand.hap.system.dto.DTOClassInfo;
+import com.hand.hap.system.dto.Language;
 
 /**
  * 自动数据多语言支持.
@@ -242,7 +242,15 @@ public class MultiLanguageInterceptor implements Interceptor {
             logger.debug("Update TL(Classic):{}", sql.toString());
             logger.debug("Parameters:{}", StringUtils.join(objs, ","));
         }
-        executeSql(executor.getTransaction().getConnection(), sql.toString(), objs);
+
+        Connection connection = executor.getTransaction().getConnection();
+        int updateCount = executeSql(connection, sql.toString(), objs);
+        if (updateCount < 1) {
+            if (logger.isWarnEnabled()) {
+                logger.warn("Update TL failed(Classic). update count:" + updateCount);
+            }
+            doInsertForMissingTlData(tableName, iRequest.getLocale(), parameterObject, connection);
+        }
     }
 
     private void proceedUpdateMultiLanguage2(String tableName, BaseDTO parameterObject, Executor executor)
@@ -288,6 +296,8 @@ public class MultiLanguageInterceptor implements Interceptor {
         sql.append(StringUtils.join(sets, ","));
         sql.append(" WHERE ").append(StringUtils.join(keys, " AND "));
 
+        Connection connection = executor.getTransaction().getConnection();
+
         List<Language> languages = languageProvider.getSupportedLanguages();
         for (Language language : languages) {
             // 前面几个参数都是多语言数据,需要每次更新
@@ -303,8 +313,67 @@ public class MultiLanguageInterceptor implements Interceptor {
                 logger.debug("Update TL(Batch):{}", sql.toString());
                 logger.debug("Parameters:{}", StringUtils.join(objs, ", "));
             }
-            executeSql(executor.getTransaction().getConnection(), sql.toString(), objs);
+            int updateCount = executeSql(connection, sql.toString(), objs);
+            if (updateCount < 1) {
+                if (logger.isWarnEnabled()) {
+                    logger.warn("Update TL failed(Batch). update count:{},lang:{}", updateCount,
+                            language.getLangCode());
+                }
+                doInsertForMissingTlData(tableName, language.getLangCode(), parameterObject, connection);
+            }
         }
+    }
+
+    private void doInsertForMissingTlData(String tableName, String lang, BaseDTO parameterObject, Connection connection)
+            throws IllegalAccessException, SQLException {
+
+        Class clazz = parameterObject.getClass();
+        StringBuilder sb = new StringBuilder();
+        sb.append("INSERT INTO ").append(tableName).append(" (");
+        List<Object> values = new ArrayList<>();
+        int pn = 0;
+        for (Field f : DTOClassInfo.getIdFields(clazz)) {
+            sb.append(DTOClassInfo.getColumnName(f)).append(",");
+            values.add(f.get(parameterObject));
+            pn++;
+        }
+        sb.append("LANG");
+        pn++;
+        values.add(lang);
+        Map<String, Map<String, String>> tls = parameterObject.get__tls();
+        for (Field f : DTOClassInfo.getMultiLanguageFields(clazz)) {
+            sb.append(",").append(DTOClassInfo.getColumnName(f));
+            if (tls != null && tls.get(f.getName()) != null) {
+                values.add(tls.get(f.getName()).get(lang));
+            } else {
+                values.add(f.get(parameterObject));
+            }
+            pn++;
+        }
+        sb.append(",CREATED_BY");
+        values.add(parameterObject.getCreatedBy());
+        sb.append(",CREATION_DATE");
+        sb.append(",LAST_UPDATED_BY");
+        values.add(parameterObject.getLastUpdatedBy());
+        sb.append(",LAST_UPDATE_DATE");
+
+        sb.append(") VALUES (");
+        for (int i = 0; i < pn; i++) {
+            sb.append("?,");
+        }
+        sb.append("?");
+        sb.append(",CURRENT_TIMESTAMP");
+        sb.append(",?");
+        sb.append(",CURRENT_TIMESTAMP");
+        sb.append(")");
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("Insert Missing TL record:" + sb.toString());
+            logger.debug("Parameters:" + StringUtils.join(values, ", "));
+        }
+
+        executeSql(connection, sb.toString(), values);
+
     }
 
     @Override
@@ -328,13 +397,14 @@ public class MultiLanguageInterceptor implements Interceptor {
         this.tableNameProvider = tableNameProvider;
     }
 
-    protected void executeSql(Connection connection, String sql, List<Object> params) throws SQLException {
+    protected int executeSql(Connection connection, String sql, List<Object> params) throws SQLException {
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             int i = 1;
             for (Object obj : params) {
                 ps.setObject(i++, obj);
             }
             ps.execute();
+            return ps.getUpdateCount();
         }
     }
 
