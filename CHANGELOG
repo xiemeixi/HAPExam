@@ -1,3 +1,9 @@
+2016-07-27
+----------
+1. 调整一些样式，主要包括：登录，角色选择，主页
+2. 统一添加 X-UA-Compatible  IE=edge,chrome=1
+3. 增加了 checkbox(render)，checkboxlist 的 demo
+
 2016-07-22
 ----------
 1. 优化权限校验：
