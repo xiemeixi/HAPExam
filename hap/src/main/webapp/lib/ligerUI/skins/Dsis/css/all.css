@@ -31,7 +31,7 @@
 	border: 1px solid #D0D0D0;
 	margin-left: 0px;
 	outline: none;
-	background: #FFFFFF url('../images/ui/input.gif') repeat-x top;
+	/*background: #FFFFFF url('../images/ui/input.gif') repeat-x top;*/
 }
 
 .l-textarea:hover {
@@ -58,7 +58,7 @@
 /* 文本框、下来框、日期框、调整器都使用到这个 */
 .l-text {
 	position: relative;
-	background: #FFFFFF url('../images/ui/input.gif') repeat-x top;
+	/*background: #FFFFFF url('../images/ui/input.gif') repeat-x top;*/
 	border: 1px solid #D0D0D0;
 	height: 20px;
 	line-height: 20px;
@@ -117,7 +117,7 @@
 	text-indent:3px;
 	top: 0px;
 	left: 0px;
-	background: #FFFFFF url('../images/ui/input.gif') repeat-x top;
+	/*background: #FFFFFF url('../images/ui/input.gif') repeat-x top;*/
 	width: 110px;
 	height: 18px;
 	line-height: 16px;
@@ -1992,7 +1992,7 @@ div.l-glass-icon, div.l-glass-icon:hover {
 	background: url('../images/ui/language_small.png') no-repeat 55% 55% transparent;
 }
 .l-text-tl .l-trigger-cancel .l-trigger-icon {
-	background: url('../images/ui/icon-unselect.gif') no-repeat 50% 53% transparent; 
+	background: url('../images/ui/icon-unselect.gif') no-repeat 50% 53% transparent;
 }
 
 /*add by njq.niu@hand-china.com*/
