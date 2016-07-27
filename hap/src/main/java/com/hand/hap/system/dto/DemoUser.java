@@ -5,6 +5,10 @@ package com.hand.hap.system.dto;
 
 import java.util.Date;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hand.hap.core.BaseConstants;
 
@@ -15,11 +19,14 @@ import com.hand.hap.core.BaseConstants;
  *
  * 2016年3月2日
  */
+@Table(name="TEST_NJQ")
 public class DemoUser extends BaseDTO {
     
     
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue
     private Long id;
 
     private String name;

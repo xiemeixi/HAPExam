@@ -3,8 +3,7 @@
  */
 package com.hand.hap.system.mapper;
 
-import java.util.List;
-
+import com.hand.hap.mybatis.common.Mapper;
 import com.hand.hap.system.dto.DemoUser;
 /**
  * 
@@ -12,13 +11,6 @@ import com.hand.hap.system.dto.DemoUser;
  *
  * 2016年1月26日
  */
-public interface DemoUserMapper {
+public interface DemoUserMapper extends Mapper<DemoUser> {
     
-    int insert(DemoUser record);
-
-    void delete(Long id);
-    
-    int update(DemoUser record);
-    
-    List select();
 }

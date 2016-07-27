@@ -16,34 +16,4 @@
          <result column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
          <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
     </resultMap>
-    <insert id="insert" parameterType="com.hand.hap.system.dto.DemoUser">
-        <selectKey resultType="long" keyProperty="id"
-            order="BEFORE">
-            select test_njq_s.nextval from dual
-        </selectKey>
-        insert into TEST_NJQ (ID, NAME, BIRTHDAY,CREATION_TIME,
-        DEPT_ID, SEX, AGE,ROLE_ID)
-        values (#{id,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR},
-        #{birthday,jdbcType=TIMESTAMP},
-        #{creationTime,jdbcType=TIMESTAMP},
-        #{deptId,jdbcType=DECIMAL}, #{sex,jdbcType=DECIMAL}, #{age,jdbcType=DECIMAL},#{roleId,jdbcType=DECIMAL})
-    </insert>
-    <select id="select" resultMap="BaseResultMap" >
-     select t.*,b.role_name from test_njq t left join sys_role_b b on t.role_id=b.role_id
-  </select>
-     <update id="update" parameterType="com.hand.hap.system.dto.DemoUser" >
-    update TEST_NJQ
-    set NAME = #{name,jdbcType=VARCHAR},
-      DEPT_ID = #{deptId,jdbcType=DECIMAL},
-      SEX = #{sex,jdbcType=DECIMAL},
-      ROLE_ID = #{roleId,jdbcType=DECIMAL},
-      AGE = #{age,jdbcType=DECIMAL},
-      BIRTHDAY = #{birthday,jdbcType=TIMESTAMP},
-      CREATION_TIME= #{creationTime,jdbcType=TIMESTAMP}
-    where ID = #{id,jdbcType=DECIMAL}
-  </update>
-    <delete id="delete" parameterType="java.lang.Integer" >
-    delete from TEST_NJQ
-    where ID = #{id,jdbcType=DECIMAL}
-  </delete>
 </mapper>

@@ -71,7 +71,7 @@ public class LigerUIDemoController extends BaseController {
             @RequestParam(defaultValue = DEFAULT_PAGE) Integer page,
             @RequestParam(defaultValue = DEFAULT_PAGE_SIZE) Integer pagesize) {
         PageHelper.startPage(page, pagesize);
-        return new ResponseData(demoUserMapper.select());
+        return new ResponseData(demoUserMapper.select(user));
     }
 
     @RequestMapping(value = "/demo/user/submit")
@@ -86,13 +86,13 @@ public class LigerUIDemoController extends BaseController {
             for (DemoUser user : users) {
                 switch (user.get__status()) {
                 case DTOStatus.ADD:
-                    demoUserMapper.insert(user);
+                    demoUserMapper.insertSelective(user);
                     break;
                 case DTOStatus.UPDATE:
-                    demoUserMapper.update(user);
+                    demoUserMapper.updateByPrimaryKeySelective(user);
                     break;
                 case DTOStatus.DELETE:
-                    demoUserMapper.delete(user.getId());
+                    demoUserMapper.deleteByPrimaryKey(user.getId());
                     break;
                 default:
                     break;
@@ -100,6 +100,43 @@ public class LigerUIDemoController extends BaseController {
             }
             return new ResponseData(users);
         }
+    }
 
+    @RequestMapping("/demo/checkboxlist")
+    @ResponseBody
+    public List<Object> getArray(){
+        List<Object> list = new ArrayList<>();
+
+        list.add(new Country("prc","中国"));
+        list.add(new Country("usa","美国"));
+        list.add(new Country("jpa","日本"));
+        list.add(new Country("ger","德国"));
+        list.add(new Country("ers","俄罗斯"));
+        return list;
+    }
+
+    public static class Country {
+        String id;
+        String name;
+        public Country (String id,String name){
+            this.id=id;
+            this.name = name;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 }
