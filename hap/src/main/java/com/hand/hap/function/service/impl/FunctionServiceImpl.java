@@ -34,6 +34,7 @@ import com.hand.hap.function.mapper.RoleFunctionMapper;
 import com.hand.hap.function.service.IFunctionService;
 import com.hand.hap.function.service.IResourceService;
 import com.hand.hap.function.service.IRoleFunctionService;
+import com.hand.hap.system.dto.DTOStatus;
 import com.hand.hap.system.dto.Language;
 import com.hand.hap.system.service.impl.BaseServiceImpl;
 
@@ -327,23 +328,27 @@ public class FunctionServiceImpl extends BaseServiceImpl<Function> implements IF
     @Transactional(propagation = Propagation.REQUIRED)
     public Function updateFunctionResources(IRequest request, Function function, List<Resource> resources) {
         if (function != null) {
-            functionResourceMapper.deleteByFunctionId(function.getFunctionId());
             if (resources != null && !resources.isEmpty()) {
                 for (Resource resource : resources) {
-                    FunctionResource functionResource = new FunctionResource();
-                    functionResource.setResourceId(resource.getResourceId());
-                    functionResource.setFunctionId(function.getFunctionId());
-                    functionResource.setObjectVersionNumber(1L);
-                    functionResource.setCreatedBy(request.getUserId());
-                    functionResource.setCreationDate(new Date());
-                    functionResource.setLastUpdateDate(new Date());
-                    functionResource.setLastUpdatedBy(request.getUserId());
-                    functionResourceMapper.insertSelective(functionResource);
+                    if (DTOStatus.ADD.equals(resource.get__status())) {
+                        FunctionResource functionResource = new FunctionResource();
+                        functionResource.setResourceId(resource.getResourceId());
+                        functionResource.setFunctionId(function.getFunctionId());
+                        functionResource.setObjectVersionNumber(1L);
+                        functionResource.setCreatedBy(request.getUserId());
+                        functionResource.setCreationDate(new Date());
+                        functionResource.setLastUpdateDate(new Date());
+                        functionResource.setLastUpdatedBy(request.getUserId());
+                        functionResourceMapper.insertSelective(functionResource);
+                    } else if (DTOStatus.DELETE.equals(resource.get__status())) {
+                        functionResourceMapper.deleteFunctionResource(function.getFunctionId(),
+                                resource.getResourceId());
+                    }
                 }
             }
             roleResourceCache.reload();
         }
-        return null;
+        return function;
     }
 
     public List<MenuItem> selectAllMenus(IRequest request) {

@@ -22,4 +22,8 @@
     delete from SYS_FUNCTION_RESOURCE
     where FUNCTION_ID = #{functionId,jdbcType=DECIMAL}
   </delete>
+    <delete id="deleteFunctionResource">
+        delete from SYS_FUNCTION_RESOURCE
+        where function_id=#{functionId} and resource_id=#{resourceId}
+    </delete>
 </mapper>

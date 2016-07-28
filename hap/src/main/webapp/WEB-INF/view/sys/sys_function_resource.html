@@ -11,7 +11,7 @@
 
 <script type="text/javascript">
     $(function () {
-        var functionExitResource = window['functionExitResource'] = $("#functionExitResource").ligerGrid({
+        window['resourceGrid'] = $("#functionExitResource").ligerGrid({
             unSetValidateAttr: false,
             columns          : [
                 {
@@ -43,7 +43,7 @@
                     editor : {type: 'text'}
                 }
             ],
-            url              : '${base.contextPath}/sys/function/fetchResource?functionId=' + ${RequestParameters.functionId},
+            url              : '${base.contextPath}/sys/function/fetchResource?pagesize=9999&functionId=' + ${RequestParameters.functionId},
             enabledEdit      : false,
             width            : '99%',
             height           : '99%',
@@ -64,7 +64,7 @@
                     {
                         text : '<@spring.message "hap.delete"/>',
                         click: function () {
-                            functionExitResource.deleteSelectedRow();
+                            resourceGrid.deleteSelectedRow();
                         },
                         icon : 'delete'
                     },
@@ -86,12 +86,7 @@
     /* 保存分配的资源 */
     function saveResource() {
         var requestData = {functionId:${RequestParameters.functionId}};
-        var resources = [];
-        var data = functionExitResource.getData();
-        for (var i = 0; i < data.length; i++) {
-            resources.push({resourceId: data[i].resourceId});
-        }
-        requestData.resources = resources;
+        requestData.resources = resourceGrid.getChanges();
         $.ajax({
             url        : '${base.contextPath}/sys/function/updateFunctionResource',
             data       : JSON.stringify(requestData),
@@ -112,7 +107,7 @@
 
     /* 新增资源 */
     function addResource() {
-        var manager = $("#functionExitResource").ligerGetGridManager();
+        var manager = resourceGrid;
         $.ligerDialog.open({
             title   : '<@spring.message "function.resourcechoose"/>',
             url     : 'sys_function_addresource.html?functionId=' + ${RequestParameters.functionId},
