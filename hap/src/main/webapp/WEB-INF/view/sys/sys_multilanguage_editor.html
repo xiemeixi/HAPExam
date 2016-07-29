@@ -21,7 +21,7 @@
                label : '${item.description}',
                name : '${item.langCode}',
                options:{
-                   value:'${item.value?default("")}'
+                   value:'${item.value!""?replace("\'","\\'")}'
                },
                validate:{
                    required:true
