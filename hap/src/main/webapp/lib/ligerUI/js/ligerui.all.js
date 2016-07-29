@@ -2082,7 +2082,7 @@
                     //  edit by chenjingxiong@hand-china.com 2016-01-27
                     g._setValue(p.checkValue);
                 }
-                g.input.trigger("change");
+                g.trigger("change",g);
             }
             g.link.click(change).keydown(function(e){
                 if(e.keyCode == 32 || e.keyCode == 13){

@@ -299,7 +299,13 @@
             name   : 'delayLoad',
             options: {
                 checkValue  : 'Y',
-                uncheckValue: 'N'
+                uncheckValue: 'N',
+	            onBeforeClick:function(item){
+                	//alert('before click')
+	            },
+	            onChange:function(item){
+	            	//alert(item.getValue())
+	            }
             },
             newline: false
         }, {
