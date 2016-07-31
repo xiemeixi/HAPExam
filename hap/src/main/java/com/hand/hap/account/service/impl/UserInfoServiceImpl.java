@@ -9,10 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
@@ -124,26 +120,6 @@ public class UserInfoServiceImpl implements IUserInfoService {
             // 修改密码
             userService.updatePassword(user.getUserId(), user.getPassword(),
                     new Date(System.currentTimeMillis() + UserConstants.PWD_EXPRIRY_DATE));
-            // 修改首次登录标记
-            // 调用接口发送短信通知用户
-            // List<MessageReceiver> receiverlist = new
-            // ArrayList<MessageReceiver>();
-            // MessageReceiver receiver = new MessageReceiver();
-            // Map<String, Object> data = new HashMap<String, Object>();
-            // receiver.setMessageAddress(user.getEmail());
-            // receiver.setMessageType(ReceiverTypeEnum.NORMAL.getCode());
-            // receiver.setReceiverId(user.getUserId());
-            // receiverlist.add(receiver);
-            // // 设置邮件模板里的数据
-            // data.put("tmpPassword", user.getPassword());
-            // data.put("limit", UserConstants.DEFAULT_PAGE); // 临时口令有效期为1个小时
-            // data.put("userName", user.getUserName());
-            // messageService.sendEmailMessage(-1L, null,
-            // UserConstants.TEMP_PWD_MESSAGE_TEMPLATE, "PASSWORD", data,
-            // receiverlist, null);
-            // messageService.addMessage(null,
-            // UserConstants.TEMP_PWD_MESSAGE_TEMPLATE, data, null,
-            // receiverlist);
         }
         // 成功调用HAP创建USER之后
         user = userService.updateByPrimaryKeySelective(request, user);
@@ -371,14 +347,6 @@ public class UserInfoServiceImpl implements IUserInfoService {
             list = userMapper.select(checkUser);
         }
         return list;
-    }
-
-    private void addCookie(String cookieName, String cookieValue, HttpServletRequest request,
-            HttpServletResponse response) {
-        Cookie cookie = new Cookie(cookieName, cookieValue);
-        cookie.setPath(request.getContextPath());
-        cookie.setMaxAge(-1);
-        response.addCookie(cookie);
     }
 
     /*

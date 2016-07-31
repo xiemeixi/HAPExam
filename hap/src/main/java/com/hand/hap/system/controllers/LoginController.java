@@ -31,40 +31,9 @@ public class LoginController extends BaseController {
     @Autowired
     private ILoginAdaptor loginAdaptor;
 
-//    /**
-//     * 登陆逻辑.
-//     *
-//     * @param account
-//     *            登陆账号
-//     * @param request
-//     *            HttpServletRequest
-//     * @param response
-//     *            HttpServletResponse
-//     * @return view
-//     */
-//    @RequestMapping(value = "/login", method = RequestMethod.POST)
-//    public ModelAndView login(final User account, final HttpServletRequest request,
-//                              final HttpServletResponse response) {
-//        return getLoginAdaptor().doLogin(account, request, response);
-//    }
-
-    /**
-     * 登出逻辑.
-     * 
-     * @param request
-     *            HttpServletRequest
-     * @param response
-     *            HttpServletResponse
-     * @return view
-     */
-    @RequestMapping(value = "/logout")
-    public ModelAndView logout(final HttpServletRequest request, final HttpServletResponse response) {
-        return getLoginAdaptor().doLogout(request, response);
-    }
-
     /**
      * 显示登陆界面.
-     * 
+     *
      * @param request HttpServletRequest
      * @param response HttpServletResponse
      * @return view

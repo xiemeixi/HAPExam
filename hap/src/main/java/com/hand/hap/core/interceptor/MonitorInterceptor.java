@@ -1,23 +1,27 @@
 /*
  * #{copyright}#
  */
-package com.hand.hap.security.interceptor;
+package com.hand.hap.core.interceptor;
 
+import java.util.TimeZone;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.hand.hap.account.dto.User;
-import com.hand.hap.core.interceptor.SecurityTokenInterceptor;
-import com.hand.hap.security.TokenUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import com.hand.hap.account.dto.User;
+import com.hand.hap.core.BaseConstants;
+import com.hand.hap.core.util.TimeZoneUtil;
+import com.hand.hap.security.TokenUtils;
 
 /**
  * @author njq.niu@hand-china.com
@@ -31,13 +35,15 @@ public class MonitorInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        Boolean sessionInterceptorToken = (Boolean) request.getAttribute(SessionInterceptor.SESSION_INTERCEPTOR_TOKEN);
-        if (sessionInterceptorToken == null) {
-            return true;
-        }
         fillMDC(request);
         holder.set(System.currentTimeMillis());
         HttpSession session = request.getSession(false);
+        if (session != null) {
+            String tz = (String) session.getAttribute(BaseConstants.TIME_ZONE);
+            if (StringUtils.isNotEmpty(tz)) {
+                TimeZoneUtil.setTimeZone(TimeZone.getTimeZone(tz));
+            }
+        }
         SecurityTokenInterceptor.LOCAL_SECURITY_KEY.set(TokenUtils.getSecurityKey(session));
         return true;
     }
@@ -61,10 +67,6 @@ public class MonitorInterceptor extends HandlerInterceptorAdapter {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
             ModelAndView modelAndView) throws Exception {
-        Boolean sessionInterceptorToken = (Boolean) request.getAttribute(SessionInterceptor.SESSION_INTERCEPTOR_TOKEN);
-        if (sessionInterceptorToken == null) {
-            return;
-        }
         long end = System.currentTimeMillis();
         if (handler instanceof HandlerMethod) {
             HandlerMethod method = (HandlerMethod) handler;

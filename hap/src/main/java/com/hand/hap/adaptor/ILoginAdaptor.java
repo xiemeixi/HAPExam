@@ -6,13 +6,13 @@ package com.hand.hap.adaptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hand.hap.account.dto.Role;
-import com.hand.hap.system.dto.ResponseData;
-import com.hand.hap.core.exception.BaseException;
-import com.hand.hap.account.exception.RoleException;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hand.hap.account.dto.Role;
 import com.hand.hap.account.dto.User;
+import com.hand.hap.account.exception.RoleException;
+import com.hand.hap.core.exception.BaseException;
+import com.hand.hap.system.dto.ResponseData;
 
 /**
  * 登陆代理接口类.
@@ -22,21 +22,6 @@ import com.hand.hap.account.dto.User;
  */
 public interface ILoginAdaptor {
 
-   
-    /**
-     * 登陆逻辑.
-     * 
-     * @param account
-     *            登陆账号对象
-     * @param request
-     *            HttpServletRequest
-     * @param response
-     *            HttpServletResponse
-     * @return view
-     */
-    ModelAndView doLogin(User account, HttpServletRequest request, HttpServletResponse response);
-    
-    
     /**
      * 超时登陆逻辑.
      * 
@@ -51,17 +36,6 @@ public interface ILoginAdaptor {
      */
     ResponseData sessionExpiredLogin(User account, HttpServletRequest request, HttpServletResponse response)
             throws RoleException;
-
-    /**
-     * 登出逻辑.
-     *
-     * @param request
-     *            HttpServletRequest
-     * @param response
-     *            HttpServletResponse
-     * @return view
-     */
-    ModelAndView doLogout(HttpServletRequest request, HttpServletResponse response);
 
     /**
      * 

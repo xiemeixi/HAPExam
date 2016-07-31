@@ -85,7 +85,6 @@ public class DefaultLoginAdaptor implements ILoginAdaptor {
     @Autowired
     private ISysPreferencesService preferencesService;
 
-    @Override
     public ModelAndView doLogin(User user, HttpServletRequest request, HttpServletResponse response) {
         ModelAndView view = new ModelAndView();
         Locale locale = RequestContextUtils.getLocale(request);
@@ -211,18 +210,9 @@ public class DefaultLoginAdaptor implements ILoginAdaptor {
             throws UserException {
         view.setViewName(REDIRECT + getRoleView(request));
         Cookie cookie = new Cookie(User.FIELD_USER_NAME, user.getUserName());
-        cookie.setPath(request.getContextPath());
+        cookie.setPath(StringUtils.defaultIfEmpty(request.getContextPath(), "/"));
         cookie.setMaxAge(-1);
         response.addCookie(cookie);
-    }
-
-    @Override
-    public ModelAndView doLogout(HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
-        return new ModelAndView(REDIRECT + getLoginView(request));
     }
 
     @Override
@@ -363,7 +353,7 @@ public class DefaultLoginAdaptor implements ILoginAdaptor {
     protected void addCookie(String cookieName, String cookieValue, HttpServletRequest request,
             HttpServletResponse response) {
         Cookie cookie = new Cookie(cookieName, cookieValue);
-        cookie.setPath(request.getContextPath());
+        cookie.setPath(StringUtils.defaultIfEmpty(request.getContextPath(), "/"));
         cookie.setMaxAge(-1);
         response.addCookie(cookie);
     }
