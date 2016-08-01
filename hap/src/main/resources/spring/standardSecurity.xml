@@ -4,10 +4,12 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
                                  http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
+    <http security="none" pattern="/resources/**"/>
+    <http security="none" pattern="/lib/**"/>
+
     <http access-decision-manager-ref="accessDecisionManager">
         <csrf disabled="true"/>
-        <intercept-url pattern="/resources/**" access="permitAll" />
-        <intercept-url pattern="/lib/**" access="permitAll" />
         <intercept-url pattern="/login" access="permitAll" />
         <intercept-url pattern="/login.html" access="permitAll" />
         <intercept-url pattern="/verifiCode" access="permitAll" />
@@ -48,15 +50,10 @@
     </beans:bean>
 
     <authentication-manager>
-        <authentication-provider user-service-ref="customUserDetailService">
+        <authentication-provider user-service-ref="customUserDetailsService">
             <password-encoder ref="passwordManager"/>
         </authentication-provider>
     </authentication-manager>
-
-
-    <beans:bean id="customUserDetailService" class="com.hand.hap.security.CustomUserDetailsService">
-    </beans:bean>
-
 
     <beans:bean id="captchaVerifierFilter" class="com.hand.hap.security.CaptchaVerifierFilter">
         <beans:property name="captchaField" value="verifiCode"/>

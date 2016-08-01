@@ -150,13 +150,10 @@
     </oauth2:authorization-server>
 
     <authentication-manager id="authenticationManager">
-        <authentication-provider user-service-ref="customUserDetailService">
+        <authentication-provider user-service-ref="customUserDetailsService">
             <password-encoder ref="passwordManager"/>
         </authentication-provider>
     </authentication-manager>
-
-
-
 
     <!-- Web Application clients -->
     <oauth2:client-details-service id="clientDetailsService">

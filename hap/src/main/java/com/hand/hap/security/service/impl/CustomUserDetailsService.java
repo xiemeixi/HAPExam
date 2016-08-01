@@ -1,4 +1,4 @@
-package com.hand.hap.security;
+package com.hand.hap.security.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,15 +10,18 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import com.hand.hap.account.dto.User;
 import com.hand.hap.account.exception.UserException;
 import com.hand.hap.account.service.IUserService;
+import com.hand.hap.security.CustomUserDetails;
 
 /**
  * Created by hailor on 16/6/12.
  */
-class CustomUserDetailsService implements UserDetailsService {
+@Service
+public class CustomUserDetailsService implements UserDetailsService {
 
     Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
 
