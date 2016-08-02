@@ -82,8 +82,6 @@
         <property name="allowSessionOverride" value="true"/>
     </bean>
 
-    <bean id="freeMarkerBeanProvider" class="com.hand.hap.core.web.FreeMarkerBeanProvider"/>
-
     <bean  class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >
         <property name="messageConverters">
             <list>
