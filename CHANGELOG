@@ -1,3 +1,9 @@
+2016-08-02
+----------
+1. 增加 freemarker 自定义 bean 的支持 : 注解 @FreeMarkerBean
+    将需要在 freemarker 中使用的类 加上此注解, 并通过 spring 定义为 bean 即可。
+    引用的 name 即为 bean 的 name。(手动注册 bean 的话, 需要指定 name)
+
 2016-08-01
 ----------
 1. 修复一个 bug：不使用 standard security 时报错。
