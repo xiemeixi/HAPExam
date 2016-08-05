@@ -742,8 +742,8 @@
 	padding-left: -2px;
 	width: 100%;
 	position: relative;
-	min-width: 530px;
-	_width: 530px;
+	min-width: 200px;
+	_width: 200px;
 }
 
 .l-bar-message {

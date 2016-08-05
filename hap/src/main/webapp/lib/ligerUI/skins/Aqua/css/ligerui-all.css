@@ -1901,6 +1901,10 @@ table.l-filter-group-alt table.l-filter-group {
 	margin-right: 5px;
 }
 
+.l-checkbox-wrapper a:focus {
+    outline:none !important;
+}
+
 a.l-checkbox {
 	background: url('../images/controls/checkbox.gif') no-repeat 0 0;
 	vertical-align: middle;
@@ -1912,7 +1916,6 @@ a.l-checkbox {
 	display: inline-block;
 	zoom: 1;
 	*display: inline;
-	margin-right: 5px;
 }
 
 div.l-disabled a.l-checkbox {
