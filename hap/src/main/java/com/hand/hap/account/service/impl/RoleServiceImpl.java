@@ -12,8 +12,10 @@ import com.hand.hap.account.dto.Role;
 import com.hand.hap.account.dto.User;
 import com.hand.hap.account.exception.RoleException;
 import com.hand.hap.account.mapper.RoleMapper;
+import com.hand.hap.account.mapper.UserRoleMapper;
 import com.hand.hap.account.service.IRoleService;
 import com.hand.hap.core.IRequest;
+import com.hand.hap.function.service.IRoleFunctionService;
 import com.hand.hap.system.service.impl.BaseServiceImpl;
 
 /**
@@ -24,6 +26,12 @@ public class RoleServiceImpl extends BaseServiceImpl<Role> implements IRoleServi
 
     @Autowired
     private RoleMapper roleMapper;
+
+    @Autowired
+    private UserRoleMapper userRoleMapper;
+
+    @Autowired
+    private IRoleFunctionService roleFunctionService;
 
     /**
      * 查询被角色分配的功能以外的所有功能.D
@@ -50,5 +58,13 @@ public class RoleServiceImpl extends BaseServiceImpl<Role> implements IRoleServi
         if (roleMapper.selectUserRoleCount(userId, roleId) != 1) {
             throw new RoleException(RoleException.MSG_INVALID_USER_ROLE, RoleException.MSG_INVALID_USER_ROLE, null);
         }
+    }
+
+    @Override
+    public int deleteByPrimaryKey(Role record) {
+        int ret = super.deleteByPrimaryKey(record);
+        userRoleMapper.deleteByRoleId(record.getRoleId());
+        roleFunctionService.clearRoleFunctionByRoleId(record.getRoleId());
+        return ret;
     }
 }
