@@ -687,9 +687,7 @@
 	.l-grid-row-cell-rownumbers {
 	background: #F1F1F1;
 }
-.l-current-row .l-grid-row-cell-noeditor,.l-current-row  .l-grid-row-alt .l-grid-row-cell-noeditor, .l-current-row .l-grid-row-cell-rownumbers{
-	background-color:#e5e5e5;
-}
+
 .l-grid-row-alt .l-text-required,.l-grid-row-over .l-text-required, .l-selected .l-text-required,.l-current-row .l-text-required{
 	background-color:#FFF9C2;
 }
@@ -1995,13 +1993,6 @@ div.l-glass-icon, div.l-glass-icon:hover {
 	background: url('../images/ui/icon-unselect.gif') no-repeat 50% 53% transparent;
 }
 
-/*add by njq.niu@hand-china.com*/
-.l-grid-row-cell-noeditor, .l-grid-row-alt .l-grid-row-cell-noeditor {
-	background-color:#FAFAFA;
-}
-.l-selected .l-grid-row-cell-noeditor, .l-current-row .l-grid-row-cell-noeditor {
-    background-color:#eee; 
-}
 .l-grid-row-alt .l-grid-row-cell-editor-select, .l-grid-row-cell-editor-select {
     background-image:url('../images/ui/icons.gif');
     background-repeat: no-repeat;
