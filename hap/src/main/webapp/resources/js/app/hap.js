@@ -748,19 +748,24 @@
             var grid = $.ligerui.get(para.gid);
             if(!grid.options.enabledEdit)return;
             var row = grid.getRow(para.rowid);
+            var col = grid.getColumnByName(para.columnname);
             var newValue = para.checkValue;
             if (row[para.columnname] == para.checkValue) {
                 newValue = para.uncheckValue;
             }
-            row[para.columnname] = newValue;
-            if(row.__status=='nochanged')row.__status='update';
-            grid.reRender({rowdata: row});
-            grid.trigger('afterEdit',{
-                column  : grid.getColumnByName(para.columnname),
+            grid._setValueByName(row,para.columnname,newValue);
+            if(row.__status!='add')row.__status='update';
+            grid.changedCells[para.rowid+"_"+col.__id]=true;
+            $(grid.getCellObj(row,col)).addClass('l-grid-row-cell-edited');
+            grid.isDataChanged=true;
+            grid.reRender({rowdata:row});
+            var ep={
+                column  : col,
                 record  : row,
                 value   : newValue,
                 rowindex: row.__index
-            });
+            };
+            grid.trigger('afterEdit',ep);
         };
 
         Hap.createGridCheckBoxRender = function (config) {
