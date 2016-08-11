@@ -29,7 +29,7 @@ public class FavIcon {
         g2d.fillRect(0, 0, width, height);
         g2d.setComposite(AlphaComposite.Src);
 
-        g2d.setColor(new Color(40, 144, 246));
+        g2d.setColor(new Color(41, 143, 204));
 
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
