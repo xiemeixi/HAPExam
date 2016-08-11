@@ -10743,7 +10743,8 @@
                 var row = $(cellObj).parent();
                 rowdata = rowdata || g.getRow(row[0]);
             }
-            if (value != null && column.name)
+            // mod by jessen:value != null
+            if (value != rowdata[column.name] && column.name)
             {
                 g._setValueByName(rowdata, column.name, value);
                 if (rowdata[p.statusName] != 'add')
@@ -13160,8 +13161,9 @@
                     {
                         editParm.selected = editor.getSelected(editorInput, editParm);
                     }
-                    /*if (newValue != currentdata)//remove by huazhen.wu@hand-china.com
-                    {*/
+                    if (newValue != currentdata)//remove by huazhen.wu@hand-china.com
+                    // restore by jessen
+                    {
                         jcell.addClass("l-grid-row-cell-edited");//modify by huazhen.wu#hand-china.com
                         g.changedCells[rowid + "_" + column['__id']] = true;
                         //popup清空bug njq.niu@hand-china.com
@@ -13175,7 +13177,7 @@
                         {
                             if (column.editor.onChanged) column.editor.onChanged.call(editorInput, editParm);
                         }
-                    //}
+                    }
                 });
                 inputBody.focus();//add by huazhen.wu@hand-china.com
             }

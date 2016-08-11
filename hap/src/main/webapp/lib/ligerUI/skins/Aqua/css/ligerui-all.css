@@ -2986,7 +2986,7 @@ div.l-disabled a.l-radio-checked {
 
 /* modify by njq.niu@hand-china.com */
 .l-grid-row-cell-edited .l-grid-row-cell-inner {
-	/*background-image: url('../images/icon/icon-edited.gif');*/
+	background-image: url('../images/icon/icon-edited.gif');
 	background-repeat: no-repeat;
 	background-position: 2px 2px;
 }
