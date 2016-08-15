@@ -5914,7 +5914,7 @@
                     item.width && btn.width(item.width);
                     //add by njq.niu@hand-china.com
                     if(item.attr) btn.attr(item.attr);
-                    if(item.class) btn.addClass(item.class);
+                    if(item.className) btn.addClass(item.className);
                     item.onclick && btn.click(function () { item.onclick(item, g, i) });
                     item.cls && btn.addClass(item.cls);
                 });
