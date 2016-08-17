@@ -679,6 +679,7 @@
 	border-right: 1px solid #DFDFDF;
 	border-bottom: 1px solid #DFDFDF;
 	text-align: center;
+	overflow: hidden;
 }
 
 

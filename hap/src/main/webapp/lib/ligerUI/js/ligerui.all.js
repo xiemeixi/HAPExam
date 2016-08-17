@@ -6,6 +6,33 @@
 * Author daomi 2015 [ gd_star@163.com ] 
 * 
 */
+
+
+$.isEmpty = function(v, allowBlank){
+    return v === null || v === undefined || (($.isArray(v) && !v.length)) || (!allowBlank ? v === '' : false);
+}
+$.isString = function(v){
+    return typeof v === 'string';
+}
+
+$.escapeHtml = function(str){
+    if($.isEmpty(str) || !$.isString(str))
+        return str;
+    return String(str).replace(/&/gm,'&amp;').replace(/\'/gm,'&#39;').replace(/\"/gm,'&quot;').replace(/\(/gm,'&#40;').replace(/\)/gm,'&#41;').replace(/\+/gm,'&#43;').replace(/\%/gm,'&#37;')
+    .replace(/</gm,'&lt;').replace(/>/gm,'&gt;');
+}
+$.unescapeHtml = function(str){
+    if($.isEmpty(str) || !$.isString(str))
+        return str;
+    return String(str).replace(/&amp;/gm,'&').replace(/&#39;/gm,'\'').replace(/&quot;/gm,'"').replace(/&#40;/gm,'(').replace(/&#41;/gm,')').replace(/&#43;/gm,'+').replace(/&#37;/gm,'%')
+    .replace(/&lt;/gm,'<').replace(/&gt;/gm,'>');
+}
+
+
+
+
+
+
 (function ($)
 {
     //ligerui 继承方法
@@ -691,10 +718,12 @@
     liger.win = {
         //顶端显示
         top: false,
-
+        //add by njq.niu@hand-china.com
+        grids:{},
         //遮罩
         mask: function (win)
         {
+            if(this.masking) return;//add by njq.niu@hand-china.com
             function setHeight()
             {
                 if (!liger.win.windowMask) return;
@@ -710,6 +739,13 @@
             this.windowMask.show();
             setHeight();
             this.masking = true;
+            //add by njq.niu@hand-china.com
+            for(var id in $.ligerui.managers){
+                var cmp = $.ligerui.managers[id];
+                if(cmp instanceof $.ligerui.controls.Grid && $(cmp.element).is(":visible")) {
+                    this.grids[id] = cmp;
+                }
+            }
         },
 
         //取消遮罩
@@ -731,6 +767,8 @@
             if (this.windowMask)
                 this.windowMask.hide();
             this.masking = false;
+            //add by njq.niu@hand-china.com
+            this.grids = {};
         },
 
         //显示任务栏
@@ -1023,12 +1061,13 @@
                 var inputType = "text";
                 //modify by njq.niu@hand-china.com start
                 if ($.inArray(type, ["file", "checkbox", "radio"]) != -1) inputType = type;//"password", 
-                //if (e.password) inputType = "password"; 
+//                if (e.password) inputType = "password";
                 var inputBody = $(field.type == "textarea"?'<textarea style="resize:none"/>':"<input type='" + inputType + "'/>");//modify by huazhen.wu@hand-china.com
                 if (e.body)
                 {
                     inputBody = e.body.clone();
                 }
+                if(e.password) $('<input type="password" style="display:none"/>').appendTo(container);
                 inputBody.appendTo(container);
                 if (e.password) {
                     inputBody.focus(function(){
@@ -1941,6 +1980,8 @@
         {
             var g = this, p = this.options;
             g.button = $(g.element);
+            //add by njq.niu@hand-china.com
+            g.button.attr('tabIndex',0);
             g.button.addClass("l-button");
             g.button.append('<div class="l-button-l"></div><div class="l-button-r"></div><span></span>');
             g.button.hover(function () {
@@ -1949,6 +1990,16 @@
             }, function () {
                 if (p.disabled) return;
                 g.button.removeClass("l-button-over");
+                //add by njq.niu@hand-china.com
+            }).keyup(function(e){
+                if(e.which == 13 || e.which == 32){
+                    if (!p.disabled && p.click)
+                        p.click();
+                }
+            }).focus(function(){
+                $(this).addClass('l-button-focus')
+            }).blur(function(){
+                $(this).removeClass('l-button-focus')
             });
             p.click && g.button.click(function ()
             {
@@ -2843,7 +2894,8 @@
                 {
                     g.updateSelectBoxPosition();
                 }
-            }).blur(function ()
+            });
+            g.inputText.blur(function ()
             {
                 if (p.disabled || p.readonly) return;//modify by huazhen.wu@hand-china.com
                 g.wrapper.removeClass("l-text-focus");
@@ -3361,6 +3413,8 @@
             {
                 parms = liger.toJSON(parms);
             } 
+          //add by njq.niu@hand-china.com
+            parms = $.extend(parms,{page:1, pagesize:1000})
             var ajaxOp = {
                 type: p.ajaxType,
                 url: url,
@@ -4181,6 +4235,8 @@
             {
                 parms = liger.toJSON(parms);
             }
+            //add by njq.niu@hand-china.com
+            parms = $.extend(parms,{page:1, pagesize:1000})
             var ajaxOp = {
                 type: p.ajaxType,
                 url: p.detailUrl,
@@ -4425,8 +4481,10 @@
             if (!value || p.readonly ) return;//modify by njq.niu@hand-china.com
             g.inputText.removeAttr("readonly");
             g.lastInputText = g.inputText.val();
-            g.inputText.keyup(function (event)
+            g.inputText.keydown(function (event)
             {
+                //add by njq.niu@hand-china.com
+                if (this._acto) clearTimeout(this._acto);
                 //modify by huazhen.wu@hand-china.com start
                 var keyCode = event.keyCode;
                 if (keyCode == 38 || keyCode == 40 || keyCode == 13 || keyCode == 9 || keyCode == 16) //up 、down、enter、tab、shift
@@ -4459,8 +4517,7 @@
                 }
                 //add by njq.niu@hand-china.com end
                 
-                if (this._acto)
-                    clearTimeout(this._acto);
+                //if (this._acto) clearTimeout(this._acto);
                 this._acto = setTimeout(function ()
                 { 
                     if (g.lastInputText == g.inputText.val()) return;
@@ -5914,7 +5971,8 @@
                     item.width && btn.width(item.width);
                     //add by njq.niu@hand-china.com
                     if(item.attr) btn.attr(item.attr);
-                    if(item.className) btn.addClass(item.className);
+                    //modify by njq.niu@hand-china.com
+                    //if(item.class) btn.addClass(item.class);
                     item.onclick && btn.click(function () { item.onclick(item, g, i) });
                     item.cls && btn.addClass(item.cls);
                 });
@@ -10189,8 +10247,14 @@
             {
                 if (p.usePager)
                 {
-                    param.push({ name: p.pageParmName, value: p.newPage });
-                    param.push({ name: p.pagesizeParmName, value: p.pageSize });
+                    //add by njq.niu@hand-china.com
+                    if(p.pagerHandler) {
+                        p.pagerHandler.call(window, param, p);
+                    } else {
+                        param.push({ name: p.pageParmName, value: p.newPage });
+                        param.push({ name: p.pagesizeParmName, value: p.pageSize });
+                    }
+
                 }
                 if (p.sortName)
                 {
@@ -12974,8 +13038,8 @@
             if (column.isrownumber) return parseInt(rowdata['__index']) + 1;
             var rowid = rowdata['__id'];
             var rowindex = rowdata['__index'];
-            var value = g._getValueByName(rowdata, column.name);
-            var text = g._getValueByName(rowdata, column.textField);
+            var value = $.escapeHtml(g._getValueByName(rowdata, column.name));
+            var text = $.escapeHtml(g._getValueByName(rowdata, column.textField));
             var content = "";
             if (column.render)
             {
@@ -13061,7 +13125,8 @@
             var g = this, p = this.options;
             var ids = obj.id.split('|');
             var columnid = ids[ids.length - 1], column = g._columns[columnid];
-            var jcell = $(obj);
+            var dom = document.getElementById(obj.id);
+            var jcell = $(dom);
             var row = jcell.parent(), rowdata = g.getRow(row[0]), rowid = rowdata['__id'], rowindex = rowdata['__index'];
             if (!column || !column.editor) return false;
             var columnname = column.name, columnindex = column.columnindex;
@@ -13090,8 +13155,8 @@
                     left = pc.left - pe.left,// + pb.left + pv.left,
                     top = pc.top - pe.top;// + pb.top + pv.top + topbarHeight;
                 //modify by huazhen.wu#hand-china.com end
-
-                jcell.html("");
+                //modify by njq.niu@hand-china.com
+                //jcell.html("");
                 g.setCellEditing(rowdata, column, true);
                 
                 if($.browser.msie || $.browser.mozilla)
@@ -13451,7 +13516,7 @@
         _isEditing: function (jobjs)
         {
             return jobjs.hasClass("l-box-dateeditor") || jobjs.hasClass("l-box-select")
-                || jobjs.hasClass("l-autocomplete-view");//add by huazhen.wu@hand-china.com
+                || jobjs.hasClass("l-autocomplete-view") || jobjs.hasClass("l-popup");//add by huazhen.wu@hand-china.com
         },
         _getSrcElementByEvent: function (e)
         {
@@ -14082,7 +14147,9 @@
 
             if (src.out)
             {
-                if (g.editor.editing && !$.ligerui.win.masking) g.endEdit();
+                //modify by njq.niu@hand-china.com
+//                if (g.editor.editing && !$.ligerui.win.masking) g.endEdit();
+                if (g.editor.editing && !$.ligerui.win.grids[g.id]) g.endEdit();
                 if (p.allowHideColumn) g.popup.hide();
                 return;
             }
@@ -17072,8 +17139,8 @@
                 }
                 g.inputText.keypress(function(e){
                     if (p.disabled || p.readonly) return;
-                    var char = String.fromCharCode(e.charCode),input = this;
-                    if(/[a-zA-Z]/.test(char)){
+                    var str = String.fromCharCode(e.charCode),input = this;
+                    if(/[a-zA-Z]/.test(str)){
                         _delayRun(function(){g._autoCompleteQuery(queryed = input.value)},600);
                     }
                 }).keyup(function(e){
@@ -17108,8 +17175,23 @@
                             g._hideAutoComplete();
                         }
                     }
-                }).blur(function(){
+                }).change(function(){
                     clearTimeout(timeout_id);
+                    var v = $.trim(this.value)
+                    if($.isEmpty(v)){
+                        g.clear();
+                        return;
+                    }
+                    var options = g.options;
+                    if(g.selectedIndex == null)
+                    g._autoCompleteQuery(v,function(data){
+                        if(data.rows.length == 1) {
+                            g.selectedIndex = 0;
+                            g._commitSelected();
+                        }else{
+                            g.clear();
+                        }
+                    })
                 });
             }
             //add by huazhen.wu@hand-china.com end
@@ -17129,7 +17211,7 @@
         {
             if (this.autoView) this.autoView.remove();//add by huazhen.wu@hand-china.com
             if (this.wrapper) this.wrapper.remove();
-            this.options = null;
+            //this.options = null;//modify by njq.niu@hand-china.com
             $.ligerui.remove(this);
         },
         clear: function ()
@@ -17493,7 +17575,7 @@
                 left: p.left,
                 target: panle,
                 isResize: true,
-                //cls: 'l-selectorwin',
+                cls: 'l-popup',//modify by njq.niu@hand-china.com
                 onContentHeightChange: function (height)
                 {
                     grid.set('height', getGridHeight(height));
@@ -17557,7 +17639,8 @@
                         grid.set('parms', $.extend(para,p.grid.parms));
                         //var rules = $.ligerui.getConditions(conditionPanel);
                         //grid.setParm('condition', $.ligerui.toJSON(rules));
-                        grid.reload();
+                        //grid.reload();modify by njq.niu@hand-china.com
+                        grid.loadData(1);
                     }
                 });
             }
@@ -19471,7 +19554,7 @@
             g.tab.addClass("l-tab");
             if (p.contextmenu && $.ligerMenu)
             {
-                g.tab.menu = $.ligerMenu({ width: 100, items: [
+                g.tab.menu = $.ligerMenu({ width: 130, items: [
                     { text: p.closeMessage, id: 'close', click: function ()
                     {
                         g._menuItemClick.apply(g, arguments);
@@ -20533,6 +20616,7 @@
             var g = this, p = this.options;
             var v = g.inputText.val() || "";
             if (v == "") return "";
+            g.inputText.val(v = $.trim(v));
             if (p.currency)
             {
                 g.inputText.val(currencyFormatter(v, p.precision,p.sign));//增加负数设置 njq.niu@hand-china.com
@@ -20651,7 +20735,7 @@
             if (isInt)
             {
                 if (value == "0") return value;
-                value = value.replace(/\D+|^[0]+/g, ''); 
+                value = value.replace(/\D+|^[0]+/g, '');
             } else
             {
                 value = value.replace(/[^0-9.]/g, '');
@@ -21442,7 +21526,7 @@
                 g.toolBar.append('<div class="l-toolbar-item l-toolbar-text"><span>' + item.text || "" + '</span></div>');
                 return;
             }
-            var ditem = $('<div class="l-toolbar-item l-panel-btn"><span></span><div class="l-panel-btn-l"></div><div class="l-panel-btn-r"></div></div>');
+            var ditem = $('<div class="l-toolbar-item l-panel-btn" tabIndex="0"><span></span><div class="l-panel-btn-l"></div><div class="l-panel-btn-r"></div></div>');
             g.toolBar.append(ditem);
             if(!item.id) item.id = 'item-'+(++g.toolbarItemCount);
             ditem.attr("toolbarid", item.id);
@@ -21461,6 +21545,16 @@
                 ditem.append("<div class='l-toolbar-item-color' style='background:"+item.color+"'></div>");
                 ditem.addClass("l-toolbar-item-hasicon");
             }
+            ditem.keyup(function(e){
+                if(e.which == 13 || e.which == 32){
+                    if (!item.click || $(this).hasClass("l-toolbar-item-disable")) return;
+                    item.click(item);
+                }
+            }).focus(function(){
+                $(this).addClass('l-button-focus')
+            }).blur(function(){
+                $(this).removeClass('l-button-focus')
+            })
             item.text && $("span:first", ditem).html(item.text);
             item.disable && ditem.addClass("l-toolbar-item-disable");
             item.click && ditem.click(function () { if ($(this).hasClass("l-toolbar-item-disable")) return;item.click(item); });
@@ -22543,7 +22637,7 @@
                 }
                 if (p.render)
                 {
-                    treehtmlarr.push('<span>' + p.render(o, o[p.textFieldName]) + '</span>');
+                    treehtmlarr.push('<span>' + p.render(o, o[p.textFieldName], outlineLevel) + '</span>');
                 } else
                 {
                     treehtmlarr.push('<span>' + o[p.textFieldName] + '</span>');

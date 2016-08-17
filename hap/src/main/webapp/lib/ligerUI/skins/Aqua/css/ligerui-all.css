@@ -1904,6 +1904,9 @@ table.l-filter-group-alt table.l-filter-group {
 .l-checkbox-wrapper a:focus {
     outline:none !important;
 }
+.l-button:focus {
+    outline:none !important;
+}
 
 a.l-checkbox {
 	background: url('../images/controls/checkbox.gif') no-repeat 0 0;

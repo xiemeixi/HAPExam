@@ -1418,6 +1418,7 @@
             g.setText(e.text);
             g.trigger('selected', e);
             g._hideAutoComplete();
+            g.selectedIndex = null;
         },
         _selectItem:function(index,focus){
             if($.isEmpty(index)||index < -1){
