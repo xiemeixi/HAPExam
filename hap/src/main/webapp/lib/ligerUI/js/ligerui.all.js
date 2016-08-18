@@ -18,13 +18,13 @@ $.isString = function(v){
 $.escapeHtml = function(str){
     if($.isEmpty(str) || !$.isString(str))
         return str;
-    return String(str).replace(/&/gm,'&amp;').replace(/\'/gm,'&#39;').replace(/\"/gm,'&quot;').replace(/\(/gm,'&#40;').replace(/\)/gm,'&#41;').replace(/\+/gm,'&#43;').replace(/\%/gm,'&#37;')
+    return String(str).replace(/&/gm,'&amp;').replace(/\'/gm,'&#39;').replace(/\"/gm,'&quot;').replace(/\(/gm,'&#40;').replace(/\)/gm,'&#41;').replace(/\%/gm,'&#37;')
     .replace(/</gm,'&lt;').replace(/>/gm,'&gt;');
 };
 $.unescapeHtml = function(str){
     if($.isEmpty(str) || !$.isString(str))
         return str;
-    return String(str).replace(/&amp;/gm,'&').replace(/&#39;/gm,'\'').replace(/&quot;/gm,'"').replace(/&#40;/gm,'(').replace(/&#41;/gm,')').replace(/&#43;/gm,'+').replace(/&#37;/gm,'%')
+    return String(str).replace(/&amp;/gm,'&').replace(/&#39;/gm,'\'').replace(/&quot;/gm,'"').replace(/&#40;/gm,'(').replace(/&#41;/gm,')').replace(/&#37;/gm,'%')
     .replace(/&lt;/gm,'<').replace(/&gt;/gm,'>');
 };
 
