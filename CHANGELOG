@@ -1,3 +1,18 @@
+2016-08-18
+----------
+1. 添加 checkboxlist 事件触发: onChangeValue
+
+2016-08-16
+----------
+1. 修改 ProfileMapper.xml , ResultMap 继承错误
+2. 升级 js,css : 修正一个低版本 IE 的兼容性问题
+
+2016-08-11
+----------
+1. 删除 noeditor 样式 (会影响 grid 行的背景色)
+2. 点击 grid 单元格不在触发 update 事件(之前会导致翻页时有提醒)
+3. 添加 grid 单元格 编辑状态角标, checkBox render 也会支持
+
 2016-08-10
 ----------
 1. 添加 favcicon.png
