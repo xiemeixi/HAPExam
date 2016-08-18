@@ -28,25 +28,6 @@ $.unescapeHtml = function(str){
     .replace(/&lt;/gm,'<').replace(/&gt;/gm,'>');
 };
 
-if (!Array.prototype.indexOf){
-    Array.prototype.indexOf = function(elt /*, from*/){
-        var len = this.length >>> 0;
-
-        var from = Number(arguments[1]) || 0;
-        from = (from < 0)
-            ? Math.ceil(from)
-            : Math.floor(from);
-        if (from < 0)
-            from += len;
-
-        for (; from < len; from++){
-            if (from in this && this[from] === elt)
-                return from;
-        }
-        return -1;
-    };
-}
-
 (function ($)
 {
     //ligerui 继承方法
@@ -12846,7 +12827,7 @@ if (!Array.prototype.indexOf){
             if (!data) return "";
             var g = this, p = this.options;
             var gridhtmlarr = [];
-            for (var i in data)
+            for (var i=0;i<data.length;i++)
             {
                 var item = data[i];
                 var rowid = item['__id'];

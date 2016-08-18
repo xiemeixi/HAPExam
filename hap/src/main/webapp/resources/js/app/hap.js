@@ -732,6 +732,10 @@
 
         Hap.gridDateTimeRender = function (rowdata, index, value,obj) {
             if(value){
+                value = value.replace(/-/g, '/');
+                value = value.replace('T', ' ');
+                value = value.replace(/(\+[0-9]{2})(\:)([0-9]{2}$)/, ' UTC\$1\$3');
+                value = value.replace(/\.[0-9]{1,3}/,'');
                 return new Date(value).format('yyyy-MM-dd HH:mm:ss')
             }
             return '';
@@ -739,6 +743,10 @@
 
         Hap.gridDateRender = function (rowdata, index, value,obj) {
             if(value){
+                value = value.replace(/-/g, '/');
+                value = value.replace('T', ' ');
+                value = value.replace(/(\+[0-9]{2})(\:)([0-9]{2}$)/, ' UTC\$1\$3');
+                value = value.replace(/\.[0-9]{1,3}/,'');
                 return new Date(value).format('yyyy-MM-dd')
             }
             return '';
@@ -791,7 +799,7 @@
 
         Hap.createRenderA = function(text,func) {
             if(typeof func=='function')
-                func=func.name;
+                func=func.toString().match(/^function\s*([^\s(]+)/)[1];
             var arr=[];
             $.each(arguments,function(i,r){
                 if(i<2)return;
