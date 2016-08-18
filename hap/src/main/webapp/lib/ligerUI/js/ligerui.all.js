@@ -2570,8 +2570,10 @@ if (!Array.prototype.indexOf){
             //选项点击
             g.checkboxList.click(function (e)
             {  
-                var value = g.getValue(); 
-                if (value) g.valueField.val(value);
+                var value = g.getValue();
+                // mod by jessen: to fire Event
+                //if (value) g.valueField.val(value);
+                g._changeValue(value)
             });
         } 
     });

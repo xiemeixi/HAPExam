@@ -321,7 +321,10 @@
                 name   : 'cbl',
                 options: {
                     url      : '${base.contextPath}/demo/checkboxlist',// 可以用写死的 data 替代动态加载的 url
-                    textField: 'name'
+                    textField: 'name',
+                    onChangeValue:function(value){
+                        alert(value)
+                    }
                 },
                 newline: false
             }],
