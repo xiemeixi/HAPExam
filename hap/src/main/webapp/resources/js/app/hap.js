@@ -799,7 +799,7 @@
 
         Hap.createRenderA = function(text,func) {
             if(typeof func=='function')
-                func=func.toString().match(/^function\s*([^\s(]+)/)[1];
+                func=func.name||func.toString().match(/^function\s*([^\s(]+)/)[1];
             var arr=[];
             $.each(arguments,function(i,r){
                 if(i<2)return;

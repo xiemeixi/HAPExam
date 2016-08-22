@@ -902,12 +902,12 @@ $.unescapeHtml = function(str){
         //add by huazhen.wu@hand-china.com start
         queue:[],
         add:function(win){
-            if(this.queue.indexOf(win) == -1)
+            if($.inArray(win,this.queue) == -1)
                 this.queue.push(win);
         },
         remove:function(win){
             var g = this,q = g.queue;
-            q.splice(q.indexOf(win),1);
+            q.splice($.inArray(win,q),1);
             if(q.length)
                 g.setFront(q[q.length-1]);
         }
