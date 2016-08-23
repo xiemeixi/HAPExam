@@ -62,19 +62,12 @@
            AND sft.FUNCTION_NAME like concat('%',concat(#{functionName,jdbcType=VARCHAR},'%'))
        </if>
     </where>
-    <if test="sortname =='functionCode' and sortorder == 'asc'">
-        order by sfb.function_code asc
+
+    <if test="sortname !=null">
+      <bind name="_colName" value="@com.hand.hap.mybatis.util.OGNL@unCamel(sortname)"/>
+        order by sfb.${_colName} ${sortorder}
     </if>
-    <if test="sortname =='functionCode' and sortorder == 'desc'">
-        order by sfb.function_code desc
-    </if>
-    <if test="sortname =='moduleCode' and sortorder == 'asc'">
-        order by sfb.MODULE_CODE asc
-    </if>
-    <if test="sortname =='moduleCode' and sortorder == 'desc'">
-        order by sfb.MODULE_CODE desc
-    </if>
-    <if test="sortname ==null and sortorder == null">
+    <if test="sortname ==null">
         order by sfb.function_code asc
     </if>
     

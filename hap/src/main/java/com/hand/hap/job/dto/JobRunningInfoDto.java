@@ -7,7 +7,6 @@ import java.util.Date;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -65,7 +64,6 @@ public class JobRunningInfoDto extends BaseDTO {
     private String schedulerInstanceId;
     
     @JsonFormat(pattern = BaseConstants.DATE_TIME_FORMAT)
-    @OrderBy("DESC")
     private Date scheduledFireTime;
 
     public Long getJobRunningInfoId() {

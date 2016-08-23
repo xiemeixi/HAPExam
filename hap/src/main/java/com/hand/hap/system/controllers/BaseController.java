@@ -9,15 +9,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.hand.hap.account.dto.Role;
-import com.hand.hap.core.impl.RequestHelper;
-import com.hand.hap.system.dto.ResponseData;
-import com.hand.hap.account.dto.User;
-import com.hand.hap.core.exception.BaseException;
-import com.hand.hap.core.exception.TokenException;
-import com.hand.hap.security.DefaultConfiguration;
-import com.hand.hap.security.TokenUtils;
-import com.hand.hap.core.util.RequestUtil;
+import org.apache.ibatis.ognl.OgnlException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +24,18 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import com.hand.hap.account.dto.Role;
+import com.hand.hap.account.dto.User;
 import com.hand.hap.core.IRequest;
-import com.hand.hap.system.dto.BaseDTO;
+import com.hand.hap.core.exception.BaseException;
+import com.hand.hap.core.exception.TokenException;
+import com.hand.hap.core.impl.RequestHelper;
+import com.hand.hap.core.util.RequestUtil;
 import com.hand.hap.core.validator.FieldErrorWithBean;
+import com.hand.hap.security.DefaultConfiguration;
+import com.hand.hap.security.TokenUtils;
+import com.hand.hap.system.dto.BaseDTO;
+import com.hand.hap.system.dto.ResponseData;
 
 /**
  * BaseController.
@@ -287,6 +288,9 @@ public class BaseController {
     private Throwable getRootCause(Throwable throwable) {
         while (throwable.getCause() != null) {
             throwable = throwable.getCause();
+        }
+        if (throwable instanceof OgnlException && ((OgnlException) throwable).getReason() != null) {
+            return getRootCause(((OgnlException) throwable).getReason());
         }
         return throwable;
     }
