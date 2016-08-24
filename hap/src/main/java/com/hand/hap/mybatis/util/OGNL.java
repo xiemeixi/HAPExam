@@ -124,7 +124,9 @@ public abstract class OGNL {
                     sb.append(",").append(DTOClassInfo.getColumnName(ids[0])).append(" ASC");
                 }
             } else {
-                sb.append(DTOClassInfo.getColumnName(ids[0])).append(" ASC");
+                if (ids.length > 0) {
+                    sb.append(DTOClassInfo.getColumnName(ids[0])).append(" ASC");
+                }
             }
         }
         return StringUtils.trimToNull(sb.toString());
@@ -172,7 +174,9 @@ public abstract class OGNL {
                     sb.append(",b.").append(DTOClassInfo.getColumnName(ids[0])).append(" ASC");
                 }
             } else {
-                sb.append("b.").append(DTOClassInfo.getColumnName(ids[0])).append(" ASC");
+                if (ids.length > 0) {
+                    sb.append("b.").append(DTOClassInfo.getColumnName(ids[0])).append(" ASC");
+                }
             }
         }
         return StringUtils.trimToNull(sb.toString());

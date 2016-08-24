@@ -596,7 +596,9 @@ public class SqlHelper {
             sql.append("</if>");
         } else {
             Field[] idField = DTOClassInfo.getIdFields(entityClass);
-            sql.append("ORDER BY ").append(DTOClassInfo.getColumnName(idField[0])).append(" ASC");
+            if (idField.length > 0) {
+                sql.append("ORDER BY ").append(DTOClassInfo.getColumnName(idField[0])).append(" ASC");
+            }
         }
         return sql.toString();
     }
@@ -612,7 +614,9 @@ public class SqlHelper {
             sql.append("</if>");
         } else {
             Field[] idField = DTOClassInfo.getIdFields(entityClass);
-            sql.append("ORDER BY b.").append(DTOClassInfo.getColumnName(idField[0])).append(" ASC");
+            if (idField.length > 0) {
+                sql.append("ORDER BY b.").append(DTOClassInfo.getColumnName(idField[0])).append(" ASC");
+            }
         }
         return sql.toString();
     }
