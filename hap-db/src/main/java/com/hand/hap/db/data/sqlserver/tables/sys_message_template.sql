@@ -76,7 +76,7 @@ GO
 -- ----------------------------
 --  Indexes structure for table sys_message_template
 -- ----------------------------
-CREATE NONCLUSTERED INDEX [SYS_MESSAGE_TEMPLATE_U1]
+CREATE UNIQUE INDEX [SYS_MESSAGE_TEMPLATE_U1]
 ON [dbo].[sys_message_template] ([TEMPLATE_CODE] ASC)
 GO
 

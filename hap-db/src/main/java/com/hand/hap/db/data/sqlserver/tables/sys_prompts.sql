@@ -60,7 +60,7 @@ GO
 -- ----------------------------
 --  Indexes structure for table sys_prompts
 -- ----------------------------
-CREATE NONCLUSTERED INDEX [SYS_PROMPTS_U1]
+CREATE UNIQUE INDEX [SYS_PROMPTS_U1]
 ON [dbo].[sys_prompts] ([PROMPT_CODE] ASC, [LANG] ASC)
 GO
 

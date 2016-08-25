@@ -65,7 +65,7 @@ GO
 -- ----------------------------
 --  Indexes structure for table sys_resource_b
 -- ----------------------------
-CREATE NONCLUSTERED INDEX [SYS_RESOURCE_B_U1]
+CREATE UNIQUE INDEX [SYS_RESOURCE_B_U1]
 ON [dbo].[sys_resource_b] ([URL] ASC)
 GO
 

@@ -14,9 +14,9 @@ IF EXISTS(SELECT *
 GO
 CREATE TABLE [dbo].[sys_role_b] (
   [ROLE_ID]               BIGINT IDENTITY (10001, 1) NOT NULL,
-  [ROLE_CODE]             NVARCHAR(40)               NULL,
-  [ROLE_NAME]             NVARCHAR(150)              NULL,
-  [ROLE_DESCRIPTION]      NVARCHAR(240)              NULL,
+  [ROLE_CODE]             VARCHAR(40)               NOT NULL,
+  [ROLE_NAME]             VARCHAR(150)              NOT NULL,
+  [ROLE_DESCRIPTION]      VARCHAR(240)              NULL,
   [OBJECT_VERSION_NUMBER] DECIMAL(20, 0)             NULL,
   [REQUEST_ID]            BIGINT                     NULL,
   [PROGRAM_ID]            BIGINT                     NULL,
@@ -63,7 +63,7 @@ GO
 -- ----------------------------
 --  Indexes structure for table sys_role_b
 -- ----------------------------
-CREATE NONCLUSTERED INDEX [SYS_ROLE_B_U1]
+CREATE UNIQUE INDEX [SYS_ROLE_B_U1]
 ON [dbo].[sys_role_b] ([ROLE_CODE] ASC)
 GO
 

@@ -66,7 +66,7 @@ GO
 -- ----------------------------
 --  Indexes structure for table sys_function_resource
 -- ----------------------------
-CREATE NONCLUSTERED INDEX [SYS_FUNCTION_RESOURCE_U1]
+CREATE UNIQUE INDEX [SYS_FUNCTION_RESOURCE_U1]
 ON [dbo].[sys_function_resource] ([FUNCTION_ID] ASC, [RESOURCE_ID] ASC)
 GO
 

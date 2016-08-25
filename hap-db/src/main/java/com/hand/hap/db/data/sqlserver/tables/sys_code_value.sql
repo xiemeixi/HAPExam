@@ -62,7 +62,7 @@ GO
 -- ----------------------------
 --  Indexes structure for table sys_code_value_b
 -- ----------------------------
-CREATE NONCLUSTERED INDEX [SYS_CODE_VALUE_B_U1]
+CREATE UNIQUE INDEX [SYS_CODE_VALUE_B_U1]
 ON [dbo].[sys_code_value_b] ([CODE_ID] ASC, [VALUE] ASC)
 GO
 

@@ -62,7 +62,7 @@ GO
 -- ----------------------------
 --  Indexes structure for table sys_user_role
 -- ----------------------------
-CREATE NONCLUSTERED INDEX [SYS_USER_ROLE_U1]
+CREATE UNIQUE INDEX [SYS_USER_ROLE_U1]
 ON [dbo].[sys_user_role] ([USER_ID] ASC, [ROLE_ID] ASC)
 GO
 

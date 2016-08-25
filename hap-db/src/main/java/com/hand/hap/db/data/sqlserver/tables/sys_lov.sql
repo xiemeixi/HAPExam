@@ -73,7 +73,7 @@ GO
 -- ----------------------------
 --  Indexes structure for table sys_lov
 -- ----------------------------
-CREATE NONCLUSTERED INDEX [SYS_LOV_U1]
+CREATE UNIQUE INDEX [SYS_LOV_U1]
 ON [dbo].[sys_lov] ([CODE] ASC)
 GO
 

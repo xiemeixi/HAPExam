@@ -80,7 +80,7 @@ GO
 -- ----------------------------
 --  Indexes structure for table sys_message_email_config
 -- ----------------------------
-CREATE NONCLUSTERED INDEX [SYS_MESSAGE_EMAIL_CONFIG_CODE]
+CREATE UNIQUE INDEX [SYS_MESSAGE_EMAIL_CONFIG_CODE]
 ON [dbo].[sys_message_email_config] ([CONFIG_CODE] ASC)
 GO
 

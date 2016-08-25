@@ -15,7 +15,7 @@ GO
 CREATE TABLE [dbo].[sys_user] (
   [USER_ID]               BIGINT IDENTITY (10001, 1) NOT NULL,
   [USER_TYPE]             NVARCHAR(30)               NULL,
-  [USER_NAME]             NVARCHAR(40)               NULL,
+  [USER_NAME]             NVARCHAR(40)               NOT NULL,
   [PASSWORD_ENCRYPTED]    VARCHAR(80)                NULL,
   [EMAIL]                 NVARCHAR(150)              NULL,
   [PHONE]                 NVARCHAR(40)               NULL,
@@ -65,6 +65,10 @@ GO
 ALTER TABLE [dbo].[sys_user]
   ADD
   CONSTRAINT [SYS_USER_PK] PRIMARY KEY CLUSTERED ([USER_ID])
+GO
+
+CREATE UNIQUE INDEX [SYS_USER_U1]
+  ON [dbo].[sys_user] ([USER_NAME] ASC)
 GO
 
 
