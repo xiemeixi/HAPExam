@@ -1,0 +1,219 @@
+<#--
+ * description: phone.html
+ * version: 1.0 
+ * author:taotao.xu@hand-china.com
+ * #{copyright}#
+ * 
+-->
+<#include "../include/head.html">
+<body style="padding: 10px;">
+    <form id="orderForm"></form>
+    <div id="orderGrid" style="margin: 0; padding: 0"></div>
+    <script type="text/javascript">
+    $(function() {
+        window['orderForm'] = $("#orderForm").ligerForm({
+            fields : [ {
+                type : 'text',
+                label : '<@spring.message "hap.xqy.order.number"/>',
+                name : 'fruitName',
+                newline : false,
+                width: 120
+            },{
+                display : '<@spring.message "hap.xqy.order.company"/>',
+                name : "companyId",
+                type : 'popup',
+                newline : false,
+                width: 120,
+                textField:'companyName',
+                options   : {
+                	readonly:false,
+                    valueField: 'companyId',
+                    textField : 'companyName',
+                    grid      : {
+                        columns: [{
+                            display: '<@spring.message "hap.xqy.order.companycode"/>',
+                            name   : "companyNumber",
+                            width  : 150,
+                            type   : "text",
+                            align  : 'left'
+                          },{
+                            display: '<@spring.message "hap.xqy.order.companyallname"/>',
+                            name   : "companyName",
+                            width  : 150,
+                            type   : "text",
+                            align  : 'left',
+                            }],
+                            url : '${base.contextPath}/xqy/order/company/query'
+                            },
+                    condition : {
+                        inputWidth: 120,
+                        labelWidth: 70,
+                        fields    : [{
+                            display: '<@spring.message "hap.xqy.order.companycode"/>',
+                            name   : "companyNumber",
+                            newline: false,
+                            type   : "text"
+                          },{
+                            display: '<@spring.message "hap.xqy.order.companyallname"/>',
+                            name   : "companyName",
+                            newline: true,
+                            type   : "text"
+                            }
+                        ]
+                    }
+                }
+            },{
+                display: '<@spring.message "hap.xqy.order.customer"/>',
+                name: "customerId",
+                type: "popup",
+                newline : false,
+                textField: 'customerName',
+                options:{
+                	inputWidth : 150,
+                    labelWidth : 70,
+                    valueField: 'customerId',
+                    textField:  'customerName',
+                    grid : {
+                    	columns:[{
+                        display : '<@spring.message "hap.xqy.order.customercode"/>',
+                        name : "customerNumber",
+                        newline : false,
+                        type : ""
+                    	},{
+                            display : '<@spring.message "hap.xqy.order.customerallname"/>',
+                            name : "customerName",
+                            newline : false,
+                            type : "text"
+                        	}],
+                        url : '${base.contextPath}/xqy/order/customer/query'
+                       
+                    }, condition : {
+                        inputWidth: 120,
+                        labelWidth: 70,
+                        fields    : [{
+                            display: '<@spring.message "hap.xqy.order.customercode"/>',
+                            name   : "customerNumber",
+                            newline: false,
+                            type   : "text"
+                          },{
+                            display: '<@spring.message "hap.xqy.order.customerallname"/>',
+                            name   : "customerName",
+                            newline: true,
+                            type   : "text"
+                            }
+                        ]
+                    }, 
+                    onLoadData: function() {
+                        this.setParm('companyId', $('#companyId').val())
+                    }
+                }
+            }, {
+                type : 'text',
+                label : '<@spring.message "hap.xqy.order.orderdate"/>',
+                name : 'fruitName',
+                newline : false,
+                width: 120,
+                editor:{
+                 	type:'date'
+                 }
+            },{
+            	 type : 'text',
+                 label : '<@spring.message "hap.xqy.order.orderamount"/>',
+                 name : 'phoneManufacturer',
+                 newline : false,
+                 width: 120
+            },{
+           	 type : 'text',
+             label : '<@spring.message "hap.xqy.order.status/>',
+             name : 'phoneManufacturer',
+             newline : false,
+             width: 120
+        }],
+            buttons : [ {
+                text : '<@spring.message "hap.query"/>',
+                disabled : false,
+                width : 60,
+                click : function() {
+                    Hap.gridQuery({
+                        form : phoneForm,
+                        grid : phoneGrid
+                    })
+                }
+            },{
+            	 text    : '<@spring.message "/>',
+                 disabled: false,
+                 width   : 60,
+                 click   : function () {
+                     d_sc_002_form.reset();
+                 }
+
+            },{
+                text : '<@spring.message "hap.xqy.order.excel"/>',
+                disabled : false,
+                width : 60,
+                click : function() {
+                   
+                }
+            }]
+        });
+
+        window['orderGrid'] = $("#orderGrid").ligerGrid({
+            unSetValidateAttr : false,
+            columns : [ {
+                display : '<@spring.message "hap.xqy.order.line"/>',
+                name : 'Id',
+                align : 'left',
+                width : 50
+            },{
+                display : '<@spring.message "hap.xqy.order.inventorycode"/>',
+                name : 'Id',
+                align : 'left',
+                width : 120
+            },{
+                display : '<@spring.message "hap.xqy.order.inventorydesc"/>',
+                name : 'Id',
+                align : 'left',
+                width : 120
+                },{
+                display  : '<@spring.message "hap.xqy.order.product"/>',
+                name : 'Id',
+                align : 'left',
+                width : 120
+            },{
+                display  : '<@spring.message "hap.xqy.order.amount"/>',
+                name : 'Id',
+                align : 'left',
+                width : 120
+            },{
+                display : '<@spring.message "hap.xqy.order.sale"/>',
+                name : 'Id',
+                align : 'left',
+                width : 120
+            },{
+                display: '<@spring.message "hap.xqy.order.money"/>',
+                name : 'Id',
+                align : 'left',
+                width : 120
+            },{
+                display: '<@spring.message "hap.xqy.order.remark"/>',
+                name : 'Id',
+                align : 'left',
+                width : 120
+            }],
+            url : '${base.contextPath}/dgk/phone/query',
+            toolbar : {
+                items : [ {
+                    text : '<@spring.message "hap.new"/>',
+                    disable : false,
+                    click : function() {
+                        phoneGrid.addRow({})
+                    },
+                    icon : 'add'
+                }]
+            }
+        });
+    });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ #{copyright}#
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hand.hap.order.mapper.CustomerMapper">
+    <resultMap id="BaseResultMap" type="com.hand.hap.order.dto.Customer" extends="com.hand.hap.mapper.StdMapper.STD">
+        <result column="CUSTOMER_ID" property="customerId" jdbcType="DECIMAL"/>
+        <result column="CUSTOMER_NUMBER" property="customerNumber" jdbcType="VARCHAR"/>
+        <result column="CUSTOMER_NAME" property="customerName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List" >
+        CUSTOMER_ID, CUSTOMER_NUMBER,CUSTOMER_NAME
+    </sql>
+    <select id="selectByCustomer" parameterType="com.hand.hap.order.dto.Customer" resultMap="BaseResultMap">
+        SELECT  CUSTOMER_ID, CUSTOMER_NUMBER,CUSTOMER_NAME
+        from hap_ar_customers
+        <where>
+            <if test="customerNumber != null">
+                and CUSTOMER_NUMBER = #{customerNumber,jdbcType=VARCHAR}
+            </if>
+            <if test="customerName != null">
+                and CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+</mapper>
