@@ -13,13 +13,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.hand.hap.attachment.ContentTypeFilter;
 import com.hand.hap.attachment.Controller;
 import com.hand.hap.attachment.FileChain;
@@ -27,6 +20,12 @@ import com.hand.hap.attachment.FileInfo;
 import com.hand.hap.attachment.FileProcessor;
 import com.hand.hap.attachment.UpConstants;
 import com.hand.hap.attachment.Uploader;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 标准的上传组件.
@@ -187,9 +186,9 @@ public class StandardUploader implements Uploader {
 
         }
         // contentType 不接受
-        //if (!filter.isAccept(fileItem.getName(), fileItem.getContentType())) {
-        //    return UpConstants.FILE_DISALLOWD_ERROR;
-        //}
+        if (!filter.isAccept(fileItem.getName(), fileItem.getContentType())) {
+            return UpConstants.FILE_DISALLOWD_ERROR;
+        }
         return UpConstants.SUCCESS;
     }
 

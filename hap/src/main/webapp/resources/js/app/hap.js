@@ -757,15 +757,6 @@
             if(!grid.options.enabledEdit)return;
             var row = grid.getRow(para.rowid);
             var col = grid.getColumnByName(para.columnname);
-            if(col.readonly==true)return;
-            var ep={
-                column  : col,
-                record  : row,
-                value   : row[para.columnname],
-                rowindex: row.__index
-            };
-            if(grid.trigger('beforeEdit',ep)==false)
-                return;
             var newValue = para.checkValue;
             if (row[para.columnname] == para.checkValue) {
                 newValue = para.uncheckValue;
@@ -776,7 +767,12 @@
             $(grid.getCellObj(row,col)).addClass('l-grid-row-cell-edited');
             grid.isDataChanged=true;
             grid.reRender({rowdata:row});
-            ep.value = newValue;
+            var ep={
+                column  : col,
+                record  : row,
+                value   : newValue,
+                rowindex: row.__index
+            };
             grid.trigger('afterEdit',ep);
         };
 
@@ -787,23 +783,6 @@
             return function (data, idx, value, col) {
                 var cls = 'l-checkbox';
                 if (value == cv) cls += ' l-checkbox-checked';
-                var grid = this;
-                var readonly=false;
-                if(!grid.options.enabledEdit)readonly=true;
-                var row = grid.getRow(data.__id);
-                var readonlyClass = col.readonlyClass||'';
-                if(col.readonly==true)readonly=true;
-                var ep={
-                    column  : col,
-                    record  : data,
-                    value   : value,
-                    rowindex: row.__index
-                };
-                if(grid.trigger('beforeEdit',ep)==false)
-                    readonly=true;
-                if(readonly){
-                    return "<div class='"+readonlyClass+"' style='text-align: center;'><a href='javascript:void(0);' class='" + cls + "'></a></div>";
-                }
                 var p = {
                     gid         : this.id,
                     checkValue  : cv,
@@ -813,6 +792,7 @@
                 };
 
                 var p_json = JSON2.stringify(p).replace(/"/g, "\'");
+
                 return "<a href='javascript:void(0);' class='" + cls + "' onclick=\"Hap.toggleGridCheckBox(" + p_json + ")\"></a>"
             }
         };

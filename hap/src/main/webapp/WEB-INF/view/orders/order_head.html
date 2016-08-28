@@ -1,0 +1,249 @@
+<#--
+ * description: order_head.html
+ * version: 1.0 
+ * author:qingyun.xie@hand-china.com
+ * #{copyright}#
+ * 
+-->
+<#include "../include/head.html">
+<body style="padding: 10px;">
+    <script src="${base.contextPath}/common/code?orderStatusData=HAP_OM_ORDER_STATUS" type="text/javascript"></script>
+    <form id="orderHeaderForm"></form>
+    <div id="orderHeaderGrid" style="margin: 0; padding: 0"></div>
+    <script type="text/javascript">
+    $(function() {
+        window['orderHeaderForm'] = $("#orderHeaderForm").ligerForm({
+            fields : [{
+            	type : 'popup',
+            	 display : '<@spring.message "hap.xqy.order.company"/>',
+                name : 'companyId',
+                textField : 'companyName',
+                options:{
+                    valueField: 'companyId',
+                    textField : 'companyName',
+                    grid      : {
+                        columns: [{
+                        	display: '<@spring.message "hap.xqy.order.companycode"/>',
+                            name   : "companyNumber",
+                            align  : 'left',
+                            width  : 150
+                        },{
+                        	display: '<@spring.message "hap.xqy.order.companyallname"/>',
+                            name   : 'companyName',
+                            align  : 'left',
+                            width  : 150
+                        }],
+                        url    : '/hap/xqy/company/query',
+                        height : 350
+                    },
+                    condition : {
+                        inputWidth: 150,
+                        labelWidth: 70,
+                        fields    : [{
+                        	display: '<@spring.message "hap.xqy.order.companycode"/>',
+                            name   : "companyNumber",
+                            newline: false,
+                            type   : "text"
+                        }, {
+                        	display: '<@spring.message "hap.xqy.order.companyallname"/>',
+                            name   : "companyName",
+                            newline: true,
+                            type   : "text"}
+                        ]
+                    },
+                },
+                newline : true,
+                width: 150
+            },{
+            	type : 'popup',
+            	display: '<@spring.message "hap.xqy.order.customer"/>',
+                textField : 'customerName',
+                name : 'customerId',
+                id:'999',
+                newline : false,
+                width: 150,
+                options:{
+                    valueField: 'customerId',
+                    textField : 'customerName',
+                    grid      : {
+                        columns: [{
+                        	display : '<@spring.message "hap.xqy.order.customercode"/>',
+                            name   : "customerNumber",
+                            align  : 'left',
+                            width  : 150
+                        },{
+                        	display : '<@spring.message "hap.xqy.order.customerallname"/>',
+                            name   : 'customerName',
+                            align  : 'left',
+                            width  : 150
+                        }],
+                        url    : '/hap/xqy/customer/query',
+                        height : 350
+                    },
+                    condition : {
+                        inputWidth: 150,
+                        labelWidth: 70,
+                        fields    : [{
+                        	display: '<@spring.message "hap.xqy.order.customercode"/>',
+                            name   : "customerNumber",
+                            newline: false,
+                            type   : "text"
+                        }, {
+                        	display: '<@spring.message "hap.xqy.order.customerallname"/>',
+                            name   : "customerName",
+                            newline: true,
+                            type   : "text"
+                        }]
+                    },
+                    onLoadData: function() {
+                    	//alert("bbb");
+                    	this.setParm('companyId', $('#companyId').val());
+                    }
+                }
+            },{
+                type : 'text',
+                label : '<@spring.message "hap.xqy.order.number"/>',
+                name : 'orderNumber',
+                newline : false,
+                width: 150
+            },{
+                type : 'popup',
+                display : '<@spring.message "hap.xqy.order.inventory"/>',
+                name : 'no-name',
+                newline : true,
+                width: 150,
+                options:{
+                    valueField: 'inventoryId',
+                    textField : 'itemDescription',
+                    grid      : {
+                        columns: [{
+                        	display: '<@spring.message "hap.xqy.order.inventorycode"/>',
+                            name   : 'itemCode',
+                            align  : 'left',
+                            width  : 150
+                        },{
+                        	display: '<@spring.message "hap.xqy.order.inventorydesc"/>',
+                            name   : 'itemDescription',
+                            align  : 'left',
+                            width  : 150
+                        }],
+                        url    : '/hap/xqy/inventory/query',
+                        height : 350
+                    },
+                    condition : {
+                        inputWidth: 150,
+                        labelWidth: 70,
+                        fields    : [{
+                        	display: '<@spring.message "hap.xqy.order.inventorycode"/>',
+                            name   : "itemCode",
+                            newline: false,
+                            type   : "text"
+                        }, {
+                        	display: '<@spring.message "hap.xqy.order.inventorydesc"/>',
+                            name   : "itemDescription",
+                            newline: true,
+                            type   : "text"
+                        }]
+                    }
+                }
+            },{
+                type : 'combobox',
+                label : '<@spring.message "hap.xqy.order.status"/>',
+                name : 'orderStatus',
+                newline : false,
+                width: 150,
+                options : {
+                    valueField : 'value',
+                    textField : 'meaning',
+                    data : orderStatusData
+                }
+            }],
+            buttons : [ {
+                text : '<@spring.message "hap.query"/>',
+                disabled : false,
+                width : 60,
+                click : function() {
+                    Hap.gridQuery({
+                        form : orderHeaderForm,
+                        grid : orderHeaderGrid
+                    })
+                }
+            }, {
+                text    : '<@spring.message "hap.reset"/>',
+                disabled: false,
+                width   : 60,
+                click   : function () {
+                	window['orderHeaderForm'].reset();
+                }
+            }]
+        });
+
+        window['orderHeaderGrid'] = $("#orderHeaderGrid").ligerGrid({
+            unSetValidateAttr : false,
+            columns : [ {
+            	display : '<@spring.message "hap.xqy.order.number"/>',
+                name : 'orderNumber',
+                align : 'left',
+                width : 120,
+                render : function (rowdata) {
+                    return '<a href="#" onclick="editOrderHeader(' + rowdata.headerId + ')">'+rowdata.orderNumber+'</a>';
+                }
+            },{
+            	display : '<@spring.message "hap.xqy.order.company"/>',
+                name : 'attribute1',
+                align : 'left',
+                width : 120,
+                type:'int'
+            }, {
+            	display : '<@spring.message "hap.xqy.order.customer"/>',
+                name : 'attribute2',
+                align : 'left',
+                type:'int',
+                width : 120
+            },{
+            	display  : '<@spring.message "hap.xqy.order.orderdate"/>',
+                name : 'orderDate',
+                align : 'left',
+                type:'date',
+                width : 120
+            },{
+            	display : '<@spring.message "hap.xqy.order.status"/>',
+                name : 'orderStatus',
+                align : 'left',
+                type:'text',
+                width : 120
+            },{
+            	display: '<@spring.message "hap.xqy.order.orderamount"/>',
+                name : 'attribute3',
+                align : 'left',
+                type:'text',
+                width : 120
+            }],
+            url : '${base.contextPath}/xqy/orderHeader/query',
+            toolbar : {
+                items : [ {
+                    text : '<@spring.message "hap.new"/>',
+                    disable : false,
+                    click : newOrderLine,
+                    icon : 'add'
+                }]
+            },
+            enabledEdit : true,
+            width : '99%',
+            height : '98%',
+            checkbox : true,
+        });
+    });
+
+    </script>
+    <script type="text/javascript">
+    window.newOrderLine = function () {
+        window.popWin = $.ligerDialog.open({
+            width : 1000,
+            height: 550,
+            url   : 'order_line_create.html'
+        });
+    }
+    </script>
+</body>
+</html>

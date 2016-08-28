@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ #{copyright}#
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hand.hap.orders.mapper.CustomerMapper">
+    <resultMap id="BaseResultMap" type="com.hand.hap.orders.dto.Customer">
+        <result column="CUSTOMER_ID" property="customerId" jdbcType="DECIMAL"/>
+        <result column="CUSTOMER_NUMBER" property="customerNumber" jdbcType="VARCHAR"/>
+        <result column="CUSTOMER_NAME" property="customerName" jdbcType="VARCHAR"/>
+        <result column="COMPANY_ID" property="companyId" jdbcType="DECIMAL"/>
+    </resultMap>
+    <sql id="Base_Column_List" >
+        CUSTOMER_ID, CUSTOMER_NUMBER, CUSTOMER_NAME, COMPANY_ID
+    </sql>
+    <select id="selectByCustomer" parameterType="com.hand.hap.orders.dto.Customer" resultMap="BaseResultMap">
+        SELECT   CUSTOMER_ID, CUSTOMER_NUMBER, CUSTOMER_NAME, COMPANY_ID
+        from hap_ar_customers
+        <where>
+            <if test="customerId != null">
+                CUSTOMER_ID = #{customerId,jdbcType=DECIMAL}
+            </if>
+            <if test="customerNumber != null">
+                AND UPPER(CUSTOMER_NUMBER) like UPPER('%${customerNumber}%')
+            </if>
+            <if test="customerName != null">
+                AND UPPER(CUSTOMER_NAME) like UPPER('%${customerName}%')
+            </if>
+            <if test="companyId != null">
+                COMPANY_ID = #{companyId,jdbcType=DECIMAL}
+            </if>
+        </where>
+    </select>
+</mapper>

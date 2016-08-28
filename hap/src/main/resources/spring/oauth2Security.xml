@@ -146,10 +146,10 @@
         <oauth2:implicit/>
         <oauth2:refresh-token/>
         <oauth2:client-credentials/>
-        <oauth2:password authentication-manager-ref="authenticationManager_oauth" />
+        <oauth2:password authentication-manager-ref="authenticationManager" />
     </oauth2:authorization-server>
 
-    <authentication-manager id="authenticationManager_oauth">
+    <authentication-manager id="authenticationManager">
         <authentication-provider user-service-ref="customUserDetailsService">
             <password-encoder ref="passwordManager"/>
         </authentication-provider>

@@ -29,12 +29,13 @@ import java.util.Set;
 
 import javax.persistence.Table;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.hand.hap.mybatis.annotation.Condition;
 import com.hand.hap.mybatis.entity.EntityColumn;
 import com.hand.hap.mybatis.entity.EntityTable;
 import com.hand.hap.mybatis.entity.IDynamicTableName;
 import com.hand.hap.mybatis.util.StringUtil;
-import com.hand.hap.system.dto.BaseDTO;
 import com.hand.hap.system.dto.DTOClassInfo;
 
 /**
@@ -54,10 +55,12 @@ public class SqlHelper {
      */
     public static String getDynamicTableName(Class<?> entityClass, String tableName) {
         if (IDynamicTableName.class.isAssignableFrom(entityClass)) {
-            return "<if test=\"@OGNL@isDynamicParameter(_parameter) and dynamicTableName != null and dynamicTableName != ''\">\n"
-                    + "${dynamicTableName}\n" + "</if>\n"
-                    + "<if test=\"@OGNL@isNotDynamicParameter(_parameter) or dynamicTableName == null or dynamicTableName == ''\">\n"
-                    + tableName + "\n" + "</if>";
+            return "<if test=\"@OGNL@isDynamicParameter(_parameter) and dynamicTableName != null and dynamicTableName != ''\">\n" +
+                    "${dynamicTableName}\n" +
+                    "</if>\n" +
+                    "<if test=\"@OGNL@isNotDynamicParameter(_parameter) or dynamicTableName == null or dynamicTableName == ''\">\n" +
+                    tableName + "\n" +
+                    "</if>";
         } else {
             return tableName;
         }
@@ -74,11 +77,12 @@ public class SqlHelper {
     public static String getDynamicTableName(Class<?> entityClass, String tableName, String parameterName) {
         if (IDynamicTableName.class.isAssignableFrom(entityClass)) {
             if (StringUtil.isNotEmpty(parameterName)) {
-                return "<if test=\"@OGNL@isDynamicParameter(" + parameterName + ") and " + parameterName
-                        + ".dynamicTableName != null and " + parameterName + ".dynamicTableName != ''\">\n" + "${"
-                        + parameterName + ".dynamicTableName}\n" + "</if>\n" + "<if test=\"@OGNL@isNotDynamicParameter("
-                        + parameterName + ") or " + parameterName + ".dynamicTableName == null or " + parameterName
-                        + ".dynamicTableName == ''\">\n" + tableName + "\n" + "</if>";
+                return "<if test=\"@OGNL@isDynamicParameter(" + parameterName + ") and " + parameterName + ".dynamicTableName != null and " + parameterName + ".dynamicTableName != ''\">\n" +
+                        "${" + parameterName + ".dynamicTableName}\n" +
+                        "</if>\n" +
+                        "<if test=\"@OGNL@isNotDynamicParameter(" + parameterName + ") or " + parameterName + ".dynamicTableName == null or " + parameterName + ".dynamicTableName == ''\">\n" +
+                        tableName + "\n" +
+                        "</if>";
             } else {
                 return getDynamicTableName(entityClass, tableName);
             }
@@ -344,10 +348,8 @@ public class SqlHelper {
      * update tableName - 动态表名
      *
      * @param entityClass
-     * @param defaultTableName
-     *            默认表名
-     * @param entityName
-     *            别名
+     * @param defaultTableName 默认表名
+     * @param entityName       别名
      * @return
      */
     public static String updateTable(Class<?> entityClass, String defaultTableName, String entityName) {
@@ -392,20 +394,17 @@ public class SqlHelper {
      * insert table()列
      *
      * @param entityClass
-     * @param skipId
-     *            是否从列中忽略id类型
-     * @param notNull
-     *            是否判断!=null
-     * @param notEmpty
-     *            是否判断String类型!=''
+     * @param skipId      是否从列中忽略id类型
+     * @param notNull     是否判断!=null
+     * @param notEmpty    是否判断String类型!=''
      * @return
      */
     public static String insertColumns(Class<?> entityClass, boolean skipId, boolean notNull, boolean notEmpty) {
         StringBuilder sql = new StringBuilder();
         sql.append("<trim prefix=\"(\" suffix=\")\" suffixOverrides=\",\">");
-        // 获取全部列
+        //获取全部列
         Set<EntityColumn> columnList = EntityHelper.getColumns(entityClass);
-        // 当某个列有主键策略时，不需要考虑他的属性是否为空，因为如果为空，一定会根据主键策略给他生成一个值
+        //当某个列有主键策略时，不需要考虑他的属性是否为空，因为如果为空，一定会根据主键策略给他生成一个值
         for (EntityColumn column : columnList) {
             if (!column.isInsertable()) {
                 continue;
@@ -427,20 +426,17 @@ public class SqlHelper {
      * insert-values()列
      *
      * @param entityClass
-     * @param skipId
-     *            是否从列中忽略id类型
-     * @param notNull
-     *            是否判断!=null
-     * @param notEmpty
-     *            是否判断String类型!=''
+     * @param skipId      是否从列中忽略id类型
+     * @param notNull     是否判断!=null
+     * @param notEmpty    是否判断String类型!=''
      * @return
      */
     public static String insertValuesColumns(Class<?> entityClass, boolean skipId, boolean notNull, boolean notEmpty) {
         StringBuilder sql = new StringBuilder();
         sql.append("<trim prefix=\"VALUES (\" suffix=\")\" suffixOverrides=\",\">");
-        // 获取全部列
+        //获取全部列
         Set<EntityColumn> columnList = EntityHelper.getColumns(entityClass);
-        // 当某个列有主键策略时，不需要考虑他的属性是否为空，因为如果为空，一定会根据主键策略给他生成一个值
+        //当某个列有主键策略时，不需要考虑他的属性是否为空，因为如果为空，一定会根据主键策略给他生成一个值
         for (EntityColumn column : columnList) {
             if (!column.isInsertable()) {
                 continue;
@@ -462,20 +458,17 @@ public class SqlHelper {
      * update set列
      *
      * @param entityClass
-     * @param entityName
-     *            实体映射名
-     * @param notNull
-     *            是否判断!=null
-     * @param notEmpty
-     *            是否判断String类型!=''
+     * @param entityName  实体映射名
+     * @param notNull     是否判断!=null
+     * @param notEmpty    是否判断String类型!=''
      * @return
      */
     public static String updateSetColumns(Class<?> entityClass, String entityName, boolean notNull, boolean notEmpty) {
         StringBuilder sql = new StringBuilder();
         sql.append("<set>");
-        // 获取全部列
+        //获取全部列
         Set<EntityColumn> columnList = EntityHelper.getColumns(entityClass);
-        // 当某个列有主键策略时，不需要考虑他的属性是否为空，因为如果为空，一定会根据主键策略给他生成一个值
+        //当某个列有主键策略时，不需要考虑他的属性是否为空，因为如果为空，一定会根据主键策略给他生成一个值
         for (EntityColumn column : columnList) {
             if (!column.isId() && column.isUpdatable()) {
                 if ("last_update_date".equalsIgnoreCase(column.getColumn())) {
@@ -483,8 +476,7 @@ public class SqlHelper {
                     continue;
                 }
                 if (notNull) {
-                    sql.append(SqlHelper.getIfNotNull(entityName, column,
-                            column.getColumnEqualsHolder(entityName) + ",", notEmpty));
+                    sql.append(SqlHelper.getIfNotNull(entityName, column, column.getColumnEqualsHolder(entityName) + ",", notEmpty));
                 } else {
                     sql.append(column.getColumnEqualsHolder(entityName) + ",");
                 }
@@ -505,9 +497,9 @@ public class SqlHelper {
     public static String wherePKColumns(Class<?> entityClass) {
         StringBuilder sql = new StringBuilder();
         sql.append("<where>");
-        // 获取全部列
+        //获取全部列
         Set<EntityColumn> columnList = EntityHelper.getPKColumns(entityClass);
-        // 当某个列有主键策略时，不需要考虑他的属性是否为空，因为如果为空，一定会根据主键策略给他生成一个值
+        //当某个列有主键策略时，不需要考虑他的属性是否为空，因为如果为空，一定会根据主键策略给他生成一个值
         for (EntityColumn column : columnList) {
             sql.append(" AND " + column.getColumnEqualsHolder());
         }
@@ -519,9 +511,9 @@ public class SqlHelper {
     public static String wherePKColumns_TL(Class<?> entityClass) {
         StringBuilder sql = new StringBuilder();
         sql.append("<where>");
-        // 获取全部列
+        //获取全部列
         Set<EntityColumn> columnList = EntityHelper.getPKColumns(entityClass);
-        // 当某个列有主键策略时，不需要考虑他的属性是否为空，因为如果为空，一定会根据主键策略给他生成一个值
+        //当某个列有主键策略时，不需要考虑他的属性是否为空，因为如果为空，一定会根据主键策略给他生成一个值
         for (EntityColumn column : columnList) {
             sql.append(" AND b." + column.getColumnEqualsHolder());
         }
@@ -538,17 +530,16 @@ public class SqlHelper {
     public static String whereAllIfColumns(Class<?> entityClass, boolean empty) {
         StringBuilder sql = new StringBuilder();
         sql.append("<where>");
-        // 获取全部列
+        //获取全部列
         Set<EntityColumn> columnList = EntityHelper.getColumns(entityClass);
-        // 当某个列有主键策略时，不需要考虑他的属性是否为空，因为如果为空，一定会根据主键策略给他生成一个值
+        //当某个列有主键策略时，不需要考虑他的属性是否为空，因为如果为空，一定会根据主键策略给他生成一个值
         for (EntityColumn column : columnList) {
             Condition condition = column.getCondition();
             if (condition == null) {
                 sql.append(getIfNotNull(column, " AND " + column.getColumnEqualsHolder(), empty));
             } else if (!condition.exclude()) {
-                sql.append(getIfNotNull(column,
-                        " AND " + column.getColumnHolderWithOperator(condition.operator(), condition.autoWrap()),
-                        empty));
+                sql.append(getIfNotNull(column, " AND " + column.getColumnHolderWithOperator(
+                        condition.operator(), condition.autoWrap()), empty));
             }
         }
         sql.append("</where>");
@@ -559,9 +550,9 @@ public class SqlHelper {
     public static String whereAllIfColumns_TL(Class<?> entityClass, boolean empty) {
         StringBuilder sql = new StringBuilder();
         sql.append("<where>");
-        // 获取全部列
+        //获取全部列
         Set<EntityColumn> columnList = EntityHelper.getColumns(entityClass);
-        // 当某个列有主键策略时，不需要考虑他的属性是否为空，因为如果为空，一定会根据主键策略给他生成一个值
+        //当某个列有主键策略时，不需要考虑他的属性是否为空，因为如果为空，一定会根据主键策略给他生成一个值
         for (EntityColumn column : columnList) {
             if (column.isMultiLanguageField()) {
                 sql.append(getIfNotNull(column, " AND t." + column.getColumnLikeHolder(), empty));
@@ -570,9 +561,8 @@ public class SqlHelper {
                 if (condition == null) {
                     sql.append(getIfNotNull(column, " AND b." + column.getColumnEqualsHolder(), empty));
                 } else if (!condition.exclude()) {
-                    sql.append(getIfNotNull(column,
-                            " AND b." + column.getColumnHolderWithOperator(condition.operator(), condition.autoWrap()),
-                            empty));
+                    sql.append(getIfNotNull(column, " AND b." + column.getColumnHolderWithOperator(
+                            condition.operator(), condition.autoWrap()), empty));
                 }
             }
         }
@@ -588,17 +578,16 @@ public class SqlHelper {
      */
     public static String orderByDefault(Class<?> entityClass) {
         StringBuilder sql = new StringBuilder();
-        if (BaseDTO.class.isAssignableFrom(entityClass)) {
-            sql.append(
-                    "<bind name=\"__orderByClause\" value=\"@com.hand.hap.mybatis.util.OGNL@getOrderByClause(_parameter)\"/>");
-            sql.append("<if test=\"__orderByClause!=null\">");
-            sql.append("ORDER BY ${__orderByClause}");
-            sql.append("</if>");
-        } else {
+        String orderByClause = EntityHelper.getOrderByClause(entityClass);
+        if (StringUtil.isEmpty(orderByClause)) {
             Field[] idField = DTOClassInfo.getIdFields(entityClass);
             if (idField.length > 0) {
-                sql.append("ORDER BY ").append(DTOClassInfo.getColumnName(idField[0])).append(" ASC");
+                orderByClause = DTOClassInfo.getColumnName(idField[0]);
             }
+        }
+        if (orderByClause.length() > 0) {
+            sql.append(" ORDER BY ");
+            sql.append(orderByClause);
         }
         return sql.toString();
     }
@@ -606,17 +595,27 @@ public class SqlHelper {
     // add by jessen
     public static String orderByDefault_TL(Class<?> entityClass) {
         StringBuilder sql = new StringBuilder();
-        if (BaseDTO.class.isAssignableFrom(entityClass)) {
-            sql.append(
-                    "<bind name=\"__orderByClause\" value=\"@com.hand.hap.mybatis.util.OGNL@getOrderByClause_TL(_parameter)\"/>");
-            sql.append("<if test=\"__orderByClause!=null\">");
-            sql.append("ORDER BY ${__orderByClause}");
-            sql.append("</if>");
-        } else {
+        for (EntityColumn column : EntityHelper.getEntityTable(entityClass).getEntityClassColumns()) {
+            if (StringUtils.isNotEmpty(column.getOrderBy())) {
+                if (column.isMultiLanguageField()) {
+                    sql.append("t.");
+                } else {
+                    sql.append("b.");
+                }
+                sql.append(column.getColumn()).append(" ").append(column.getOrderBy()).append(",");
+            }
+        }
+
+        if (sql.length() == 0) {
             Field[] idField = DTOClassInfo.getIdFields(entityClass);
             if (idField.length > 0) {
-                sql.append("ORDER BY b.").append(DTOClassInfo.getColumnName(idField[0])).append(" ASC");
+                sql.append("b.").append(DTOClassInfo.getColumnName(idField[0])).append("  ");
             }
+        }
+
+        if (sql.length() > 0) {
+            sql.deleteCharAt(sql.length() - 1); // remove last comma
+            sql.insert(0, "ORDER BY ");
         }
         return sql.toString();
     }
@@ -633,7 +632,7 @@ public class SqlHelper {
         sql.append("${selectColumn}");
         sql.append("</foreach>");
         sql.append("</if>");
-        // 不支持指定列的时候查询全部列
+        //不支持指定列的时候查询全部列
         sql.append("<if test=\"@OGNL@hasNoSelectColumns(_parameter)\">");
         sql.append(getAllColumns(entityClass));
         sql.append("</if>");
@@ -665,22 +664,35 @@ public class SqlHelper {
      * @return
      */
     public static String exampleWhereClause() {
-        return "<if test=\"_parameter != null\">" + "<where>\n"
-                + "  <foreach collection=\"oredCriteria\" item=\"criteria\" separator=\"or\">\n"
-                + "    <if test=\"criteria.valid\">\n"
-                + "      <trim prefix=\"(\" prefixOverrides=\"and\" suffix=\")\">\n"
-                + "        <foreach collection=\"criteria.criteria\" item=\"criterion\">\n" + "          <choose>\n"
-                + "            <when test=\"criterion.noValue\">\n" + "              and ${criterion.condition}\n"
-                + "            </when>\n" + "            <when test=\"criterion.singleValue\">\n"
-                + "              and ${criterion.condition} #{criterion.value}\n" + "            </when>\n"
-                + "            <when test=\"criterion.betweenValue\">\n"
-                + "              and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}\n"
-                + "            </when>\n" + "            <when test=\"criterion.listValue\">\n"
-                + "              and ${criterion.condition}\n"
-                + "              <foreach close=\")\" collection=\"criterion.value\" item=\"listItem\" open=\"(\" separator=\",\">\n"
-                + "                #{listItem}\n" + "              </foreach>\n" + "            </when>\n"
-                + "          </choose>\n" + "        </foreach>\n" + "      </trim>\n" + "    </if>\n"
-                + "  </foreach>\n" + "</where>" + "</if>";
+        return "<if test=\"_parameter != null\">" +
+                "<where>\n" +
+                "  <foreach collection=\"oredCriteria\" item=\"criteria\" separator=\"or\">\n" +
+                "    <if test=\"criteria.valid\">\n" +
+                "      <trim prefix=\"(\" prefixOverrides=\"and\" suffix=\")\">\n" +
+                "        <foreach collection=\"criteria.criteria\" item=\"criterion\">\n" +
+                "          <choose>\n" +
+                "            <when test=\"criterion.noValue\">\n" +
+                "              and ${criterion.condition}\n" +
+                "            </when>\n" +
+                "            <when test=\"criterion.singleValue\">\n" +
+                "              and ${criterion.condition} #{criterion.value}\n" +
+                "            </when>\n" +
+                "            <when test=\"criterion.betweenValue\">\n" +
+                "              and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}\n" +
+                "            </when>\n" +
+                "            <when test=\"criterion.listValue\">\n" +
+                "              and ${criterion.condition}\n" +
+                "              <foreach close=\")\" collection=\"criterion.value\" item=\"listItem\" open=\"(\" separator=\",\">\n" +
+                "                #{listItem}\n" +
+                "              </foreach>\n" +
+                "            </when>\n" +
+                "          </choose>\n" +
+                "        </foreach>\n" +
+                "      </trim>\n" +
+                "    </if>\n" +
+                "  </foreach>\n" +
+                "</where>" +
+                "</if>";
     }
 
     /**
@@ -689,21 +701,33 @@ public class SqlHelper {
      * @return
      */
     public static String updateByExampleWhereClause() {
-        return "<where>\n" + "  <foreach collection=\"example.oredCriteria\" item=\"criteria\" separator=\"or\">\n"
-                + "    <if test=\"criteria.valid\">\n"
-                + "      <trim prefix=\"(\" prefixOverrides=\"and\" suffix=\")\">\n"
-                + "        <foreach collection=\"criteria.criteria\" item=\"criterion\">\n" + "          <choose>\n"
-                + "            <when test=\"criterion.noValue\">\n" + "              and ${criterion.condition}\n"
-                + "            </when>\n" + "            <when test=\"criterion.singleValue\">\n"
-                + "              and ${criterion.condition} #{criterion.value}\n" + "            </when>\n"
-                + "            <when test=\"criterion.betweenValue\">\n"
-                + "              and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}\n"
-                + "            </when>\n" + "            <when test=\"criterion.listValue\">\n"
-                + "              and ${criterion.condition}\n"
-                + "              <foreach close=\")\" collection=\"criterion.value\" item=\"listItem\" open=\"(\" separator=\",\">\n"
-                + "                #{listItem}\n" + "              </foreach>\n" + "            </when>\n"
-                + "          </choose>\n" + "        </foreach>\n" + "      </trim>\n" + "    </if>\n"
-                + "  </foreach>\n" + "</where>";
+        return "<where>\n" +
+                "  <foreach collection=\"example.oredCriteria\" item=\"criteria\" separator=\"or\">\n" +
+                "    <if test=\"criteria.valid\">\n" +
+                "      <trim prefix=\"(\" prefixOverrides=\"and\" suffix=\")\">\n" +
+                "        <foreach collection=\"criteria.criteria\" item=\"criterion\">\n" +
+                "          <choose>\n" +
+                "            <when test=\"criterion.noValue\">\n" +
+                "              and ${criterion.condition}\n" +
+                "            </when>\n" +
+                "            <when test=\"criterion.singleValue\">\n" +
+                "              and ${criterion.condition} #{criterion.value}\n" +
+                "            </when>\n" +
+                "            <when test=\"criterion.betweenValue\">\n" +
+                "              and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}\n" +
+                "            </when>\n" +
+                "            <when test=\"criterion.listValue\">\n" +
+                "              and ${criterion.condition}\n" +
+                "              <foreach close=\")\" collection=\"criterion.value\" item=\"listItem\" open=\"(\" separator=\",\">\n" +
+                "                #{listItem}\n" +
+                "              </foreach>\n" +
+                "            </when>\n" +
+                "          </choose>\n" +
+                "        </foreach>\n" +
+                "      </trim>\n" +
+                "    </if>\n" +
+                "  </foreach>\n" +
+                "</where>";
     }
 
 }

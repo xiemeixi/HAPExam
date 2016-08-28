@@ -198,7 +198,7 @@ public class FunctionServiceImpl extends BaseServiceImpl<Function> implements IF
             if (function.getFunctionId() == null) {
                 self().insertSelective(request, function);
             } else {
-                self().updateByPrimaryKey(request, function);
+                self().updateByPrimaryKeySelective(request, function);
             }
         }
         return functions;
@@ -385,7 +385,6 @@ public class FunctionServiceImpl extends BaseServiceImpl<Function> implements IF
 
     private void processFunctions(Map<Long, MenuItem> map, List<Function> functions) {
         Iterator<Function> iterator = functions.iterator();
-        int size0 = functions.size();
         while (iterator.hasNext()) {
             Function function = iterator.next();
             MenuItem parent = map.get(function.getParentFunctionId());
@@ -401,44 +400,8 @@ public class FunctionServiceImpl extends BaseServiceImpl<Function> implements IF
                 iterator.remove();
             }
         }
-
-        if (functions.size() == size0) {
-            // 功能定义存在循环
-            detectCircle(functions);
-        }
-
         if (!functions.isEmpty()) {
             processFunctions(map, functions);
-        }
-    }
-
-    /**
-     * 检测循环链
-     * 
-     * @param functions
-     */
-    private void detectCircle(List<Function> functions) {
-        Map<Long, Function> tmpFuncMap = new HashMap<>();
-        for (Function f : functions) {
-            tmpFuncMap.put(f.getFunctionId(), f);
-        }
-        List<Function> tmpList = new ArrayList<>();
-        for (Function f : functions) {
-            tmpList.clear();
-            Function f0 = f;
-            tmpList.add(f0);
-            while (f0.getParentFunctionId() != null) {
-                f0 = tmpFuncMap.get(f0.getParentFunctionId());
-                int idx = tmpList.indexOf(f0);
-                if (idx != -1) {
-                    tmpList.add(f0);
-                    String msg = tmpList.stream().skip(idx)
-                            .map(a -> a.getFunctionName() + "(" + a.getFunctionId() + ")")
-                            .reduce((a, b) -> a + "-->" + b).get();
-                    throw new RuntimeException(msg);
-                }
-                tmpList.add(f0);
-            }
         }
     }
 

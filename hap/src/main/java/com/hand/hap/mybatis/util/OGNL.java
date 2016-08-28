@@ -24,16 +24,8 @@
 
 package com.hand.hap.mybatis.util;
 
-import java.lang.reflect.Field;
-import java.util.regex.Pattern;
-
-import org.apache.commons.lang.StringUtils;
-
-import com.hand.hap.core.annotation.MultiLanguageField;
 import com.hand.hap.mybatis.entity.Example;
 import com.hand.hap.mybatis.entity.IDynamicTableName;
-import com.hand.hap.system.dto.BaseDTO;
-import com.hand.hap.system.dto.DTOClassInfo;
 
 /**
  * OGNL静态方法
@@ -89,100 +81,5 @@ public abstract class OGNL {
      */
     public static boolean isNotDynamicParameter(Object parameter) {
         return !isDynamicParameter(parameter);
-    }
-
-    private static final Pattern COL_PATTERN = Pattern.compile("[\\d\\w_]+");
-
-    /**
-     * FOR INTERNAL USE ONLY
-     * 
-     * @param parameter
-     * @return
-     */
-    public static String getOrderByClause(Object parameter) {
-        if (parameter == null) {
-            return null;
-        }
-        StringBuilder sb = new StringBuilder(64);
-        if (parameter instanceof BaseDTO) {
-            String sortName = ((BaseDTO) parameter).getSortname();
-            Field[] ids = DTOClassInfo.getIdFields(parameter.getClass());
-            if (StringUtil.isNotEmpty(sortName)) {
-                if (!COL_PATTERN.matcher(sortName).matches()) {
-                    throw new RuntimeException("Invalid sortname:" + sortName);
-                }
-                String order = ((BaseDTO) parameter).getSortorder();
-                if (!("ASC".equalsIgnoreCase(order) || "DESC".equalsIgnoreCase(order) || order == null)) {
-                    throw new RuntimeException("Invalid sortorder:" + order);
-                }
-                String columnName = unCamel(sortName);
-
-                sb.append(columnName).append(" ");
-                sb.append(StringUtils.defaultIfEmpty(order, "ASC"));
-
-                if (ids.length > 0 && !ids[0].getName().equals(sortName)) {
-                    sb.append(",").append(DTOClassInfo.getColumnName(ids[0])).append(" ASC");
-                }
-            } else {
-                if (ids.length > 0) {
-                    sb.append(DTOClassInfo.getColumnName(ids[0])).append(" ASC");
-                }
-            }
-        }
-        return StringUtils.trimToNull(sb.toString());
-    }
-
-    /**
-     * FOR INTERNAL USE ONLY
-     * 
-     * @param parameter
-     * @return
-     */
-    public static String getOrderByClause_TL(Object parameter) {
-        if (parameter == null) {
-            return null;
-        }
-        StringBuilder sb = new StringBuilder(64);
-        if (parameter instanceof BaseDTO) {
-            String sortName = ((BaseDTO) parameter).getSortname();
-            Field[] ids = DTOClassInfo.getIdFields(parameter.getClass());
-            if (StringUtil.isNotEmpty(sortName)) {
-                if (!COL_PATTERN.matcher(sortName).matches()) {
-                    throw new RuntimeException("Invalid sortname:" + sortName);
-                }
-                String order = ((BaseDTO) parameter).getSortorder();
-                if (!("ASC".equalsIgnoreCase(order) || "DESC".equalsIgnoreCase(order) || order == null)) {
-                    throw new RuntimeException("Invalid sortorder:" + order);
-                }
-                String columnName = unCamel(sortName);
-                Field[] mlfs = DTOClassInfo.getMultiLanguageFields(parameter.getClass());
-                for (Field f : mlfs) {
-                    if (f.getName().equals(columnName)) {
-                        if (f.getAnnotation(MultiLanguageField.class) == null) {
-                            sb.append("b.");
-                        } else {
-                            sb.append("t.");
-                        }
-                        break;
-                    }
-                }
-
-                sb.append(columnName).append(" ");
-                sb.append(StringUtils.defaultIfEmpty(order, "ASC"));
-
-                if (ids.length > 0 && !ids[0].getName().equals(sortName)) {
-                    sb.append(",b.").append(DTOClassInfo.getColumnName(ids[0])).append(" ASC");
-                }
-            } else {
-                if (ids.length > 0) {
-                    sb.append("b.").append(DTOClassInfo.getColumnName(ids[0])).append(" ASC");
-                }
-            }
-        }
-        return StringUtils.trimToNull(sb.toString());
-    }
-
-    public static String unCamel(String str) {
-        return DTOClassInfo.camelToUnderLine(str);
     }
 }

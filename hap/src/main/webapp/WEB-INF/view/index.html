@@ -607,8 +607,8 @@
         <form id="langForm" action="" style="display: inline-block" method="GET" autocomplete="off">
             <select name="lang" onchange="changeLanguage()">
 			<#list languages as l>
-                <option value="${l.langCode}"
-				        <#if base.getLocale() == l.langCode>selected</#if>>${l.description}</option>
+                <option value="${l.langCode}"  <#if base.getLocale() == l.langCode>selected=selected</#if>>
+				       ${l.description}</option>
 			</#list>
             </select>
         </form>

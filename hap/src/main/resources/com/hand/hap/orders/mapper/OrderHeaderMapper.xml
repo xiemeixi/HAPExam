@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ #{copyright}#
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hand.hap.orders.mapper.OrderHeaderMapper">
+    <resultMap id="BaseResultMap" type="com.hand.hap.orders.dto.OrderHeader">
+        <result column="HEADER_ID" property="headerId" jdbcType="DECIMAL"/>
+        <result column="ORDER_NUMBER" property="orderNumber" jdbcType="VARCHAR"/>
+        <result column="COMPANY_ID" property="companyId" jdbcType="DECIMAL"/>
+        <result column="ORDER_DATE" property="orderDate" jdbcType="TIMESTAMP"/>
+        <result column="ORDER_STATUS" property="orderStatus" jdbcType="VARCHAR"/>
+        <result column="CUSTOMER_ID" property="customerId" jdbcType="DECIMAL"/>
+        <result column="ATTRIBUTE1" property="attribute1" jdbcType="VARCHAR"/>
+        <result column="ATTRIBUTE2" property="attribute2" jdbcType="VARCHAR"/>
+        <result column="ATTRIBUTE3" property="attribute3" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List" >
+        HEADER_ID, ORDER_NUMBER, COMPANY_ID,ORDER_DATE,ORDER_STATUS,CUSTOMER_ID,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3
+    </sql>
+     
+    <select id="selectByOrderHeader" parameterType="com.hand.hap.orders.dto.OrderHeader" resultMap="BaseResultMap">
+        SELECT  oh.HEADER_ID, ORDER_NUMBER,ORDER_DATE,ORDER_STATUS,co.COMPANY_NAME as ATTRIBUTE1,oh.COMPANY_ID,oh.CUSTOMER_ID,
+        cu.CUSTOMER_NAME as ATTRIBUTE2,tp2.zongji AS ATTRIBUTE3
+        from hap_om_order_headers oh,hap_org_companys co,hap_ar_customers cu,(
+            SELECT sum(tp.xiaoji) AS zongji,tp.HEADER_ID FROM(
+                SELECT ls.UNIT_SELLING_PRICE * ls.ORDERD_QUANTITY AS xiaoji,ls.HEADER_ID
+                FROM hap_om_order_lines ls
+            ) tp GROUP BY tp.HEADER_ID ) AS tp2
+        <where>
+            oh.COMPANY_ID=co.COMPANY_ID and oh.CUSTOMER_ID=cu.CUSTOMER_ID AND oh.HEADER_ID = tp2.HEADER_ID
+            <if test="headerId != null">
+                AND oh.HEADER_ID = #{headerId,jdbcType=DECIMAL}
+            </if>
+            <if test="customerId != null">
+                AND oh.CUSTOMER_ID = #{customerId,jdbcType=DECIMAL}
+            </if>
+            <if test="orderNumber != null">
+                AND UPPER(oh.ORDER_NUMBER) like UPPER('%${orderNumber}%')
+            </if>
+            <if test="orderStatus != null">
+                AND UPPER(oh.ORDER_STATUS) like UPPER('%${orderStatus}%')
+            </if>
+        </where>
+    </select>
+    <!-- <insert id="insertOrderLine" parameterType="com.hand.hap.orders.dto.OrderLine" >
+        INSERT INTO hap_om_order_lines(LINE_ID, HEADER_ID, LINE_NUMBER,INVENTORY_ITEM_ID,ORDERD_QUANTITY,ORDER_QUANTITY_UOM,UNIT_SELLING_PRICE,DESCRIPTION,COMPANY_ID)
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	      <if test="lineId != null" >
+	        #{lineId,jdbcType=DECIMAL},
+	      </if>
+	      <if test="headerId != null" >
+	        #{headerId,jdbcType=DECIMAL},
+	      </if>
+	      <if test="lineNumber != null" >
+	        #{lineNumber,jdbcType=DECIMAL},
+	      </if>
+	      <if test="inventoryId != null" >
+	        #{inventoryId,jdbcType=DECIMAL},
+	      </if>
+	      <if test="orderQuantity != null" >
+            #{orderQuantity,jdbcType=DECIMAL},
+          </if>
+          <if test="quantityUom != null" >
+            #{quantityUom,jdbcType=VARCHAR},
+          </if>
+          <if test="unitSellingPrice != null" >
+            #{unitSellingPrice,jdbcType=DECIMAL},
+          </if>
+          <if test="description != null" >
+            #{description,jdbcType=VARCHAR},
+          </if>
+          <if test="companyId != null" >
+            #{companyId,jdbcType=DECIMAL},
+          </if>
+	    </trim>
+    </insert>-->
+
+	<update id="updateOrderHeaderStatus" parameterType="com.hand.hap.orders.dto.OrderHeader">
+	update hap_om_order_headers set 
+    ORDER_STATUS=#{orderStatus,jdbcType=VARCHAR} 
+	where HEADER_ID=#{headerId,jdbcType=DECIMAL}
+	</update>
+</mapper>
